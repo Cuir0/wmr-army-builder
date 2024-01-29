@@ -13,10 +13,10 @@ jobs:
       - name: Check PR Naming Convention
         run: |
           pr_title="${{ github.event.pull_request.title }}"
-          pattern="^PR\(#\d+\) .+"
+          pattern="^feat\(#\d+\) .+"
           if [[ ! $pr_title =~ $pattern ]]; then
             echo "Pull request title does not match the required pattern."
             echo "Title format should be: feat(#<pr-num>) <pr-full-title>"
-            echo "Example: feat(#1) Add units"
+            echo "Example: 'feat(#1) Add units'"
             exit 1
           fi
