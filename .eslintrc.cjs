@@ -19,7 +19,6 @@ module.exports = {
   plugins: [
     '@typescript-eslint'
   ],
-  ignorePatterns: ['app.css', 'vite-env.d.ts'],
   overrides: [
     {
       files: ['*.svelte'],
