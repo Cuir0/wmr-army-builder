@@ -2,7 +2,7 @@
   import { Router, Route } from 'svelte-routing'
   import FactionList from './routes/FactionList.svelte'
 
-  export let url: string = '';
+  export let url: string = ''
 </script>
 
 <Router {url}>
