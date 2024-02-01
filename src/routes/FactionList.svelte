@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { IFaction } from '../types/Faction'
+  import type { IFaction } from '$types/Faction'
   import { fetchJsonData } from '../core/utils'
-  import FactionItem from '@components/FactionItem.svelte'
+  import FactionItem from '$components/FactionItem.svelte'
 
   const fetchFactionList = async (): Promise<IFaction[]> => {
     const response = await fetchJsonData('/factions.json')
