@@ -22,7 +22,7 @@
       <p>Loading factions data...</p>
     {:then factions}
       {#each factions as faction}
-        <FactionItem name={faction.name} />
+        <FactionItem {...faction} />
       {/each}
     {:catch error}
       <p>{ error.message }</p>
