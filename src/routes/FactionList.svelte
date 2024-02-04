@@ -6,11 +6,8 @@
   const fetchFactionList = async (): Promise<IFaction[]> => {
     const response = await fetchJsonData('/factions.json')
 
-    if (response.ok) {
-      return response.json()
-    } else {
-      throw new Error('Error loading factions data...')
-    }
+    if (response.ok) return response.json()
+    throw new Error('Error loading factions data...')
   }
 
   const factions: Promise<IFaction[]> = fetchFactionList()
