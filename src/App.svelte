@@ -1,8 +1,14 @@
 <script lang="ts">
+  import { Router, Route } from 'svelte-routing'
+  import FactionList from './routes/FactionList.svelte'
+  import FactionBuilder from './routes/FactionBuilder.svelte'
+
+  export let url: string
 </script>
 
-<main>
-  <h1 class="text-3xl font-bold underline bg-red-300">
-    Hello world!
-  </h1>
-</main>
+<Router {url}>
+  <Route path="/" component={FactionList} />
+  <Route path="/:factionFile" let:params>
+    <FactionBuilder factionFile={params.factionFile} />
+  </Route>
+</Router>

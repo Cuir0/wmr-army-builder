@@ -7,7 +7,14 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+
+    "baseUrl": "./",
+    "paths": {
+      "$root/*": ["./*"],
+      "$components/*": ["./src/components/*"],
+      "$types/*": ["./src/types/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
   "references": [{ "path": "./tsconfig.node.json" }]
