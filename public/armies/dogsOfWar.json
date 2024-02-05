@@ -1,0 +1,202 @@
+{
+  "name": "Dogs of War",
+  "units": [
+    {
+      "name": "Pikemen",
+      "id": 0,
+      "type": "Infantry",
+      "points": 50,
+      "attack": "3",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "min": 2
+    },
+    {
+      "name": "Crossbowmen",
+      "id": 1,
+      "type": "Infantry",
+      "points": 55,
+      "attack": "3/1",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "range": "30cm",
+      "min": 2
+    },
+    {
+      "name": "Handgunners",
+      "id": 2,
+      "type": "Infantry",
+      "points": 65,
+      "attack": "3/1",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "range": "30cm",
+      "max": 2
+    },
+    {
+      "name": "Swordmen",
+      "id": 3,
+      "type": "Infantry",
+      "points": 45,
+      "attack": "3",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "max": 4
+    },
+    {
+      "name": "Ogres",
+      "id": 4,
+      "type": "Infantry",
+      "points": 105,
+      "attack": "4",
+      "armor": "5+",
+      "hits": 4,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "Dwarfs",
+      "id": 5,
+      "type": "Infantry",
+      "points": 110,
+      "attack": "3",
+      "armor": "4+",
+      "hits": 4,
+      "size": 3,
+      "max": 2
+    },
+    {
+      "name": "Marauders",
+      "id": 6,
+      "type": "Infantry",
+      "points": 60,
+      "attack": "3",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 2
+    },
+    {
+      "name": "Light Cavalry",
+      "id": 7,
+      "type": "Cavalry",
+      "points": 75,
+      "attack": "3/1",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "max": 4
+    },
+    {
+      "name": "Knights",
+      "id": 8,
+      "type": "Cavalry",
+      "points": 110,
+      "attack": "3",
+      "armor": "4+",
+      "hits": 3,
+      "size": 3,
+      "max": 2
+    },
+    {
+      "name": "Galloper Guns",
+      "id": 9,
+      "type": "Artillery",
+      "points": 85,
+      "attack": "1/2+bounce",
+      "armor": "-",
+      "hits": 2,
+      "size": 2,
+      "max": 1
+    },
+    {
+      "name": "Giant",
+      "id": 10,
+      "type": "Monster",
+      "points": 135,
+      "attack": "8",
+      "armor": "5+",
+      "hits": 8,
+      "size": 1,
+      "max": 1
+    },
+    {
+      "name": "Birdmen",
+      "id": 11,
+      "type": "Infantry",
+      "points": 85,
+      "attack": "2/1",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "General",
+      "id": 12,
+      "type": "General",
+      "points": 125,
+      "attack": "+2",
+      "size": 1,
+      "command": 9,
+      "armyMax": 1,
+      "armyMin": 1,
+      "upgradeRef": [0]
+    },
+    {
+      "name": "Hero",
+      "id": 13,
+      "type": "Hero",
+      "points": 80,
+      "attack": "+1",
+      "size": 1,
+      "command": 8,
+      "max": 2,
+      "upgradeRef": [0]
+    },
+    {
+      "name": "Paymaster",
+      "id": 14,
+      "type": "Hero",
+      "points": 80,
+      "attack": "+1",
+      "size": 1,
+      "command": 8,
+      "armyMax": 1,
+      "upgradeRef": [0, 1]
+    },
+    {
+      "name": "Wizard",
+      "id": 15,
+      "type": "Wizard",
+      "points": 45,
+      "attack": "+0",
+      "size": 1,
+      "command": 7,
+      "max": 1,
+      "upgradeRef": [0]
+    }
+  ],
+  "upgrades": [
+    {
+      "id": 0,
+      "name": "Griffon",
+      "type": "Monstrous Mount",
+      "attackModify": "+2",
+      "pointsModify": 80,
+      "unitMax": 1
+    },
+    {
+      "id": 1,
+      "name": "Pay Wagon",
+      "type": "Chariot Mount",
+      "attackModify": "+1",
+      "pointsModify": 20,
+      "armyMax": 1
+    }
+  ]
+}

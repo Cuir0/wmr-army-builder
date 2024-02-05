@@ -1,0 +1,179 @@
+{
+  "name": "Chaos",
+  "units": [
+    {
+      "name": "Chaos Warriors",
+      "id": 0,
+      "type": "Infantry",
+      "points": 140,
+      "attack": "4",
+      "armor": "4+",
+      "hits": 4,
+      "size": 3,
+      "min": 1
+    },
+    {
+      "name": "Chaos Marauders",
+      "id": 1,
+      "type": "Infantry",
+      "points": 60,
+      "attack": "3",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "min": 1
+    },
+    {
+      "name": "Ogres",
+      "id": 2,
+      "type": "Infantry",
+      "points": 105,
+      "attack": "4",
+      "armor": "5+",
+      "hits": 4,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "Trolls",
+      "id": 3,
+      "type": "Infantry",
+      "points": 110,
+      "attack": "5",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 3
+    },
+    {
+      "name": "Marauder Horsemen",
+      "id": 4,
+      "type": "Cavalry",
+      "points": 90,
+      "attack": "3",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 4
+    },
+    {
+      "name": "Chaos Knights",
+      "id": 5,
+      "type": "Cavalry",
+      "points": 200,
+      "attack": "4",
+      "armor": "4+",
+      "hits": 4,
+      "size": 3,
+      "max": 4
+    },
+    {
+      "name": "Chaos Hounds",
+      "id": 6,
+      "type": "Cavalry",
+      "points": 40,
+      "attack": "3",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "max": 2
+    },
+    {
+      "name": "Chaos Chariots",
+      "id": 7,
+      "type": "Chariot",
+      "points": 95,
+      "attack": "3",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 3
+    },
+    {
+      "name": "Harpies",
+      "id": 8,
+      "type": "Monster",
+      "points": 65,
+      "attack": "2",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "Dragon Ogres",
+      "id": 9,
+      "type": "Monster",
+      "points": 230,
+      "attack": "6",
+      "armor": "5+",
+      "hits": 4,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "Chaos Spawn",
+      "id": 10,
+      "type": "Monster",
+      "points": 110,
+      "attack": "3/3",
+      "armor": "3+",
+      "hits": 4,
+      "size": 1,
+      "range": "15cm",
+      "max": 2
+    },
+    {
+      "name": "General",
+      "id": 11,
+      "type": "General",
+      "points": 125,
+      "attack": "+2",
+      "size": 1,
+      "command": 9,
+      "armyMax": 1,
+      "armyMin": 1,
+      "upgradeRef": [0, 1]
+    },
+    {
+      "name": "Hero",
+      "id": 12,
+      "type": "Hero",
+      "points": 80,
+      "attack": "+1",
+      "size": 1,
+      "command": 8,
+      "max": 1,
+      "upgradeRef": [0, 1]
+    },
+    {
+      "name": "Sorcerer",
+      "id": 13,
+      "type": "Wizard",
+      "points": 90,
+      "attack": "+1",
+      "size": 1,
+      "command": 8,
+      "max": 1,
+      "upgradeRef": [0, 1]
+    }
+  ],
+  "upgrades": [
+    {
+      "id": 0,
+      "name": "Chaos Dragon",
+      "type": "Monstrous Mount",
+      "attackModify": "+3",
+      "pointsModify": 100,
+      "unitMax": 1
+    },
+    {
+      "id": 1,
+      "name": "Chariot",
+      "type": "Chariot Mount",
+      "attackModify": "+1",
+      "pointsModify": 10,
+      "unitMax": 1
+    }
+  ]
+}

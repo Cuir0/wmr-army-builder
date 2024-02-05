@@ -1,0 +1,168 @@
+{
+  "name": "Nippon",
+  "units": [
+    {
+      "name": "Ashigaru",
+      "id": 0,
+      "type": "Infantry",
+      "points": 45,
+      "attack": "3",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "min": 1
+    },
+    {
+      "name": "Ashigaru Bowmen",
+      "id": 1,
+      "type": "Infantry",
+      "points": 55,
+      "attack": "3/1",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "range": "30cm"
+    },
+    {
+      "name": "Ashigaru Teppo",
+      "id": 2,
+      "type": "Infantry",
+      "points": 65,
+      "attack": "3/1",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "range": "30cm"
+    },
+    {
+      "name": "Samurai",
+      "id": 3,
+      "type": "Infantry",
+      "points": 80,
+      "attack": "4",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "min": 2
+    },
+    {
+      "name": "Mikata (Ronin & Monks)",
+      "id": 4,
+      "type": "Infantry",
+      "points": 70,
+      "attack": "5",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "max": 2
+    },
+    {
+      "name": "Ninja",
+      "id": 5,
+      "type": "Infantry",
+      "points": 60,
+      "attack": "3/1",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "range": "15cm",
+      "max": 2
+    },
+    {
+      "name": "Oni",
+      "id": 6,
+      "type": "Infantry",
+      "points": 110,
+      "attack": "4",
+      "armor": "5+",
+      "hits": 4,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "Samurai Cavalry",
+      "id": 7,
+      "type": "Cavalry",
+      "points": 110,
+      "attack": "4",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 3
+    },
+    {
+      "name": "Komainu",
+      "id": 8,
+      "type": "Cavalry",
+      "points": 40,
+      "attack": "2",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 3
+    },
+    {
+      "name": "Tengu",
+      "id": 9,
+      "type": "Monster",
+      "points": 80,
+      "attack": "2",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "Shogun",
+      "id": 10,
+      "type": "General",
+      "points": 125,
+      "attack": "+2",
+      "size": 1,
+      "command": 9,
+      "armyMax": 1,
+      "armyMin": 1,
+      "upgradeRef": [0]
+    },
+    {
+      "name": "Daimyo",
+      "id": 11,
+      "type": "Hero",
+      "points": 80,
+      "attack": "+1",
+      "size": 1,
+      "command": 8,
+      "max": 1,
+      "upgradeRef": [0]
+    },
+    {
+      "name": "Shugenja",
+      "id": 12,
+      "type": "Hero",
+      "points": 90,
+      "attack": "+1",
+      "size": 1,
+      "command": 8,
+      "max": 1,
+      "upgradeRef": [0, 1],
+      "magicItemRef": [15]
+    }
+  ],
+  "upgrades": [
+    {
+      "id": 0,
+      "name": "Tatsu",
+      "type": "Monstrous Mount",
+      "attackModify": "+2",
+      "pointsModify": 80,
+      "unitMax": 1
+    },
+    {
+      "id": 1,
+      "name": "Shrine",
+      "type": "Special",
+      "pointsModify": 50,
+      "armyMax": 1
+    }
+  ]  
+}

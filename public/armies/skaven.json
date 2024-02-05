@@ -1,0 +1,151 @@
+{
+  "name": "Skaven",
+  "units": [
+    {
+      "name": "Clanrats",
+      "id": 0,
+      "type": "Infantry",
+      "points": 40,
+      "attack": "3",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "min": 2
+    },
+    {
+      "name": "Stormvermin",
+      "id": 1,
+      "type": "Infantry",
+      "points": 55,
+      "attack": "3",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 2
+    },
+    {
+      "name": "Jezzails",
+      "id": 2,
+      "type": "Infantry",
+      "points": 70,
+      "attack": "3/1",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "range": "30cm",
+      "max": 2
+    },
+    {
+      "name": "Plague Monks",
+      "id": 3,
+      "type": "Infantry",
+      "points": 70,
+      "attack": "5",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "max": 2
+    },
+    {
+      "name": "Rat Swarms",
+      "id": 4,
+      "type": "Infantry",
+      "points": 25,
+      "attack": "2",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "min": 2
+    },
+    {
+      "name": "Gutter Runners",
+      "id": 5,
+      "type": "Infantry",
+      "points": 60,
+      "attack": "3/1",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "range": "15cm",
+      "max": 2
+    },
+    {
+      "name": "Rat Ogres",
+      "id": 6,
+      "type": "Infantry",
+      "points": 110,
+      "attack": "4",
+      "armor": "5+",
+      "hits": 4,
+      "size": 3,
+      "max": 2
+    },
+    {
+      "name": "Warp Lightning Cannon",
+      "id": 7,
+      "type": "Artillery",
+      "points": 60,
+      "attack": "1/3",
+      "armor": "-",
+      "hits": 2,
+      "size": 2,
+      "range": "40cm",
+      "max": 1
+    },
+    {
+      "name": "Doom Wheel",
+      "id": 8,
+      "type": "Machine",
+      "points": 125,
+      "attack": "5",
+      "armor": "4+",
+      "hits": 4,
+      "size": 1,
+      "max": 1
+    },
+    {
+      "name": "Screaming Bell",
+      "id": 9,
+      "type": "Machine",
+      "points": 125,
+      "attack": "0",
+      "armor": "4+",
+      "hits": 4,
+      "size": 1,
+      "armyMax": 1
+    },
+    {
+      "name": "Grey Seer",
+      "id": 10,
+      "type": "General",
+      "points": 130,
+      "attack": "+1",
+      "size": 1,
+      "command": 9,
+      "armyMax": 1,
+      "armyMin": 1,
+      "magicItemRef": [13, 14, 15, 16, 17]
+    },
+    {
+      "name": "Hero",
+      "id": 11,
+      "type": "Hero",
+      "points": 70,
+      "attack": "+1",
+      "size": 1,
+      "command": 8,
+      "max": 2
+    },
+    {
+      "name": "Warlock",
+      "id": 12,
+      "type": "Wizard",
+      "points": 30,
+      "attack": "+0",
+      "size": 1,
+      "command": 6,
+      "max": 1
+    }
+  ],
+  "upgrades": {}
+}
