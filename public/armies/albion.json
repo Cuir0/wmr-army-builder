@@ -143,7 +143,7 @@
       "id": 0,
       "name": "Giant Eagle",
       "type": "Monstrous Mount",
-      "attackModify": "2",
+      "attackModify": "+2",
       "pointsModify": 20,
       "unitMax": 1
     },
@@ -151,7 +151,7 @@
       "id": 1,
       "name": "Chariot",
       "type": "Chariot Mount",
-      "attackModify": "1",
+      "attackModify": "+1",
       "pointsModify": 10,
       "unitMax": 1
     }

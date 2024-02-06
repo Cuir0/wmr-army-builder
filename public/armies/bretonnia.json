@@ -33,9 +33,7 @@
       "hits": 3,
       "size": 3,
       "max": 4, 
-      "upgradeRef": [
-        3
-      ]
+      "upgradeRef": [3]
     },
     {
       "name": "Knights",

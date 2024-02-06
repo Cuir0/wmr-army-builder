@@ -126,9 +126,7 @@
       "command": 10,
       "armyMax": 1,
       "armyMin": 1,
-      "upgradeRef": [
-        0, 2, 3
-      ]
+      "upgradeRef": [0, 2, 3]
     },
     {
       "name": "Noble",
@@ -139,9 +137,7 @@
       "size": 1,
       "command": 8,
       "max": 1,
-      "upgradeRef": [
-        0, 2, 3
-      ]
+      "upgradeRef": [0, 2, 3]
     },
     {
       "name": "Treeman Ancient",
