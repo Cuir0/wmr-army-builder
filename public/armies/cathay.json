@@ -1,0 +1,186 @@
+{
+  "name": "Cathay",
+  "units": [
+    {
+      "name": "Bannermen",
+      "id": 0,
+      "type": "Infantry",
+      "points": 50,
+      "attack": "3",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "min": 3
+    },
+    {
+      "name": "Crossbows",
+      "id": 1,
+      "type": "Infantry",
+      "points": 40,
+      "attack": "2/1",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "range": "30cm",
+      "min": 1
+    },
+    {
+      "name": "Handguns",
+      "id": 2,
+      "type": "Infantry",
+      "points": 50,
+      "attack": "2/1",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "range": "30cm"
+    },
+    {
+      "name": "Terracotta Warriors",
+      "id": 3,
+      "type": "Infantry",
+      "points": 30,
+      "attack": "2",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "max": 6
+    },
+    {
+      "name": "Maneaters",
+      "id": 4,
+      "type": "Infantry",
+      "points": 140,
+      "attack": "4",
+      "armor": "4+",
+      "hits": 4,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "Chariots",
+      "id": 5,
+      "type": "Chariot",
+      "points": 110,
+      "attack": "3/1",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "Imperial Cavalry",
+      "id": 6,
+      "type": "Cavalry",
+      "points": 90,
+      "attack": "3",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 2
+    },
+    {
+      "name": "Hu Cavalry",
+      "id": 7,
+      "type": "Cavalry",
+      "points": 60,
+      "attack": "2/1",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "max": 3
+    },
+    {
+      "name": "Rocket Launcher",
+      "id": 8,
+      "type": "Artillery",
+      "points": 55,
+      "attack": "1/d6",
+      "armor": "-",
+      "hits": 2,
+      "size": 1,
+      "range": "40cm",
+      "max": 1
+    },
+    {
+      "name": "Triple Bows",
+      "id": 9,
+      "type": "Artillery",
+      "points": 65,
+      "attack": "1/2",
+      "armor": "-",
+      "hits": 2,
+      "size": 2,
+      "range": "40cm",
+      "max": 1
+    },
+    {
+      "name": "General",
+      "id": 10,
+      "type": "General",
+      "points": 125,
+      "attack": "+2",
+      "size": 1,
+      "command": 9,
+      "armyMax": 1,
+      "armyMin": 1,
+      "upgradeRef": [0, 2]
+    },
+    {
+      "name": "Hero",
+      "id": 11,
+      "type": "Hero",
+      "points": 80,
+      "attack": "+1",
+      "size": 1,
+      "command": 8,
+      "max": 2,
+      "upgradeRef": [0, 2]
+    },
+    {
+      "name": "Sorcerer",
+      "id": 12,
+      "type": "Wizard",
+      "points": 45,
+      "attack": "+0",
+      "size": 1,
+      "command": 7,
+      "max": 1,
+      "upgradeRef": [0, 1, 3]
+    }
+  ],
+  "upgrades": [
+    {
+      "id": 0,
+      "name": "Chariot",
+      "type": "Chariot Mount",
+      "attackModify": "+1",
+      "pointsModify": 10,
+      "unitMax": 1
+    },
+    {
+      "id": 1,
+      "name": "Celestial Dragon",
+      "type": "Monstrous Mount",
+      "attackModify": "+3",
+      "pointsModify": 100,
+      "armyMax": 1
+    },
+    {
+      "id": 2,
+      "name": "Tiger",
+      "type": "Special Mount",
+      "attackModify": "+2",
+      "pointsModify": 20,
+      "unitMax": 1
+    },
+    {
+      "id": 3,
+      "name": "Qilin",
+      "type": "Special Mount",
+      "attackModify": "+1",
+      "pointsModify": 15,
+      "unitMax": 1
+    }
+  ]
+}

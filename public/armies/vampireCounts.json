@@ -1,0 +1,145 @@
+{
+  "name": "Vampire Counts",
+  "units": [
+    {
+      "name": "Skeletons",
+      "id": 0,
+      "type": "Infantry",
+      "points": 30,
+      "attack": "2",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "min": 2
+    },
+    {
+      "name": "Zombies",
+      "id": 1,
+      "type": "Infantry",
+      "points": 35,
+      "attack": "2",
+      "armor": "-",
+      "hits": 4,
+      "size": 3,
+      "min": 2
+    },
+    {
+      "name": "Ghouls",
+      "id": 2,
+      "type": "Infantry",
+      "points": 55,
+      "attack": "4",
+      "armor": "-",
+      "hits": 3,
+      "size": 3
+    },
+    {
+      "name": "Grave Guard",
+      "id": 3,
+      "type": "Infantry",
+      "points": 60,
+      "attack": "3",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 4
+    },
+    {
+      "name": "Ethereal Host",
+      "id": 4,
+      "type": "Infantry",
+      "points": 90,
+      "attack": "3",
+      "armor": "-",
+      "hits": 4,
+      "size": 3,
+      "max": 2
+    },
+    {
+      "name": "Black Knights",
+      "id": 5,
+      "type": "Cavalry",
+      "points": 110,
+      "attack": "3",
+      "armor": "4+",
+      "hits": 3,
+      "size": 3,
+      "max": 4
+    },
+    {
+      "name": "Dire Wolves",
+      "id": 6,
+      "type": "Cavalry",
+      "points": 40,
+      "attack": "2",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "max": 4
+    },
+    {
+      "name": "Fell Bats",
+      "id": 7,
+      "type": "Monster",
+      "points": 65,
+      "attack": "2",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "Vampire Lord",
+      "id": 8,
+      "type": "General",
+      "points": 150,
+      "attack": "+2",
+      "size": 1,
+      "command": 9,
+      "armyMax": 1,
+      "armyMin": 1,
+      "upgradeRef": [0, 1],
+      "magicItemRef": [13, 14, 15, 16, 17]
+    },
+    {
+      "name": "Vampire",
+      "id": 9,
+      "type": "Hero",
+      "points": 80,
+      "attack": "+1",
+      "size": 1,
+      "command": 8,
+      "max": 2,
+      "upgradeRef": [0, 1]
+    },
+    {
+      "name": "Necromancer",
+      "id": 10,
+      "type": "Wizard",
+      "points": 45,
+      "attack": "+0",
+      "size": 1,
+      "command": 7,
+      "max": 1,
+      "upgradeRef": [0]
+    }
+  ],
+  "upgrades": [
+    {
+      "id": 0,
+      "name": "Winged Nightmare",
+      "type": "Monstrous Mount",
+      "attackModify": "+2",
+      "pointsModify": 80,
+      "unitMax": 1
+    },
+    {
+      "id": 1,
+      "name": "Black Coach",
+      "type": "Chariot Mount",
+      "attackModify": "+1",
+      "pointsModify": 40,
+      "unitMax": 1
+    }
+  ]  
+}

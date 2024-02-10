@@ -1,0 +1,151 @@
+{
+  "name": "Bretonnia",
+  "units": [
+    {
+      "name": "Bowmen",
+      "id": 0,
+      "type": "Infantry",
+      "points": 55,
+      "attack": "3/1",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "range": "30cm"
+    },
+    {
+      "name": "Men-at-arms",
+      "id": 1,
+      "type": "Infantry",
+      "points": 45,
+      "attack": "3",
+      "armor": "6+",
+      "hits": 3,
+      "size": 3,
+      "min": 1
+    },
+    {
+      "name": "Peasants",
+      "id": 2,
+      "type": "Infantry",
+      "points": 30,
+      "attack": "3",
+      "armor": "-",
+      "hits": 3,
+      "size": 3,
+      "max": 4, 
+      "upgradeRef": [3]
+    },
+    {
+      "name": "Knights",
+      "id": 4,
+      "type": "Cavalry",
+      "points": 110,
+      "attack": "3",
+      "armor": "4+",
+      "hits": 3,
+      "size": 3,
+      "min": 1
+    },
+    {
+      "name": "Grail Knights",
+      "id": 5,
+      "type": "Cavalry",
+      "points": 120,
+      "attack": "3",
+      "armor": "4+",
+      "hits": 3,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "Pegasus Knights",
+      "id": 6,
+      "type": "Monster",
+      "points": 80,
+      "attack": "2",
+      "armor": "5+",
+      "hits": 3,
+      "size": 3,
+      "max": 1
+    },
+    {
+      "name": "Trebuchet",
+      "id": 7,
+      "type": "Artillery",
+      "points": 100,
+      "attack": "1/4",
+      "armor": "-",
+      "hits": 4,
+      "size": 1,
+      "range": "80cm",
+      "max": 1
+    },
+    {
+      "name": "General",
+      "id": 8,
+      "type": "General",
+      "points": 125,
+      "attack": "+2",
+      "size": 1,
+      "command": 9,
+      "armyMax": 1,
+      "armyMin": 1,
+      "upgradeRef": [1, 2]
+    },
+    {
+      "name": "Hero",
+      "id": 9,
+      "type": "Hero",
+      "points": 80,
+      "attack": "+1",
+      "size": 1,
+      "command": 8,
+      "max": 2,
+      "upgradeRef": [1]
+    },
+    {
+      "name": "Enchantress",
+      "id": 10,
+      "type": "Wizard",
+      "points": 45,
+      "attack": "+0",
+      "size": 1,
+      "command": 7,
+      "max": 1,
+      "upgradeRef": [1, 2]
+    }
+  ],
+  "upgrades": [
+    {
+      "id": 0,
+      "name": "Unicorn",
+      "type": "Special Mount",
+      "attackModify": "+1",
+      "pointsModify": 15,
+      "unitMax": 1
+    },
+    {
+      "id": 1,
+      "name": "Pegasus",
+      "type": "Monstrous Mount",
+      "attackModify": "+1",
+      "pointsModify": 15,
+      "unitMax": 1
+    },
+    {
+      "id": 2,
+      "name": "Hippogriff",
+      "type": "Monstrous Mount",
+      "attackModify": "+2",
+      "pointsModify": 80,
+      "unitMax": 1
+    },
+    {
+      "id": 3,
+      "name": "Grail Reliquae",
+      "type": "Special",
+      "pointsModify": 60,
+      "armyMax": 1
+    }
+  ]
+}

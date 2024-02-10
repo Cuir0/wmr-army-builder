@@ -2,18 +2,20 @@ import type { IFaction } from '../../src/types/Faction'
 import { readJsonFile } from '../TestUtils'
 import { describe, expect, it } from 'vitest'
 
+const FACTIONS_COUNT = 25
+
 describe('Factions schema file', async () => {
   const factions: IFaction[] = await readJsonFile('factions.json')
 
-  it('Exists', () => {
+  it('should exist', () => {
     expect(factions).toBeDefined()
   })
 
-  it('Has correct faction count', () => {
-    expect(factions.length).toBe(25)
+  it('should have correct faction count', () => {
+    expect(factions.length).toBe(FACTIONS_COUNT)
   })
 
-  it('Has required fields', () => {
+  it('should have required fields', () => {
     for (const faction of factions) {
       expect(faction.name).toBeDefined()
       expect(faction.fileName).toBeDefined()
