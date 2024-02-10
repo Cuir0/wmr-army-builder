@@ -10,13 +10,35 @@ describe('Factions schema file', async () => {
     describe(`${faction.name} army`, async () => {
       const army: IArmySchema = await readJsonFile(`armies/${faction.fileName}.json`)
 
-      it('Has general', () => expect(army.units.some(u => u.type === 'General')).toBeTruthy())
+      it('should have general', () => expect(army.units.some(u => u.type === 'General')).toBeTruthy())
 
-      it('Has the core fields', () => {
+      it('should have core fields', () => {
         expect(army.name).toBe(faction.name)
-        expect(army.units).toBeTruthy()
-        expect(army.upgrades).toBeTruthy()
+        expect(army.units).toBeDefined()
+        expect(army.upgrades).toBeDefined()
       })
+
+      for (const unit of army.units) {
+        describe(`Unit ${unit.name}`, async () => {
+          it('should have core fields', async () => {
+            expect(unit.id).toBeDefined()
+            expect(unit.name).toBeDefined()
+            expect(unit.size).toBeDefined()
+            expect(unit.type).toBeDefined()
+            expect(unit.points).toBeDefined()
+            expect(unit.attack).toBeDefined()
+          })
+          
+          if (['General', 'Hero', 'Wizard'].includes(unit.type)) {
+            describe('Commander unit', async () => {
+              it('should have core fields', async () => {
+                expect(unit.size).toBe(1)
+                expect(unit.command).toBeDefined()
+              })
+            })
+          }
+        })
+      }
     })
   }
 })
