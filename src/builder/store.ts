@@ -20,7 +20,7 @@ const createBuilder = () => {
     subscribe: state.subscribe,
 
     addUnit: (unit: IBaseUnit) => BuilderController.addUnit(state, unit),
-    //removeUnit: (unit: IBaseUnit) => removeUnit(get(state), unit)
+    removeUnit: (unit: IBaseUnit) => BuilderController.removeUnit(state, unit)
   }
 }
 

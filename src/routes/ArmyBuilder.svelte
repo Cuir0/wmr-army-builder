@@ -3,7 +3,7 @@
   import { Link } from 'svelte-routing'
   import { fetchJsonData } from '../utils'
   import ArmySchemaList from '$components/ArmySchemaList.svelte'
-  import ArmyBuilderList from '$components/ArmyBuilderList.svelte';
+  import ArmyBuilderList from '$components/ArmyBuilderList.svelte'
 
   export let factionFile: string
 

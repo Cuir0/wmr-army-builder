@@ -3,19 +3,33 @@ import type { IBuilderUnit } from '$types/Builder'
 import type { IBuilderState } from './store'
 import { get, type Writable } from 'svelte/store'
 
-const incBuilderUnit = (state: IBuilderState, unit: IBuilderUnit) => {
-  state.armyCost += unit.points
-  unit.count++
+const changeUnitCount = 
+(state: IBuilderState, unit: IBuilderUnit, changeVal: number) => {
+  state.armyCost += unit.points * changeVal
+  unit.count += changeVal
   return state
 }
 
-export const addUnit = (state: Writable<IBuilderState>, unit: IBaseUnit) => {
+export const addUnit = 
+(state: Writable<IBuilderState>, unit: IBaseUnit) => {
   const { units } = get(state)
   const unitIndex = units.findIndex(builderUnit => unit.id === builderUnit.id)
 
   if (unitIndex !== -1) {
-    state.update(s => incBuilderUnit(s, s.units[unitIndex]))
+    state.update(s => changeUnitCount(s, s.units[unitIndex], 1))
   } else {
     state.update(s => (s.units.push({ ...unit, count: 1 }), s))
+  }
+}
+
+export const removeUnit = 
+(state: Writable<IBuilderState>, unit: IBaseUnit) => {
+  const { units } = get(state)
+  const unitIndex = units.findIndex(builderUnit => unit.id === builderUnit.id)
+
+  if (units[unitIndex].count !== 1) {
+    state.update(s => changeUnitCount(s, s.units[unitIndex], -1))
+  } else {
+    state.update(s => (s.units.splice(unitIndex, 1), s))
   }
 }
