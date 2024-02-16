@@ -1,7 +1,8 @@
 <script lang="ts">
   import type { IArmySchema } from '../types/Army';
   import { Link } from 'svelte-routing'
-  import { fetchJsonData } from '../core/utils'
+  import { fetchJsonData } from '../utils'
+  import ArmySchema from '../components/ArmySchema.svelte';
 
   const fetchArmy = async (armyName: string): Promise<IArmySchema> => {
     const response = await fetchJsonData(`armies/${armyName}.json`)
@@ -19,10 +20,7 @@
   {#await army}
     <p>Loading army data...</p>
   {:then armyData}
-    <div class="font-bold">{ armyData.name }</div>
-    {#each armyData.units as unit}
-      <div>{ unit.name }</div>
-    {/each}
+    <ArmySchema armySchema={armyData} />
   {:catch error}
     <p>{ error.message }</p>
   {/await}
