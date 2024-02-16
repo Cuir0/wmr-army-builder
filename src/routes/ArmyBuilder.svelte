@@ -1,8 +1,11 @@
 <script lang="ts">
-  import type { IArmySchema } from '../types/Army';
+  import type { IArmySchema } from '$types/Army'
   import { Link } from 'svelte-routing'
   import { fetchJsonData } from '../utils'
-  import ArmySchema from '../components/ArmySchema.svelte';
+  import ArmySchemaList from '$components/ArmySchemaList.svelte'
+  import ArmyBuilderList from '$components/ArmyBuilderList.svelte';
+
+  export let factionFile: string
 
   const fetchArmy = async (armyName: string): Promise<IArmySchema> => {
     const response = await fetchJsonData(`armies/${armyName}.json`)
@@ -11,16 +14,19 @@
     throw new Error(`Error loading ${ armyName } army data...`)
   }
 
-  export let factionFile: string
   const army: Promise<IArmySchema> = fetchArmy(factionFile)
 </script>
 
-<div class="grid justify-items-center">
+<div>
   <Link to="/">Go back</Link>
   {#await army}
     <p>Loading army data...</p>
   {:then armyData}
-    <ArmySchema armySchema={armyData} />
+    <div class="font-bold">{ armyData.name }</div>
+    <section class="flex justify-evenly items-start">
+      <ArmySchemaList armySchema={armyData} />
+      <ArmyBuilderList />
+    </section>
   {:catch error}
     <p>{ error.message }</p>
   {/await}
