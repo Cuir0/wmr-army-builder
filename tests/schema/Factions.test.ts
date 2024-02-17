@@ -1,4 +1,4 @@
-import type { IFaction } from '../../src/types/Faction'
+import type { IFaction } from '../../src/types/Schema'
 import { readJsonFile } from '../TestUtils'
 import { describe, expect, it } from 'vitest'
 

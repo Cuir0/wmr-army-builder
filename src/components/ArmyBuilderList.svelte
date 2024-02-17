@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { IBaseUnit } from '../types/Army'
+  import type { IBaseUnit } from '$root/src/types/Schema'
   import BuilderStore from '../builder/store'
 
   const headers = ['Count', 'Name', 'Type', 'Points', 'Min/Max']

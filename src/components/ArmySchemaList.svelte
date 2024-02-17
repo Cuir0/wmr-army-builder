@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { IArmySchema, IBaseUnit } from '$types/Army'
+  import type { IArmySchema, IBaseUnit } from '$root/src/types/Schema'
   import BuilderStore from '../builder/store'
 
   export let armySchema: IArmySchema

@@ -1,5 +1,4 @@
-import type { IBuilderUnit } from '$types/Builder'
-import type { IBaseUnit } from '$types/Army'
+import type { IBuilderUnit, IBaseUnit } from '$root/src/types/Schema'
 import { writable } from 'svelte/store'
 import * as BuilderController from './builderController'
 

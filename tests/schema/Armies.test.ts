@@ -1,5 +1,4 @@
-import type { IFaction } from '../../src/types/Faction'
-import type { IBaseUnit, IArmySchema, IUpgrade } from '../../src/types/Army'
+import type { IFaction, IArmySchema } from '../../src/types/Schema'
 import { readJsonFile } from '../TestUtils'
 import { describe, expect, it } from 'vitest'
 
