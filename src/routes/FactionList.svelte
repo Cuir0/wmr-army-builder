@@ -1,16 +1,12 @@
 <script lang="ts">
-  import type { IFaction } from '$types/Faction'
-  import { fetchJsonData } from '../core/utils'
+  import type { IFaction } from '$types/Schema'
+  import { fetchJsonData } from '../utils'
   import FactionItem from '$components/FactionItem.svelte'
-
-  const fetchFactionList = async (): Promise<IFaction[]> => {
-    const response = await fetchJsonData('/factions.json')
-
-    if (response.ok) return response.json()
-    throw new Error('Error loading factions data...')
-  }
-
-  const factions: Promise<IFaction[]> = fetchFactionList()
+  
+  const factions: Promise<IFaction[]> = fetchJsonData(
+    '/factions.json', 
+    'Error loading faction list data...'
+  )
 </script>
 
 <div class="flex justify-center">

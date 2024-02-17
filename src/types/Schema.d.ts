@@ -1,3 +1,14 @@
+/**
+ * Warmaster faction schema
+ */
+export interface IFaction {
+  name: string
+  fileName: string
+}
+
+/**
+ * Warmaster army units, upgrades and rules schema
+ */
 export interface IArmySchema {
   name: string
   units: IBaseUnit[]
@@ -37,6 +48,13 @@ export interface IBaseUnit {
   // Unit special augments/items refs
   upgradeRef?: number[]
   magicItemRef?: number[]
+}
+
+/**
+ * User added builder unit
+ */
+export interface IBuilderUnit extends IBaseUnit {
+  count: number
 }
 
 type UpgradeType = 'Chariot Mount' | 'Monstrous Mount' | 'Special Mount' | 'Special'
