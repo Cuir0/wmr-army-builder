@@ -2,12 +2,22 @@ import type { IBaseUnit, IBuilderUnit } from '$root/src/types/Schema'
 import type { IBuilderState } from './store'
 import { get, type Writable } from 'svelte/store'
 
+export const STORE_INITIAL_STATE: IBuilderState = {
+  armyName: '',
+  armyCostLimit: 2000,
+  armyCost: 0,
+  units: []
+}
+
 const changeUnitCount = 
 (state: IBuilderState, unit: IBuilderUnit, changeVal: number) => {
   state.armyCost += unit.points * changeVal
   unit.count += changeVal
   return state
 }
+
+export const resetState = 
+(state: Writable<IBuilderState>, armyName: string) => state.set({...STORE_INITIAL_STATE, units: [], armyName})
 
 export const addUnit = 
 (state: Writable<IBuilderState>, unit: IBaseUnit) => {

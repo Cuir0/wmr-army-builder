@@ -9,14 +9,23 @@
 
   export let factionFile: string
 
-  const army: Promise<IArmySchema> = fetchJsonData(
-    `armies/${ factionFile }.json`, 
-    `Error loading ${ factionFile } army data...`
-  )
+  const loadArmySchema = async (): Promise<IArmySchema> => {
+    try {
+      const armySchema: IArmySchema = await fetchJsonData(`armies/${ factionFile }.json`)
+
+      if (BuilderStore.getArmyName() !== armySchema.name) {
+        BuilderStore.initNewArmy(armySchema.name)
+      }
+
+      return armySchema
+    } catch (err) {
+      throw new Error(`Error loading ${ factionFile } army data (${ err })`)
+    }
+  }
 </script>
 
 
-{#await army}
+{#await loadArmySchema()}
   <p>Loading army data...</p>
 {:then armyData}
   <section class="flex justify-evenly items-start">

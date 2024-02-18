@@ -1,5 +1,5 @@
 export const fetchJsonData = 
-async (publicPath: string, errorMsg: string) => {
+async (publicPath: string) => {
   const response = await fetch(publicPath, {
     headers : { 
       'Content-Type': 'application/json',
@@ -8,5 +8,5 @@ async (publicPath: string, errorMsg: string) => {
   })
 
   if (response.ok) return response.json()
-  throw new Error(errorMsg)
+  throw new Error(`Unknown error fetching data from: ${ publicPath }`)
 }
