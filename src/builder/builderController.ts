@@ -17,7 +17,11 @@ export const addUnit =
   if (unitIndex !== -1) {
     state.update(s => changeUnitCount(s, s.units[unitIndex], 1))
   } else {
-    state.update(s => (s.units.push({ ...unit, count: 1 }), s))
+    state.update(s => {
+      s.units.push({ ...unit, count: 1 })
+      s.armyCost += unit.points
+      return s
+    })
   }
 }
 
@@ -29,6 +33,10 @@ export const removeUnit =
   if (units[unitIndex].count !== 1) {
     state.update(s => changeUnitCount(s, s.units[unitIndex], -1))
   } else {
-    state.update(s => (s.units.splice(unitIndex, 1), s))
+    state.update(s => {
+      s.units.splice(unitIndex, 1)
+      s.armyCost -= unit.points
+      return s
+    })
   }
 }

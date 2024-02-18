@@ -5,6 +5,7 @@
 
   import ArmySchemaList from '$components/ArmySchemaList.svelte'
   import ArmyBuilderList from '$components/ArmyBuilderList.svelte'
+  import BuilderStore from '../builder/store';
 
   export let factionFile: string
 
@@ -14,17 +15,20 @@
   )
 </script>
 
-<div>
-  <Link to="/">Go back</Link>
-  {#await army}
-    <p>Loading army data...</p>
-  {:then armyData}
-    <div class="font-bold">{ armyData.name }</div>
-    <section class="flex justify-evenly items-start">
-      <ArmySchemaList armySchema={armyData} />
-      <ArmyBuilderList />
-    </section>
-  {:catch error}
-    <p>{ error.message }</p>
-  {/await}
-</div>
+
+{#await army}
+  <p>Loading army data...</p>
+{:then armyData}
+  <section class="flex justify-evenly items-start">
+    <ArmySchemaList armySchema={armyData} />
+    <div class="text-center font-semibold">
+      <Link to="/">Return to homepage</Link>
+      <div>{ armyData.name }</div>
+      <div>Army points: { $BuilderStore.armyCost }/{ $BuilderStore.armyCostLimit }</div>
+    </div>
+    <ArmyBuilderList />
+  </section>
+{:catch error}
+  <Link to="/">Return to homepage</Link>
+  <p>{ error.message }</p>
+{/await}
