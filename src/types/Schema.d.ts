@@ -55,6 +55,7 @@ export interface IBaseUnit {
  */
 export interface IBuilderUnit extends IBaseUnit {
   count: number
+  hasError: boolean
 }
 
 type UpgradeType = 'Chariot Mount' | 'Monstrous Mount' | 'Special Mount' | 'Special'

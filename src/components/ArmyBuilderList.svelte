@@ -14,7 +14,10 @@
   </thead>
   <tbody>
     {#each $BuilderStore.units as builderUnit}
-      <tr on:click={() => removeUnit(builderUnit)} class="px-3 hover:bg-gray-200 cursor-pointer select-none">
+      <tr on:click={() => removeUnit(builderUnit)} 
+        class="px-3 cursor-pointer select-none 
+        {builderUnit.hasError ? 'bg-slate-50 hover:bg-gray-200' : 'bg-rose-200  hover:bg-rose-300'}"
+      >
         <td>{ builderUnit.count }</td>
         <td>{ builderUnit.name }</td>
         <td>{ builderUnit.type }</td>

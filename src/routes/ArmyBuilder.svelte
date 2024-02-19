@@ -5,7 +5,7 @@
 
   import ArmySchemaList from '$components/ArmySchemaList.svelte'
   import ArmyBuilderList from '$components/ArmyBuilderList.svelte'
-  import BuilderStore from '../builder/store';
+  import BuilderStore from '../builder/store'
 
   export let factionFile: string
 

@@ -1,6 +1,7 @@
-import type { IBaseUnit, IBuilderUnit } from '$root/src/types/Schema'
+import type { Writable } from 'svelte/store'
+import type { IBaseUnit } from '$root/src/types/Schema'
 import type { IBuilderState } from './store'
-import { get, type Writable } from 'svelte/store'
+import * as Validator from './builderValidator'
 
 export const STORE_INITIAL_STATE: IBuilderState = {
   armyName: '',
@@ -9,11 +10,29 @@ export const STORE_INITIAL_STATE: IBuilderState = {
   units: []
 }
 
-const changeUnitCount = 
-(state: IBuilderState, unit: IBuilderUnit, changeVal: number) => {
-  state.armyCost += unit.points * changeVal
-  unit.count += changeVal
-  return state
+const updateUnitCount = 
+(state: IBuilderState, unitIdx: number, countChange: number) => {
+  const builderUnit = state.units[unitIdx]
+  const hasError = !Validator.isUnitValid(builderUnit, countChange)
+
+  builderUnit.count += countChange
+  builderUnit.hasError = hasError
+}
+
+const addBuilderUnit = 
+(state: IBuilderState, unit: IBaseUnit, countChange: number) => {
+  const newBuilderUnit = { ...unit, count: 0, hasError: false }
+
+  const hasError = !Validator.isUnitValid(newBuilderUnit, countChange)
+  newBuilderUnit.count = countChange
+  newBuilderUnit.hasError = hasError
+
+  state.units.push(newBuilderUnit)
+}
+
+const removeBuilderUnit = 
+(state: IBuilderState, unitIdx: number) => {
+  state.units.splice(unitIdx, 1)
 }
 
 export const resetState = 
@@ -21,32 +40,32 @@ export const resetState =
 
 export const addUnit = 
 (state: Writable<IBuilderState>, unit: IBaseUnit) => {
-  const { units } = get(state)
-  const unitIndex = units.findIndex(builderUnit => unit.id === builderUnit.id)
+  state.update(s => {
+    const unitIdx = s.units.findIndex(builderUnit => unit.id === builderUnit.id)
 
-  if (unitIndex !== -1) {
-    state.update(s => changeUnitCount(s, s.units[unitIndex], 1))
-  } else {
-    state.update(s => {
-      s.units.push({ ...unit, count: 1 })
-      s.armyCost += unit.points
-      return s
-    })
-  }
+    if (unitIdx !== -1) {
+      updateUnitCount(s, unitIdx, 1)
+    } else {
+      addBuilderUnit(s, unit, 1)
+    }
+
+    s.armyCost += unit.points
+    return s
+  })
 }
 
 export const removeUnit = 
 (state: Writable<IBuilderState>, unit: IBaseUnit) => {
-  const { units } = get(state)
-  const unitIndex = units.findIndex(builderUnit => unit.id === builderUnit.id)
+  state.update(s => {
+    const unitIdx = s.units.findIndex(builderUnit => unit.id === builderUnit.id)
 
-  if (units[unitIndex].count !== 1) {
-    state.update(s => changeUnitCount(s, s.units[unitIndex], -1))
-  } else {
-    state.update(s => {
-      s.units.splice(unitIndex, 1)
-      s.armyCost -= unit.points
-      return s
-    })
-  }
+    if (s.units[unitIdx]?.count - 1 > 0) {
+      updateUnitCount(s, unitIdx, -1)
+    } else {
+      removeBuilderUnit(s, unitIdx)
+    }
+
+    s.armyCost -= unit.points
+    return s
+  })
 }
