@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { IBaseUnit, IBuilderUnit } from '$types/Schema'
-  import BuilderStore from '../builder/store'
+  import BuilderStore from '$builder/store'
 
   let isPopoverVisible = false
   const togglePopover = () => isPopoverVisible = !isPopoverVisible

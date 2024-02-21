@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Link } from 'svelte-routing'
-  import BuilderStore from '../builder/store'
+  import BuilderStore from '$builder/store'
 
   export let armyName: string
 </script>

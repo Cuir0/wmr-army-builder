@@ -1,6 +1,6 @@
 <script lang="ts">
-  import BuilderStore from '../builder/store'
-  import BuilderItem from './BuilderItem.svelte'
+  import BuilderStore from '$builder/store'
+  import BuilderItem from './items/BuilderItem.svelte'
 
   const headers = ['Count', 'Name', 'Type', 'Points', 'Min/Max']
 </script>

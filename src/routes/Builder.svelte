@@ -2,7 +2,7 @@
   import type { IArmySchema } from '$types/Schema'
   import { Link } from 'svelte-routing'
   import { fetchJsonData } from '../utils'
-  import BuilderStore from '../builder/store'
+  import BuilderStore from '$builder/store'
 
   import SchemaList from '$root/src/components/SchemaList.svelte'
   import BuilderList from '$root/src/components/BuilderList.svelte'

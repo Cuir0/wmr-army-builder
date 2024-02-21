@@ -13,7 +13,8 @@
     "paths": {
       "$root/*": ["./*"],
       "$components/*": ["./src/components/*"],
-      "$types/*": ["./src/types/*"]
+      "$types/*": ["./src/types/*"],
+      "$builder/*": ["./src/builder/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { IArmySchema, IBaseUnit } from '$types/Schema'
-  import BuilderStore from '../builder/store'
+  import BuilderStore from '$builder/store'
 
   export let armySchema: IArmySchema
   const headers = ['Name', 'Type', 'Points', 'Min/Max']
