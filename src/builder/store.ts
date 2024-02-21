@@ -7,6 +7,7 @@ export interface IBuilderState {
   armyCost: number
   armyCostLimit: number
   units: IBuilderUnit[]
+  armyErrors: string[]
 }
 
 const createBuilder = () => {

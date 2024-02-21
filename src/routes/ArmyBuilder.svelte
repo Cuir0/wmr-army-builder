@@ -1,11 +1,12 @@
 <script lang="ts">
-  import type { IArmySchema } from '$root/src/types/Schema'
+  import type { IArmySchema } from '$types/Schema'
   import { Link } from 'svelte-routing'
   import { fetchJsonData } from '../utils'
+  import BuilderStore from '../builder/store'
 
   import ArmySchemaList from '$components/ArmySchemaList.svelte'
   import ArmyBuilderList from '$components/ArmyBuilderList.svelte'
-  import BuilderStore from '../builder/store'
+  import BuilderArmyInfo from '$components/BuilderArmyInfo.svelte'
 
   export let factionFile: string
 
@@ -30,11 +31,7 @@
 {:then armyData}
   <section class="flex justify-evenly items-start">
     <ArmySchemaList armySchema={armyData} />
-    <div class="text-center font-semibold">
-      <Link to="/">Return to homepage</Link>
-      <div>{ armyData.name }</div>
-      <div>Army points: { $BuilderStore.armyCost }/{ $BuilderStore.armyCostLimit }</div>
-    </div>
+    <BuilderArmyInfo armyName={armyData.name} />
     <ArmyBuilderList />
   </section>
 {:catch error}

@@ -1,7 +1,7 @@
 {
   "name": "wmr-army-builder",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -33,11 +33,11 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Cuir0/wmr-army-builder"
+    "url": "https://github.com/Vetsou/wmr-army-builder"
   },
   "author": {
-    "name": "Cuir0",
-    "url": "https://github.com/Cuir0"
+    "name": "Vetsou",
+    "url": "https://github.com/Vetsou"
   },
   "keywords": [
     "warmaster revolution",

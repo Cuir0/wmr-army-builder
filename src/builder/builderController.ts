@@ -1,5 +1,5 @@
 import type { Writable } from 'svelte/store'
-import type { IBaseUnit } from '$root/src/types/Schema'
+import type { IBaseUnit } from '$types/Schema'
 import type { IBuilderState } from './store'
 import * as Validator from './builderValidator'
 
@@ -7,25 +7,24 @@ export const STORE_INITIAL_STATE: IBuilderState = {
   armyName: '',
   armyCostLimit: 2000,
   armyCost: 0,
+  armyErrors: [],
   units: []
 }
 
 const updateUnitCount = 
 (state: IBuilderState, unitIdx: number, countChange: number) => {
   const builderUnit = state.units[unitIdx]
-  const hasError = !Validator.isUnitValid(builderUnit, countChange)
+  Validator.validateUnit(builderUnit, countChange)
 
   builderUnit.count += countChange
-  builderUnit.hasError = hasError
 }
 
 const addBuilderUnit = 
 (state: IBuilderState, unit: IBaseUnit, countChange: number) => {
-  const newBuilderUnit = { ...unit, count: 0, hasError: false }
+  const newBuilderUnit = { ...unit, count: 0, errors: [] }
 
-  const hasError = !Validator.isUnitValid(newBuilderUnit, countChange)
+  Validator.validateUnit(newBuilderUnit, countChange)
   newBuilderUnit.count = countChange
-  newBuilderUnit.hasError = hasError
 
   state.units.push(newBuilderUnit)
 }
@@ -36,7 +35,12 @@ const removeBuilderUnit =
 }
 
 export const resetState = 
-(state: Writable<IBuilderState>, armyName: string) => state.set({...STORE_INITIAL_STATE, units: [], armyName})
+(state: Writable<IBuilderState>, armyName: string) => state.set({
+  ...STORE_INITIAL_STATE, 
+  armyErrors: [], 
+  units: [], 
+  armyName
+})
 
 export const addUnit = 
 (state: Writable<IBuilderState>, unit: IBaseUnit) => {
@@ -50,6 +54,7 @@ export const addUnit =
     }
 
     s.armyCost += unit.points
+    Validator.isArmyValid(s)
     return s
   })
 }
@@ -66,6 +71,7 @@ export const removeUnit =
     }
 
     s.armyCost -= unit.points
+    Validator.isArmyValid(s)
     return s
   })
 }

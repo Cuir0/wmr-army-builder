@@ -1,6 +1,7 @@
-import type { IBuilderUnit } from '../types/Schema'
+import type { IBuilderUnit } from '$types/Schema'
+import type { IBuilderState } from './store'
 
-const isWithinBounds = 
+const isOutsideOfBounds = 
 (builderUnit: IBuilderUnit, countChange: number): boolean => {
   const max = builderUnit.max ?? Infinity
   const min = builderUnit.min ?? -Infinity
@@ -11,10 +12,20 @@ const isWithinBounds =
   return newCount > max || newCount < min
 }
 
-export const isUnitValid = 
-(builderUnit: IBuilderUnit, countChange: number): boolean => {
-  if (isWithinBounds(builderUnit, countChange)) {
-    return true
+export const validateUnit = 
+(builderUnit: IBuilderUnit, countChange: number) => {
+  builderUnit.errors = []
+
+  if (isOutsideOfBounds(builderUnit, countChange)) {
+    builderUnit.errors.push(`${builderUnit.name} count of ${builderUnit.count + countChange} is out of bounds`)
   }
-  return false
+}
+
+export const isArmyValid = 
+(state: IBuilderState) => {
+  state.armyErrors = []
+
+  if (state.armyCost > state.armyCostLimit) {
+    state.armyErrors.push('Army cost exeeds the limit')
+  }
 }
