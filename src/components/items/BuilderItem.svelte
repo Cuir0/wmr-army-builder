@@ -10,8 +10,8 @@
 </script>
 
 <tr on:click={() => removeUnit(unit)} on:mouseenter={togglePopover} on:mouseleave={togglePopover}
-  class="relative px-3 cursor-pointer select-none
-  {unit.errors.length > 0 ? 'bg-rose-200  hover:bg-rose-300' : 'bg-slate-50 hover:bg-gray-200'}"
+    class="relative px-3 cursor-pointer select-none
+      {unit.errors.length > 0 ? 'bg-rose-200  hover:bg-rose-300' : 'bg-slate-50 hover:bg-gray-200'}"
 >
   <td>{ unit.count }</td>
   <td>{ unit.name }</td>

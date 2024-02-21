@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { IFaction } from '$types/Schema';
-  import BuilderStore from '$builder/store';
+  import type { IFaction } from '$types/Schema'
+  import BuilderStore from '$builder/store'
   import FactionItem from './items/FactionItem.svelte'
 
   export let factions: IFaction[]

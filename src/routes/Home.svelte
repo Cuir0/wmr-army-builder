@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { IFaction } from '$types/Schema'
   import { fetchJsonData } from '../utils'
-  import FactionList from '$components/FactionList.svelte';
+  import FactionList from '$components/FactionList.svelte'
   
   const loadFactions = async (): Promise<IFaction[]> => {
     try {
