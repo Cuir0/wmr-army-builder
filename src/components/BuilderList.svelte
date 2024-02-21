@@ -12,8 +12,8 @@
     </tr>
   </thead>
   <tbody>
-    {#each $BuilderStore.units as builderUnit}
-      <BuilderItem unit={builderUnit} />
+    {#each $BuilderStore.units as unit}
+      <BuilderItem {unit} />
     {/each}
   </tbody>
 </table>

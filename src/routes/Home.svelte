@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { IFaction } from '$types/Schema'
   import { fetchJsonData } from '../utils'
-  import BuilderStore from '$builder/store'
-  import FactionItem from '$components/items/FactionItem.svelte'
+  import FactionList from '$components/FactionList.svelte';
   
   const loadFactions = async (): Promise<IFaction[]> => {
     try {
@@ -11,8 +10,6 @@
       throw new Error(`Error loading faction list (${ err })`)
     }
   }
-
-  const isSelected = (factionName: string) => BuilderStore.getState().armyName === factionName
 </script>
 
 <div class="flex justify-center">
@@ -20,9 +17,7 @@
     {#await loadFactions()}
       <p>Loading factions data...</p>
     {:then factions}
-      {#each factions as faction}
-        <FactionItem selected={isSelected(faction.name)} {...faction} />
-      {/each}
+      <FactionList {factions} />
     {:catch error}
       <p>{ error.message }</p>
     {/await}
