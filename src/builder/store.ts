@@ -16,7 +16,7 @@ const createBuilder = () => {
 
   return {
     subscribe: state.subscribe,
-    getArmyName: () => get(state).armyName,
+    getState: () => get(state),
 
     initNewArmy: (armyName: string) => BuilderController.resetState(state, armyName),
     addUnit: (unit: IBaseUnit) => BuilderController.addUnit(state, unit),

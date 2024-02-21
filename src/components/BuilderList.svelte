@@ -1,6 +1,6 @@
 <script lang="ts">
   import BuilderStore from '../builder/store'
-  import BuilderUnitItem from './BuilderUnitItem.svelte'
+  import BuilderItem from './BuilderItem.svelte'
 
   const headers = ['Count', 'Name', 'Type', 'Points', 'Min/Max']
 </script>
@@ -13,7 +13,7 @@
   </thead>
   <tbody>
     {#each $BuilderStore.units as builderUnit}
-      <BuilderUnitItem unit={builderUnit} />
+      <BuilderItem unit={builderUnit} />
     {/each}
   </tbody>
 </table>

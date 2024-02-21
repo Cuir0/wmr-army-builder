@@ -4,9 +4,9 @@
   import { fetchJsonData } from '../utils'
   import BuilderStore from '../builder/store'
 
-  import ArmySchemaList from '$components/ArmySchemaList.svelte'
-  import ArmyBuilderList from '$components/ArmyBuilderList.svelte'
-  import BuilderArmyInfo from '$components/BuilderArmyInfo.svelte'
+  import SchemaList from '$root/src/components/SchemaList.svelte'
+  import BuilderList from '$root/src/components/BuilderList.svelte'
+  import BuilderInfo from '$root/src/components/BuilderInfo.svelte'
 
   export let factionFile: string
 
@@ -14,7 +14,7 @@
     try {
       const armySchema: IArmySchema = await fetchJsonData(`armies/${ factionFile }.json`)
 
-      if (BuilderStore.getArmyName() !== armySchema.name) {
+      if (BuilderStore.getState().armyName !== armySchema.name) {
         BuilderStore.initNewArmy(armySchema.name)
       }
 
@@ -30,9 +30,9 @@
   <p>Loading army data...</p>
 {:then armyData}
   <section class="flex justify-evenly items-start">
-    <ArmySchemaList armySchema={armyData} />
-    <BuilderArmyInfo armyName={armyData.name} />
-    <ArmyBuilderList />
+    <SchemaList armySchema={armyData} />
+    <BuilderInfo armyName={armyData.name} />
+    <BuilderList />
   </section>
 {:catch error}
   <Link to="/">Return to homepage</Link>

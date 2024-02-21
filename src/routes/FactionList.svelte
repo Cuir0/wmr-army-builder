@@ -11,6 +11,8 @@
       throw new Error(`Error loading faction list (${ err })`)
     }
   }
+
+  const isSelected = (factionName: string) => BuilderStore.getState().armyName === factionName
 </script>
 
 <div class="flex justify-center">
@@ -19,7 +21,7 @@
       <p>Loading factions data...</p>
     {:then factions}
       {#each factions as faction}
-        <FactionItem selected={BuilderStore.getArmyName() === faction.name} {...faction} />
+        <FactionItem selected={isSelected(faction.name)} {...faction} />
       {/each}
     {:catch error}
       <p>{ error.message }</p>

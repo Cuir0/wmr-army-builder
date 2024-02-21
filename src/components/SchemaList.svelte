@@ -11,9 +11,7 @@
 <table class="w-1/3 divide-y divide-gray-200 text-center whitespace-nowrap">
   <thead class="bg-gray-100">
     <tr class="select-none">
-      {#each headers as header}
-        <th class="px-3">{ header }</th>
-      {/each}
+      {#each headers as header}<th class="px-3">{ header }</th>{/each}
     </tr>
   </thead>
   <tbody>
