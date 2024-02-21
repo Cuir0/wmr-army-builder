@@ -9,7 +9,8 @@ export default defineConfig({
     alias: {
       '$root': __dirname,
       '$components': path.resolve(__dirname, 'src/components'),
-      '$types': path.resolve(__dirname, 'src/types')
+      '$types': path.resolve(__dirname, 'src/types'),
+      '$builder': path.resolve(__dirname, 'src/builder')
     }
   },
   test: {

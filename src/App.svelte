@@ -1,14 +1,14 @@
 <script lang="ts">
   import { Router, Route } from 'svelte-routing'
-  import FactionList from './routes/FactionList.svelte'
-  import ArmyBuilder from './routes/ArmyBuilder.svelte'
+  import Home from './routes/Home.svelte'
+  import Builder from './routes/Builder.svelte'
 
   export let url: string
 </script>
 
 <Router {url}>
-  <Route path="/" component={FactionList} />
+  <Route path="/" component={Home} />
   <Route path="/:factionFile" let:params>
-    <ArmyBuilder factionFile={params.factionFile} />
+    <Builder factionFile={params.factionFile} />
   </Route>
 </Router>

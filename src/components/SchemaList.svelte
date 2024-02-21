@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { IArmySchema, IBaseUnit } from '$root/src/types/Schema'
-  import BuilderStore from '../builder/store'
+  import type { IArmySchema, IBaseUnit } from '$types/Schema'
+  import BuilderStore from '$builder/store'
 
   export let armySchema: IArmySchema
   const headers = ['Name', 'Type', 'Points', 'Min/Max']
@@ -11,9 +11,7 @@
 <table class="w-1/3 divide-y divide-gray-200 text-center whitespace-nowrap">
   <thead class="bg-gray-100">
     <tr class="select-none">
-      {#each headers as header}
-        <th class="px-3">{ header }</th>
-      {/each}
+      {#each headers as header}<th class="px-3">{ header }</th>{/each}
     </tr>
   </thead>
   <tbody>
