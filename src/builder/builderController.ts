@@ -1,6 +1,7 @@
 import type { Writable } from 'svelte/store'
 import type { IBaseUnit } from '$types/Schema'
 import type { IBuilderState } from './store'
+
 import * as Validator from './builderValidator'
 
 export const STORE_INITIAL_STATE: IBuilderState = {
@@ -14,19 +15,18 @@ export const STORE_INITIAL_STATE: IBuilderState = {
 const updateUnitCount = 
 (state: IBuilderState, unitIdx: number, countChange: number) => {
   const builderUnit = state.units[unitIdx]
-  Validator.validateUnit(builderUnit, countChange)
-
   builderUnit.count += countChange
+
+  Validator.validateUnit(builderUnit)
 }
 
 const addBuilderUnit = 
 (state: IBuilderState, unit: IBaseUnit, countChange: number) => {
   const newBuilderUnit = { ...unit, count: 0, errors: [] }
-
-  Validator.validateUnit(newBuilderUnit, countChange)
   newBuilderUnit.count = countChange
-
   state.units.push(newBuilderUnit)
+
+  Validator.validateUnit(newBuilderUnit)
 }
 
 const removeBuilderUnit = 
@@ -52,8 +52,8 @@ export const addUnit =
     } else {
       addBuilderUnit(s, unit, 1)
     }
-
     s.armyCost += unit.points
+
     Validator.isArmyValid(s)
     return s
   })
@@ -69,8 +69,8 @@ export const removeUnit =
     } else {
       removeBuilderUnit(s, unitIdx)
     }
-
     s.armyCost -= unit.points
+
     Validator.isArmyValid(s)
     return s
   })

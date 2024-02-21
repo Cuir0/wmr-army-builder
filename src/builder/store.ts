@@ -1,5 +1,6 @@
-import type { IBuilderUnit, IBaseUnit } from '$root/src/types/Schema'
+import type { IBuilderUnit, IBaseUnit } from '$types/Schema'
 import { get, writable } from 'svelte/store'
+
 import * as BuilderController from './builderController'
 
 export interface IBuilderState {
