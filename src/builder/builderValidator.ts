@@ -24,6 +24,11 @@ export const isArmyValid =
 (state: IBuilderState) => {
   state.armyErrors = []
 
+  const hasGeneral: boolean = state.units.some(u => u.type === 'General')
+  if (!hasGeneral) {
+    state.armyErrors.push('Army needs general')
+  }
+
   if (state.armyCost > state.armyCostLimit) {
     state.armyErrors.push('Army cost exeeds the limit')
   }

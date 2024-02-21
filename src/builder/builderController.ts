@@ -1,4 +1,4 @@
-import type { Writable } from 'svelte/store'
+import { get, type Writable } from 'svelte/store'
 import type { IBaseUnit } from '$types/Schema'
 import type { IBuilderState } from './store'
 
@@ -35,12 +35,16 @@ const removeBuilderUnit =
 }
 
 export const resetState = 
-(state: Writable<IBuilderState>, armyName: string) => state.set({
-  ...STORE_INITIAL_STATE, 
-  armyErrors: [], 
-  units: [], 
-  armyName
-})
+(state: Writable<IBuilderState>, armyName: string) => {
+  state.set({
+    ...STORE_INITIAL_STATE, 
+    armyErrors: [], 
+    units: [], 
+    armyName
+  })
+
+  Validator.isArmyValid(get(state))
+}
 
 export const addUnit = 
 (state: Writable<IBuilderState>, unit: IBaseUnit) => {
