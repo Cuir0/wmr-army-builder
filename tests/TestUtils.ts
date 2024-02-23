@@ -12,16 +12,16 @@ export const readJsonFile =
 }
 
 export const generateBasicUnit = 
-(min: number | undefined, max: number | undefined): IBaseUnit => {
+(unit: Partial<IBaseUnit>): IBaseUnit => {
   return {
-    id: 0,
-    name: 'Unit name',
-    attack: "2",
-    max, 
-    min,
-    points: 100,
-    size: 3,
-    type: 'Infantry'
+    id: unit.id ?? 0,
+    name: unit.name ?? 'Unit name',
+    attack: unit.attack ?? '1',
+    max: unit.max, 
+    min: unit.min,
+    points: unit.points ?? 100,
+    size: unit.size ?? 3,
+    type: unit.type ?? 'Infantry'
   }
 }
 

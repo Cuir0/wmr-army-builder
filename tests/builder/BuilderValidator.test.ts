@@ -20,7 +20,7 @@ describe('Validate army state', async () => {
 
   it('should add error if cost exceeded', async () => {
     // Arrange
-    const general = generateBasicUnit(1, 2)
+    const general = generateBasicUnit({ min: 1, max: 2})
     general.type = 'General'
 
     const builderState: IBuilderState = generateArmyState(2000, 100)
@@ -39,7 +39,7 @@ describe('Validate army state', async () => {
 describe('Validate new unit', async () => {
   it('should not add error for correct unit', async () => {
     // Arrange
-    const unitTemplate: IBuilderUnit = { ...generateBasicUnit(undefined, 3), count: 1, errors: [] }
+    const unitTemplate: IBuilderUnit = { ...generateBasicUnit({ max: 3 }), count: 1, errors: [] }
     
     // Act
     Validator.validateUnit(unitTemplate)
@@ -52,7 +52,7 @@ describe('Validate new unit', async () => {
     // Arrange
     const bounds = 1
     const unitCount = 2
-    const unitTemplate: IBuilderUnit = { ...generateBasicUnit(bounds, bounds), count: unitCount, errors: [] }
+    const unitTemplate: IBuilderUnit = { ...generateBasicUnit({ min: 1, max: 1 }), count: unitCount, errors: [] }
 
     // Act
     Validator.validateUnit(unitTemplate)
