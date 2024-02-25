@@ -17,6 +17,12 @@
       "$builder/*": ["./src/builder/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.js",
+    "src/**/*.svelte",
+    "tests/**/*.ts",
+    "tests/**/*.test.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -4,7 +4,6 @@
 
 # Test, Build, Data
 node_modules
-tests
 public
 
 dist
