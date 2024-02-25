@@ -1,4 +1,4 @@
-import type { IBaseUnit } from '../src/types/Schema'
+import type { IBaseUnit, IBuilderUnit } from '../src/types/Schema'
 import type { IBuilderState } from '../src/builder/store'
 import fs from 'fs'
 import path from 'path'
@@ -25,13 +25,23 @@ export const generateBasicUnit =
   }
 }
 
-export const generateArmyState = 
-(armyCost: number, armyLimit: number): IBuilderState => {
+export const generateBuilderUnit = 
+(unit: Partial<IBuilderUnit>): IBuilderUnit => {
+  const baseUnit = generateBasicUnit({ ...unit })
   return {
-    armyName: 'Army Name',
-    armyCostLimit: armyLimit,
-    armyCost,
-    units: [],
-    armyErrors: [],
+    ...baseUnit,
+    count: unit.count ?? 1,
+    errors: unit.errors ?? []
+  }
+}
+
+export const generateArmyState = 
+(state: Partial<IBuilderState>) => {
+  return {
+    armyName: state.armyName ?? 'Army Name',
+    armyCostLimit: state.armyCostLimit ?? 1000,
+    armyCost: state.armyCost ?? 0,
+    units: state.units ?? [],
+    armyErrors: state.armyErrors ?? [],
   }
 }

@@ -10,9 +10,9 @@ module.exports = {
     extraFileExtensions: ['.svelte']
   },
   extends: [
+    'eslint:recommended',
     './config/eslint-style.cjs',
     './config/eslint-svelte.cjs',
-    'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:svelte/recommended'
   ],

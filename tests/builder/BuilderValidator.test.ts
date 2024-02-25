@@ -1,15 +1,15 @@
 import type { IBuilderUnit } from '../../src/types/Schema'
 import type { IBuilderState } from '../../src/builder/store'
-import { describe, expect, it } from 'vitest'
 
-import { generateArmyState, generateBasicUnit } from '../TestUtils'
+import { describe, expect, it } from 'vitest'
+import { generateArmyState, generateBuilderUnit } from '../TestUtils'
 import * as Validator from '../../src/builder/builderValidator'
 
 describe('Validate army state', async () => {
   it('should add error if general missing', async () => {
     // Arrange
-    const builderState: IBuilderState = generateArmyState(10, 100)
-    
+    const builderState: IBuilderState = generateArmyState({})
+
     // Act
     Validator.isArmyValid(builderState)
 
@@ -18,13 +18,12 @@ describe('Validate army state', async () => {
     expect(builderState.armyErrors[0]).toBe('Army needs general')
   })
 
+
   it('should add error if cost exceeded', async () => {
     // Arrange
-    const general = generateBasicUnit({ min: 1, max: 2})
-    general.type = 'General'
-
-    const builderState: IBuilderState = generateArmyState(2000, 100)
-    builderState.units.push({ ...general, count: 1, errors: [] })
+    const builderState: IBuilderState = generateArmyState({ armyCost: 2100, armyCostLimit: 2000 })
+    const general = generateBuilderUnit({ min: 1, max: 2, type: 'General' })
+    builderState.units.push(general)
 
     // Act
     Validator.isArmyValid(builderState)
@@ -39,8 +38,8 @@ describe('Validate army state', async () => {
 describe('Validate new unit', async () => {
   it('should not add error for correct unit', async () => {
     // Arrange
-    const unitTemplate: IBuilderUnit = { ...generateBasicUnit({ max: 3 }), count: 1, errors: [] }
-    
+    const unitTemplate: IBuilderUnit = generateBuilderUnit({ max: 3 })
+
     // Act
     Validator.validateUnit(unitTemplate)
 
@@ -48,17 +47,16 @@ describe('Validate new unit', async () => {
     expect(unitTemplate.errors.length).toBe(0)
   })
 
+
   it('should add error if unit is out of bounds', async () => {
     // Arrange
-    const bounds = 1
-    const unitCount = 2
-    const unitTemplate: IBuilderUnit = { ...generateBasicUnit({ min: 1, max: 1 }), count: unitCount, errors: [] }
+    const unitTemplate: IBuilderUnit = generateBuilderUnit({ min: 1, max: 1, count: 2 })
 
     // Act
     Validator.validateUnit(unitTemplate)
 
     // Assert
     expect(unitTemplate.errors.length).toBeGreaterThanOrEqual(1)
-    expect(unitTemplate.errors[0]).toBe(`Unit name count of ${unitCount} is out of bounds`)
+    expect(unitTemplate.errors[0]).toBe('Unit name count of 2 is out of bounds')
   })
 })
