@@ -1,4 +1,4 @@
-import type { IBuilderUnit, IBaseUnit } from '$types/Schema'
+import type { IBuilderUnit, IBaseUnit, IArmySchema } from '$types/Schema'
 import { get, writable } from 'svelte/store'
 
 import * as BuilderController from './builderController'
@@ -18,7 +18,7 @@ const createBuilder = () => {
     subscribe: state.subscribe,
     getState: () => get(state),
 
-    initNewArmy: (armyName: string) => BuilderController.resetState(state, armyName),
+    initNewArmy: (armySchema: IArmySchema) => BuilderController.resetState(state, armySchema),
     addUnit: (unit: IBaseUnit) => BuilderController.addUnit(state, unit),
     removeUnit: (unit: IBaseUnit) => BuilderController.removeUnit(state, unit)
   }
