@@ -112,7 +112,6 @@
       "size": 1,
       "command": 8,
       "armyMax": 1,
-      "armyMin": 1,
       "upgradeRef": [0, 1]
     },
     {

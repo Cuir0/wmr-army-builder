@@ -90,7 +90,6 @@
       "size": 1,
       "command": 0,
       "armyMax": 1,
-      "armyMin": 1,
       "upgradeRef": [0],
       "magicItemRef": [13, 14, 15, 16, 17]
     },

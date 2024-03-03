@@ -45,8 +45,8 @@ const addMinimalRequiredUnits =
       return
     }
 
-    if (schemaUnit.armyMin) {
-      addBuilderUnit(state, schemaUnit, schemaUnit.armyMin)
+    if (schemaUnit.type === 'General') {
+      addBuilderUnit(state, schemaUnit, 1)
     }
   })
 }

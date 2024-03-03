@@ -5,9 +5,11 @@ const isOutsideOfBounds =
 (builderUnit: IBuilderUnit): boolean => {
   const max = builderUnit.max ?? Infinity
   const min = builderUnit.min ?? -Infinity
+  const armyMax = builderUnit.armyMax ?? Infinity
 
   const count = builderUnit ? builderUnit.count : 0
 
+  if (count > armyMax) return true
   return count > max || count < min
 }
 
