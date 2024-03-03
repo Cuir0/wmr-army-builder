@@ -1,9 +1,9 @@
-import type { IBuilderUnit } from '../../src/types/Schema'
-import type { IBuilderState } from '../../src/builder/store'
+import type { IBuilderUnit } from '$root/src/types/Schema'
+import type { IBuilderState } from '$root/src/builder/store'
 
 import { describe, expect, it } from 'vitest'
 import { generateArmyState, generateBuilderUnit } from '../TestUtils'
-import * as Validator from '../../src/builder/builderValidator'
+import * as Validator from '$root/src/builder/builderValidator'
 
 describe('Validate army state', async () => {
   it('should add error if general missing', async () => {
@@ -48,7 +48,20 @@ describe('Validate new unit', async () => {
   })
 
 
-  it('should add error if unit is out of bounds', async () => {
+  it('should add error if unit minimum count is not met', async () => {
+    // Arrange
+    const unitTemplate: IBuilderUnit = generateBuilderUnit({ min: 3, count: 1 })
+
+    // Act
+    Validator.validateUnit(unitTemplate)
+
+    // Assert
+    expect(unitTemplate.errors.length).toBe(1)
+    expect(unitTemplate.errors[0]).toBe('Unit name count of 1 is out of bounds')
+  })
+
+
+  it('should add error if unit maximum count is exceeded', async () => {
     // Arrange
     const unitTemplate: IBuilderUnit = generateBuilderUnit({ min: 1, max: 1, count: 2 })
 
@@ -56,7 +69,20 @@ describe('Validate new unit', async () => {
     Validator.validateUnit(unitTemplate)
 
     // Assert
-    expect(unitTemplate.errors.length).toBeGreaterThanOrEqual(1)
+    expect(unitTemplate.errors.length).toBe(1)
+    expect(unitTemplate.errors[0]).toBe('Unit name count of 2 is out of bounds')
+  })
+
+
+  it('should add error if unit army maximum count is exceeded', async () => {
+    // Arrange
+    const unitTemplate: IBuilderUnit = generateBuilderUnit({ armyMax: 1, count: 2 })
+
+    // Act
+    Validator.validateUnit(unitTemplate)
+
+    // Assert
+    expect(unitTemplate.errors.length).toBe(1)
     expect(unitTemplate.errors[0]).toBe('Unit name count of 2 is out of bounds')
   })
 })

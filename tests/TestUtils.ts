@@ -20,7 +20,6 @@ export const generateBasicUnit =
     max: unit.max, 
     min: unit.min,
     armyMax: unit.armyMax,
-    armyMin: unit.armyMin,
     points: unit.points ?? 100,
     size: unit.size ?? 3,
     type: unit.type ?? 'Infantry'

@@ -1,10 +1,10 @@
-import type { IBaseUnit, IBuilderUnit } from '../../src/types/Schema'
-import type { IBuilderState } from '../../src/builder/store'
+import type { IBaseUnit, IBuilderUnit } from '$root/src/types/Schema'
+import type { IBuilderState } from '$root/src/builder/store'
 
 import { describe, expect, it } from 'vitest'
-import { generateArmySchema, generateArmyState, generateBasicUnit, generateBuilderUnit } from '../TestUtils'
 import { get, writable } from 'svelte/store'
-import * as Controller from '../../src/builder/builderController'
+import { generateArmySchema, generateArmyState, generateBasicUnit, generateBuilderUnit } from '../TestUtils'
+import * as Controller from '$root/src/builder/builderController'
 
 describe('Reset builder state', async () => {
   it('should set correct builder army name', async () => {
@@ -19,12 +19,13 @@ describe('Reset builder state', async () => {
     expect(builderState.armyName).toBe('Schama army name')
   })
 
+
   it('should add minimal required units', async () => {
     // Arrange
     const builder = writable<IBuilderState>(generateArmyState({}))
     const unit1 = generateBasicUnit({ name: 'Unit 1', min: 3, points: 10 })
     const unit2 = generateBasicUnit({ name: 'Unit 2', min: 1, points: 100 })
-    const general = generateBasicUnit({ name: 'General unit', type: 'General', armyMin: 1, points: 5 })
+    const general = generateBasicUnit({ name: 'General unit', type: 'General', points: 5 })
 
     // Act
     Controller.resetState(builder, generateArmySchema({ units: [unit1, unit2, general] }))
