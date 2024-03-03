@@ -8,6 +8,7 @@ const isOutsideOfBounds =
 
   const count = builderUnit ? builderUnit.count : 0
 
+  if (builderUnit.armyMax) return count > builderUnit.armyMax
   return count > max || count < min
 }
 

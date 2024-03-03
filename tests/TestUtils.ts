@@ -1,4 +1,4 @@
-import type { IBaseUnit, IBuilderUnit } from '../src/types/Schema'
+import type { IArmySchema, IBaseUnit, IBuilderUnit } from '../src/types/Schema'
 import type { IBuilderState } from '../src/builder/store'
 import fs from 'fs'
 import path from 'path'
@@ -19,9 +19,19 @@ export const generateBasicUnit =
     attack: unit.attack ?? '1',
     max: unit.max, 
     min: unit.min,
+    armyMax: unit.armyMax,
     points: unit.points ?? 100,
     size: unit.size ?? 3,
     type: unit.type ?? 'Infantry'
+  }
+}
+
+export const generateArmySchema = 
+(schema: Partial<IArmySchema>): IArmySchema => {
+  return {
+    name: schema.name ?? 'Army name',
+    units: schema.units ?? [],
+    upgrades: schema.upgrades ?? []
   }
 }
 

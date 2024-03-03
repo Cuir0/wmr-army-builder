@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { IBaseUnit, IBuilderUnit } from '$types/Schema'
+  import { getUnitBoundsString } from '$root/src/utils'
   import BuilderStore from '$builder/store'
 
   let isPopoverVisible = false
@@ -17,7 +18,7 @@
   <td>{ unit.name }</td>
   <td>{ unit.type }</td>
   <td>{ unit.points * unit.count }</td>
-  <td>{ unit.min || '-' }/{ unit.max || '-' }</td>
+  <td>{ getUnitBoundsString(unit) }</td>
   {#if isPopoverVisible && unit.errors.length > 0}
     <div class="absolute rounded px-2 py-1 bg-rose-400 z-50 top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       {#each unit.errors as error}<div>{ error }</div>{/each}

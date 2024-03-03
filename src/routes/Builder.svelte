@@ -15,7 +15,7 @@
       const armySchema: IArmySchema = await fetchJsonData(`armies/${ factionFile }.json`)
 
       if (BuilderStore.getState().armyName !== armySchema.name) {
-        BuilderStore.initNewArmy(armySchema.name)
+        BuilderStore.initNewArmy(armySchema)
       }
 
       return armySchema

@@ -1,5 +1,5 @@
 import { get, type Writable } from 'svelte/store'
-import type { IBaseUnit } from '$types/Schema'
+import type { IArmySchema, IBaseUnit } from '$types/Schema'
 import type { IBuilderState } from './store'
 
 import * as Validator from './builderValidator'
@@ -17,6 +17,7 @@ const updateUnitCount =
   const builderUnit = state.units[unitIdx]
   builderUnit.count += countChange
 
+  state.armyCost += builderUnit.points * countChange
   Validator.validateUnit(builderUnit)
 }
 
@@ -26,21 +27,42 @@ const addBuilderUnit =
   newBuilderUnit.count = countChange
   state.units.push(newBuilderUnit)
 
+  state.armyCost += unit.points * countChange
   Validator.validateUnit(newBuilderUnit)
 }
 
 const removeBuilderUnit = 
 (state: IBuilderState, unitIdx: number) => {
-  state.units.splice(unitIdx, 1)
+  const deletedUnit = state.units.splice(unitIdx, 1)[0]
+  state.armyCost -= deletedUnit.points
+}
+
+const addMinimalRequiredUnits = 
+(state: IBuilderState, armySchema: IArmySchema) => {
+  armySchema.units.forEach(schemaUnit => {
+    if (schemaUnit.min) {
+      addBuilderUnit(state, schemaUnit, schemaUnit.min)
+      return
+    }
+
+    if (schemaUnit.type === 'General') {
+      addBuilderUnit(state, schemaUnit, 1)
+    }
+  })
 }
 
 export const resetState = 
-(state: Writable<IBuilderState>, armyName: string) => {
-  state.set({
-    ...STORE_INITIAL_STATE, 
-    armyErrors: [], 
-    units: [], 
-    armyName
+(state: Writable<IBuilderState>, armySchema: IArmySchema) => {
+  state.update(s => {
+    s = {
+      ...STORE_INITIAL_STATE,
+      armyName: armySchema.name,
+      armyErrors: [],
+      units: []
+    }
+
+    addMinimalRequiredUnits(s, armySchema)
+    return s
   })
 
   Validator.isArmyValid(get(state))
@@ -56,7 +78,6 @@ export const addUnit =
     } else {
       addBuilderUnit(s, unit, 1)
     }
-    s.armyCost += unit.points
 
     Validator.isArmyValid(s)
     return s
@@ -68,12 +89,11 @@ export const removeUnit =
   state.update(s => {
     const unitIdx = s.units.findIndex(builderUnit => unit.id === builderUnit.id)
 
-    if (s.units[unitIdx]?.count - 1 > 0) {
+    if (s.units[unitIdx].count - 1 > 0) {
       updateUnitCount(s, unitIdx, -1)
     } else {
       removeBuilderUnit(s, unitIdx)
     }
-    s.armyCost -= unit.points
 
     Validator.isArmyValid(s)
     return s

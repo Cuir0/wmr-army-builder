@@ -42,7 +42,6 @@ export interface IBaseUnit {
   // Unit limit
   min?: number
   max?: number
-  armyMin?: number
   armyMax?: number
 
   // Unit special augments/items refs
