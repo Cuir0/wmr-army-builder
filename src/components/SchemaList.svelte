@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { IArmySchema, IBaseUnit } from '$types/Schema'
+  import { getUnitBoundsString } from '$root/src/utils'
   import BuilderStore from '$builder/store'
 
   export let armySchema: IArmySchema
@@ -20,7 +21,7 @@
         <td>{ unit.name }</td>
         <td>{ unit.type }</td>
         <td>{ unit.points }</td>
-        <td>{ unit.min || '-' }/{ unit.max || '-' }</td>
+        <td>{ getUnitBoundsString(unit) }</td>
       </tr>
     {/each}
   </tbody>
