@@ -1,5 +1,5 @@
-import { get, type Writable } from 'svelte/store'
-import type { IArmySchema, IBaseUnit } from '$types/Schema'
+import type { Writable } from 'svelte/store'
+import type { IArmySchema, IBaseUnit, IBuilderUnit } from '$types/Schema'
 import type { IBuilderState } from './store'
 
 import * as Validator from './builderValidator'
@@ -12,41 +12,16 @@ export const STORE_INITIAL_STATE: IBuilderState = {
   units: []
 }
 
-const updateUnitCount = 
-(state: IBuilderState, unitIdx: number, countChange: number) => {
-  const builderUnit = state.units[unitIdx]
-  builderUnit.count += countChange
-
-  state.armyCost += builderUnit.points * countChange
-  Validator.validateUnit(builderUnit)
-}
-
-const addBuilderUnit = 
-(state: IBuilderState, unit: IBaseUnit, countChange: number) => {
-  const newBuilderUnit = { ...unit, count: 0, errors: [] }
-  newBuilderUnit.count = countChange
-  state.units.push(newBuilderUnit)
-
-  state.armyCost += unit.points * countChange
-  Validator.validateUnit(newBuilderUnit)
-}
-
-const removeBuilderUnit = 
-(state: IBuilderState, unitIdx: number) => {
-  const deletedUnit = state.units.splice(unitIdx, 1)[0]
-  state.armyCost -= deletedUnit.points
-}
-
-const addMinimalRequiredUnits = 
-(state: IBuilderState, armySchema: IArmySchema) => {
+const setRequiredUnits = 
+(state: Writable<IBuilderState>, armySchema: IArmySchema) => {
   armySchema.units.forEach(schemaUnit => {
     if (schemaUnit.min) {
-      addBuilderUnit(state, schemaUnit, schemaUnit.min)
+      addUnit(state, schemaUnit, schemaUnit.min)
       return
     }
 
     if (schemaUnit.type === 'General') {
-      addBuilderUnit(state, schemaUnit, 1)
+      addUnit(state, schemaUnit, 1)
     }
   })
 }
@@ -60,42 +35,52 @@ export const resetState =
       armyErrors: [],
       units: []
     }
-
-    addMinimalRequiredUnits(s, armySchema)
     return s
   })
 
-  Validator.isArmyValid(get(state))
+  setRequiredUnits(state, armySchema)
 }
 
 export const addUnit = 
-(state: Writable<IBuilderState>, unit: IBaseUnit) => {
+(state: Writable<IBuilderState>, unit: IBaseUnit, count: number) => {
   state.update(s => {
     const unitIdx = s.units.findIndex(builderUnit => unit.id === builderUnit.id)
-
-    if (unitIdx !== -1) {
-      updateUnitCount(s, unitIdx, 1)
+    const isNewUnit = unitIdx === -1
+    
+    let unitBuffer: IBuilderUnit
+    
+    if (isNewUnit) {
+      unitBuffer = { ...unit, count, errors: [] }
+      s.units.push(unitBuffer)
     } else {
-      addBuilderUnit(s, unit, 1)
+      unitBuffer = s.units[unitIdx]
+      unitBuffer.count += count
     }
 
-    Validator.isArmyValid(s)
+    s.armyCost += unit.points * count
+    Validator.validateUnit(unitBuffer)
+    Validator.validateArmy(s)
     return s
   })
 }
 
 export const removeUnit = 
-(state: Writable<IBuilderState>, unit: IBaseUnit) => {
+(state: Writable<IBuilderState>, unit: IBaseUnit, count: number) => {
   state.update(s => {
     const unitIdx = s.units.findIndex(builderUnit => unit.id === builderUnit.id)
+    const isDeleted = s.units[unitIdx].count - count <= 0
 
-    if (s.units[unitIdx].count - 1 > 0) {
-      updateUnitCount(s, unitIdx, -1)
+    if (isDeleted) {
+      const deletedUnit = s.units.splice(unitIdx, 1)[0]
+      s.armyCost -= deletedUnit.count * deletedUnit.points
     } else {
-      removeBuilderUnit(s, unitIdx)
+      const builderUnit = s.units[unitIdx]
+      builderUnit.count -= count
+      s.armyCost -= unit.points * count
+      Validator.validateUnit(s.units[unitIdx])
     }
 
-    Validator.isArmyValid(s)
+    Validator.validateArmy(s)
     return s
   })
 }

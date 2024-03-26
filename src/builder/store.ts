@@ -19,8 +19,8 @@ const createBuilder = () => {
     getState: () => get(state),
 
     initNewArmy: (armySchema: IArmySchema) => BuilderController.resetState(state, armySchema),
-    addUnit: (unit: IBaseUnit) => BuilderController.addUnit(state, unit),
-    removeUnit: (unit: IBaseUnit) => BuilderController.removeUnit(state, unit)
+    addUnit: (unit: IBaseUnit) => BuilderController.addUnit(state, unit, 1),
+    removeUnit: (unit: IBaseUnit) => BuilderController.removeUnit(state, unit, 1)
   }
 }
 

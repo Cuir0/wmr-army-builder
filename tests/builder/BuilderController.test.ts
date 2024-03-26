@@ -23,9 +23,9 @@ describe('Reset builder state', async () => {
   it('should add minimal required units', async () => {
     // Arrange
     const builder = writable<IBuilderState>(generateArmyState({}))
-    const unit1 = generateBasicUnit({ name: 'Unit 1', min: 3, points: 10 })
-    const unit2 = generateBasicUnit({ name: 'Unit 2', min: 1, points: 100 })
-    const general = generateBasicUnit({ name: 'General unit', type: 'General', points: 5 })
+    const unit1 = generateBasicUnit({ id: 0, name: 'Unit 1', min: 3, points: 10 })
+    const unit2 = generateBasicUnit({ id: 1, name: 'Unit 2', min: 1, points: 100 })
+    const general = generateBasicUnit({ id: 2, name: 'General unit', type: 'General', points: 5 })
 
     // Act
     Controller.resetState(builder, generateArmySchema({ units: [unit1, unit2, general] }))
@@ -48,7 +48,7 @@ describe('Add new unit', async () => {
     const unit: IBaseUnit = generateBasicUnit({})
 
     // Act
-    Controller.addUnit(builder, unit)
+    Controller.addUnit(builder, unit, 1)
 
     // Assert
     expect(builderState.units).toBeDefined()
@@ -69,7 +69,7 @@ describe('Add new unit', async () => {
     const builder = writable<IBuilderState>(builderState)
 
     // Act
-    Controller.addUnit(builder, unit)
+    Controller.addUnit(builder, unit, 1)
 
     // Assert
     expect(builderState.units[0].count).toBe(2)
@@ -83,12 +83,13 @@ describe('Add new unit', async () => {
     const unit: IBaseUnit = generateBasicUnit({ points: 200 })
 
     // Act
-    Controller.addUnit(builder, unit)
+    Controller.addUnit(builder, unit, 1)
 
     // Assert
     expect(builderState.armyCost).toBe(200)
   })
 })
+
 
 describe('Remove new unit', async () => {
   it('should remove a unit correctly', async () => {
@@ -100,7 +101,7 @@ describe('Remove new unit', async () => {
     const builder = writable<IBuilderState>(builderState)
 
     // Act
-    Controller.removeUnit(builder, unit)
+    Controller.removeUnit(builder, unit, 1)
 
     // Assert
     expect(builderState.units).toBeDefined()
@@ -116,7 +117,7 @@ describe('Remove new unit', async () => {
     const builder = writable<IBuilderState>(builderState)
 
     // Act
-    Controller.removeUnit(builder, unit)
+    Controller.removeUnit(builder, unit, 1)
 
     // Assert
     expect(builderState.armyCost).toBe(200)

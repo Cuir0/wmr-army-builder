@@ -11,7 +11,7 @@ describe('Validate army state', async () => {
     const builderState: IBuilderState = generateArmyState({})
 
     // Act
-    Validator.isArmyValid(builderState)
+    Validator.validateArmy(builderState)
 
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
@@ -26,7 +26,7 @@ describe('Validate army state', async () => {
     builderState.units.push(general)
 
     // Act
-    Validator.isArmyValid(builderState)
+    Validator.validateArmy(builderState)
 
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
