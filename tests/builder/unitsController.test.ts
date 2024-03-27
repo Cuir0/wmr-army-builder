@@ -4,7 +4,7 @@ import type { IBuilderState } from '$root/src/builder/store'
 import { describe, expect, it } from 'vitest'
 import { get, writable } from 'svelte/store'
 import { generateArmySchema, generateArmyState, generateBasicUnit, generateBuilderUnit } from '../TestUtils'
-import * as Controller from '$root/src/builder/builderController'
+import * as Controller from '$root/src/builder/unitsController'
 
 describe('Reset builder state', async () => {
   it('should set correct builder army name', async () => {

@@ -2,15 +2,7 @@ import type { Writable } from 'svelte/store'
 import type { IArmySchema, IBaseUnit, IBuilderUnit } from '$types/Schema'
 import type { IBuilderState } from './store'
 
-import * as Validator from './builderValidator'
-
-export const STORE_INITIAL_STATE: IBuilderState = {
-  armyName: '',
-  armyCostLimit: 2000,
-  armyCost: 0,
-  armyErrors: [],
-  units: []
-}
+import * as Validator from './validator'
 
 const setRequiredUnits = 
 (state: Writable<IBuilderState>, armySchema: IArmySchema) => {
@@ -30,8 +22,9 @@ export const resetState =
 (state: Writable<IBuilderState>, armySchema: IArmySchema) => {
   state.update(s => {
     s = {
-      ...STORE_INITIAL_STATE,
       armyName: armySchema.name,
+      armyCost: 0,
+      armyCostLimit: 2000,
       armyErrors: [],
       units: []
     }

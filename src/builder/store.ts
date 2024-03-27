@@ -1,7 +1,7 @@
 import type { IBuilderUnit, IBaseUnit, IArmySchema } from '$types/Schema'
 import { get, writable } from 'svelte/store'
 
-import * as BuilderController from './builderController'
+import * as BuilderController from './unitsController'
 
 export interface IBuilderState {
   armyName: string
@@ -12,7 +12,13 @@ export interface IBuilderState {
 }
 
 const createBuilder = () => {
-  const state = writable<IBuilderState>(BuilderController.STORE_INITIAL_STATE)
+  const state = writable<IBuilderState>({
+    armyName: '',
+    armyCost: 0,
+    armyCostLimit: 2000,
+    armyErrors: [],
+    units: []
+  })
 
   return {
     subscribe: state.subscribe,

@@ -3,7 +3,7 @@ import type { IBuilderState } from '$root/src/builder/store'
 
 import { describe, expect, it } from 'vitest'
 import { generateArmyState, generateBuilderUnit } from '../TestUtils'
-import * as Validator from '$root/src/builder/builderValidator'
+import * as Validator from '$root/src/builder/validator'
 
 describe('Validate army state', async () => {
   it('should add error if general missing', async () => {
