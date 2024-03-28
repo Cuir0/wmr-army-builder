@@ -3,13 +3,10 @@
   import { fetchJsonData } from '../utils'
   import FactionList from '$components/FactionList.svelte'
   
-  const loadFactions = async (): Promise<IFaction[]> => {
-    try {
-      return await fetchJsonData('/factions.json') as IFaction[]
-    } catch (err) {
-      throw new Error(`Error loading faction list (${ err })`)
-    }
-  }
+  const loadFactions = (): Promise<IFaction[]> =>
+    fetchJsonData('/factions.json')
+      .then((data: IFaction[]) => data)
+      .catch((err) => { throw new Error(`Error loading faction list (${err})`) })
 </script>
 
 <div class="flex justify-center">

@@ -4,25 +4,25 @@
   import BuilderStore from '$builder/store'
 
   export let armySchema: IArmySchema
-  const headers = ['Name', 'Type', 'Points', 'Min/Max']
 
   const addUnit = (unitData: IBaseUnit) => BuilderStore.addUnit(unitData)
 </script>
 
-<table class="w-1/3 divide-y divide-gray-200 text-center whitespace-nowrap">
-  <thead class="bg-gray-100">
-    <tr class="select-none">
-      {#each headers as header}<th class="px-3">{ header }</th>{/each}
-    </tr>
-  </thead>
-  <tbody>
-    {#each armySchema.units as unit}
-      <tr on:click={() => addUnit(unit)} class="px-3 hover:bg-gray-200 cursor-pointer select-none">
-        <td>{ unit.name }</td>
-        <td>{ unit.type }</td>
-        <td>{ unit.points }</td>
-        <td>{ getUnitBoundsString(unit) }</td>
-      </tr>
-    {/each}
-  </tbody>
-</table>
+<div class="w-1/3 divide-y bg-gray-100 divide-gray-200 text-center select-none">
+  <div class="flex font-semibold">
+    <div class="w-1/4">Name</div>
+    <div class="w-1/4">Type</div>
+    <div class="w-1/4">Points</div>
+    <div class="w-1/4">Min/Max</div>
+  </div>
+  {#each armySchema.units as unit}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div on:click={() => addUnit(unit)} class="flex hover:bg-gray-200 cursor-pointer">
+      <div class="w-1/4">{ unit.name }</div>
+      <div class="w-1/4">{ unit.type }</div>
+      <div class="w-1/4">{ unit.points }</div>
+      <div class="w-1/4">{ getUnitBoundsString(unit) }</div>
+    </div>
+  {/each}
+</div>
