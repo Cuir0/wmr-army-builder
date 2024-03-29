@@ -4,18 +4,21 @@ import { describe, expect, it } from 'vitest'
 
 const FACTIONS_COUNT = 25
 
-describe('Factions schema file', async () => {
+describe.concurrent('Factions schema file', async () => {
   const factions: IFaction[] = await readJsonFile('factions.json')
 
-  it('should exist', () => {
+
+  it('should exist', async () => {
     expect(factions).toBeDefined()
   })
 
-  it('should have correct faction count', () => {
+
+  it('should have correct faction count', async () => {
     expect(factions.length).toBe(FACTIONS_COUNT)
   })
 
-  it('should have required fields', () => {
+
+  it('should have required fields', async () => {
     for (const faction of factions) {
       expect(faction.name).toBeDefined()
       expect(faction.fileName).toBeDefined()

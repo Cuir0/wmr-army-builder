@@ -3,15 +3,15 @@ import type { IBuilderState } from '$root/src/builder/store'
 
 import { describe, expect, it } from 'vitest'
 import { generateArmyState, generateBuilderUnit } from '../TestUtils'
-import * as Validator from '$root/src/builder/builderValidator'
+import * as Validator from '$root/src/builder/validator'
 
-describe('Validate army state', async () => {
+describe.concurrent('Validate army state', async () => {
   it('should add error if general missing', async () => {
     // Arrange
     const builderState: IBuilderState = generateArmyState({})
 
     // Act
-    Validator.isArmyValid(builderState)
+    Validator.validateArmy(builderState)
 
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
@@ -26,7 +26,7 @@ describe('Validate army state', async () => {
     builderState.units.push(general)
 
     // Act
-    Validator.isArmyValid(builderState)
+    Validator.validateArmy(builderState)
 
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
@@ -35,7 +35,7 @@ describe('Validate army state', async () => {
 })
 
 
-describe('Validate new unit', async () => {
+describe.concurrent('Validate new unit', async () => {
   it('should not add error for correct unit', async () => {
     // Arrange
     const unitTemplate: IBuilderUnit = generateBuilderUnit({ max: 3 })

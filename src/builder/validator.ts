@@ -21,7 +21,7 @@ export const validateUnit =
   }
 }
 
-export const isArmyValid = 
+export const validateArmy = 
 (state: IBuilderState) => {
   state.armyErrors = []
 

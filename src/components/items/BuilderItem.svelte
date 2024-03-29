@@ -10,18 +10,23 @@
   const removeUnit = (unitData: IBaseUnit) => BuilderStore.removeUnit(unitData)
 </script>
 
-<tr on:click={() => removeUnit(unit)} on:mouseenter={togglePopover} on:mouseleave={togglePopover}
-    class="relative px-3 cursor-pointer select-none
-      {unit.errors.length > 0 ? 'bg-rose-200  hover:bg-rose-300' : 'bg-slate-50 hover:bg-gray-200'}"
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div
+  on:click={() => removeUnit(unit)} 
+  on:mouseenter={togglePopover} 
+  on:mouseleave={togglePopover}
+  class="relative cursor-pointer select-none w-100 flex
+    {unit.errors.length > 0 ? 'bg-rose-200  hover:bg-rose-300' : 'bg-slate-50 hover:bg-gray-200'}"
 >
-  <td>{ unit.count }</td>
-  <td>{ unit.name }</td>
-  <td>{ unit.type }</td>
-  <td>{ unit.points * unit.count }</td>
-  <td>{ getUnitBoundsString(unit) }</td>
+  <div class="w-1/5">{ unit.count }</div>
+  <div class="w-1/5">{ unit.name }</div>
+  <div class="w-1/5">{ unit.type }</div>
+  <div class="w-1/5">{ unit.points * unit.count }</div>
+  <div class="w-1/5">{ getUnitBoundsString(unit) }</div>
   {#if isPopoverVisible && unit.errors.length > 0}
     <div class="absolute rounded px-2 py-1 bg-rose-400 z-50 top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       {#each unit.errors as error}<div>{ error }</div>{/each}
     </div>
   {/if}
-</tr>
+</div>
