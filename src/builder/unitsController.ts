@@ -12,9 +12,7 @@ const setRequiredUnits =
       return
     }
 
-    if (schemaUnit.type === 'General') {
-      addUnit(state, schemaUnit, 1)
-    }
+    if (schemaUnit.type === 'General') addUnit(state, schemaUnit, 1)
   })
 }
 

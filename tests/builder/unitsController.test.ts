@@ -6,7 +6,7 @@ import { get, writable } from 'svelte/store'
 import { generateArmySchema, generateArmyState, generateBasicUnit, generateBuilderUnit } from '../TestUtils'
 import * as Controller from '$root/src/builder/unitsController'
 
-describe('Reset builder state', async () => {
+describe.concurrent('Reset builder state', async () => {
   it('should set correct builder army name', async () => {
     // Arrange
     const builder = writable<IBuilderState>(generateArmyState({}))
@@ -40,7 +40,7 @@ describe('Reset builder state', async () => {
   })
 })
 
-describe('Add new unit', async () => {
+describe.concurrent('Add unit', async () => {
   it('should add a new unit correctly', async () => {
     // Arrange
     const builderState = generateArmyState({})
@@ -62,17 +62,17 @@ describe('Add new unit', async () => {
 
   it('should increase units count by correct value', async () => {
     // Arrange
-    const unit: IBaseUnit = generateBasicUnit({})
+    const unit: IBuilderUnit = generateBuilderUnit({})
     const builderState = generateArmyState({})
-    builderState.units.push(generateBuilderUnit({ ...unit }))
+    builderState.units.push(unit)
 
     const builder = writable<IBuilderState>(builderState)
 
     // Act
-    Controller.addUnit(builder, unit, 1)
+    Controller.addUnit(builder, unit, 3)
 
     // Assert
-    expect(builderState.units[0].count).toBe(2)
+    expect(builderState.units[0].count).toBe(4)
   })
 
 
@@ -83,20 +83,19 @@ describe('Add new unit', async () => {
     const unit: IBaseUnit = generateBasicUnit({ points: 200 })
 
     // Act
-    Controller.addUnit(builder, unit, 1)
+    Controller.addUnit(builder, unit, 2)
 
     // Assert
-    expect(builderState.armyCost).toBe(200)
+    expect(builderState.armyCost).toBe(400)
   })
 })
 
-
-describe('Remove new unit', async () => {
+describe.concurrent('Remove unit', async () => {
   it('should remove a unit correctly', async () => {
     // Arrange
-    const unit: IBaseUnit = generateBasicUnit({})
+    const unit: IBuilderUnit = generateBuilderUnit({})
     const builderState = generateArmyState({})
-    builderState.units.push({...unit, count: 1, errors: [] })
+    builderState.units.push(unit)
 
     const builder = writable<IBuilderState>(builderState)
 
@@ -121,5 +120,23 @@ describe('Remove new unit', async () => {
 
     // Assert
     expect(builderState.armyCost).toBe(200)
+  })
+
+
+  it('should remove a unit correctly when count is more the one', async () => {
+    // Arrange
+    const unit: IBuilderUnit = generateBuilderUnit({ count: 3, points: 100 })
+    const builderState = generateArmyState({ armyCost: 300 })
+    builderState.units.push(unit)
+
+    const builder = writable<IBuilderState>(builderState)
+
+    // Act
+    Controller.removeUnit(builder, unit, 6)
+
+    // Assert
+    expect(builderState.units).toBeDefined()
+    expect(builderState.units.length).toBe(0)
+    expect(builderState.armyCost).toBe(0)
   })
 })

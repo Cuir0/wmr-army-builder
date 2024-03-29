@@ -9,9 +9,9 @@ describe('Factions schema file', async () => {
     describe(`${faction.name} army`, async () => {
       const army: IArmySchema = await readJsonFile(`armies/${faction.fileName}.json`)
 
-      it('should have general', () => expect(army.units.some(u => u.type === 'General')).toBeTruthy())
+      it('should have general', async () => expect(army.units.some(u => u.type === 'General')).toBeTruthy())
 
-      it('should have core fields', () => {
+      it('should have core fields', async () => {
         expect(army.name).toBe(faction.name)
         expect(army.units).toBeDefined()
         expect(army.upgrades).toBeDefined()
