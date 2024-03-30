@@ -16,9 +16,9 @@ export interface IArmySchema {
 }
 
 type UnitType =
-'Infantry' | 'Cavalry'   | 'Chariots' | 
-'Monsters' | 'Artillery' | 'Machines' | 
-'General'  | 'Hero'      | 'Wizard'   | 
+'Infantry' | 'Cavalry'   | 'Chariots' |
+'Monsters' | 'Artillery' | 'Machines' |
+'General'  | 'Hero'      | 'Wizard'   |
 'Special'
 
 /**
@@ -55,13 +55,15 @@ export interface IBaseUnit {
 export interface IBuilderUnit extends IBaseUnit {
   count: number
   errors: string[]
+  equippedItems: IMagicItem[]
 }
-
-type UpgradeType = 'Chariot Mount' | 'Monstrous Mount' | 'Special Mount' | 'Special'
 
 /**
  * Army unit upgrade
  */
+
+type UpgradeType = 'Chariot Mount' | 'Monstrous Mount' | 'Special Mount' | 'Special'
+
 export interface IUpgrade {
   id: number
   name: string
@@ -71,4 +73,19 @@ export interface IUpgrade {
   pointsModify: number
   unitMax?: number
   armyMax?: number
+}
+
+/**
+ * Magic items schema
+ */
+
+type MagicItemType = 'Magic Standard'  | 'Magic Weapon'  | 'Device of Power'
+
+export interface IMagicItem {
+  id: number
+  name: string
+  type: MagicItemType
+  pointsChange: number | Record<string, number>
+  compareStat?: 'armor' | 'hits'
+  allowedUnits: UnitType[]
 }

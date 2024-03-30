@@ -1,8 +1,9 @@
 import type { Writable } from 'svelte/store'
-import type { IArmySchema, IBaseUnit, IBuilderUnit } from '$types/Schema'
+import type { IArmySchema, IBaseUnit, IBuilderUnit, IMagicItem } from '$types/Schema'
 import type { IBuilderState } from './store'
 
 import * as Validator from './validator'
+import { getItemCostForUnit } from '../utils'
 
 const setRequiredUnits = 
 (state: Writable<IBuilderState>, armySchema: IArmySchema) => {
@@ -17,10 +18,11 @@ const setRequiredUnits =
 }
 
 export const resetState = 
-(state: Writable<IBuilderState>, armySchema: IArmySchema) => {
+(state: Writable<IBuilderState>, armySchema: IArmySchema, items: IMagicItem[]) => {
   state.update(s => {
     s = {
       armyName: armySchema.name,
+      magicItems: items,
       armyCost: 0,
       armyCostLimit: 2000,
       armyErrors: [],
@@ -41,7 +43,7 @@ export const addUnit =
     let unitBuffer: IBuilderUnit
     
     if (isNewUnit) {
-      unitBuffer = { ...unit, count, errors: [] }
+      unitBuffer = { ...unit, count, errors: [], equippedItems: [] }
       s.units.push(unitBuffer)
     } else {
       unitBuffer = s.units[unitIdx]
@@ -63,7 +65,8 @@ export const removeUnit =
 
     if (isDeleted) {
       const deletedUnit = s.units.splice(unitIdx, 1)[0]
-      s.armyCost -= deletedUnit.count * deletedUnit.points
+      const itemPointsCount = deletedUnit.equippedItems.reduce((sum, mi) => sum + getItemCostForUnit(unit, mi), 0)
+      s.armyCost -= deletedUnit.count * deletedUnit.points + itemPointsCount
     } else {
       const builderUnit = s.units[unitIdx]
       builderUnit.count -= count

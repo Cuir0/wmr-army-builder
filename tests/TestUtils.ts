@@ -41,7 +41,8 @@ export const generateBuilderUnit =
   return {
     ...baseUnit,
     count: unit.count ?? 1,
-    errors: unit.errors ?? []
+    errors: unit.errors ?? [],
+    equippedItems: unit.equippedItems ?? []
   }
 }
 

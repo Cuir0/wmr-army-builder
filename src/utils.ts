@@ -1,4 +1,4 @@
-import type { IBaseUnit } from './types/Schema'
+import type { IBaseUnit, IMagicItem } from './types/Schema'
 
 export const fetchJsonData = 
 async (publicPath: string) => {
@@ -15,3 +15,16 @@ async (publicPath: string) => {
 
 export const getUnitBoundsString = 
 (unit: IBaseUnit): string => unit.armyMax ? `${unit.armyMax} per army` : `${ unit.min || '-' }/${ unit.max || '-' }`
+
+export const getItemCostForUnit =
+(unit: IBaseUnit, item: IMagicItem) => {
+  if (typeof item.pointsChange === 'number') return item.pointsChange
+
+  const unitCompareStatValue = unit[item.compareStat!]?.toString() || '-'
+  return item.pointsChange[unitCompareStatValue]
+}
+
+export const getUnitEquipableItems =
+(magicItems: IMagicItem[], unit: IBaseUnit): IMagicItem[] => {
+  return magicItems.filter(mi => mi.allowedUnits.includes(unit.type))
+}
