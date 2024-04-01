@@ -55,7 +55,7 @@ export interface IBaseUnit {
 export interface IBuilderUnit extends IBaseUnit {
   count: number
   errors: string[]
-  equippedItems: IMagicItem[]
+  equippedItems: IBuilderMagicItem[]
 }
 
 /**
@@ -88,4 +88,8 @@ export interface IMagicItem {
   pointsChange: number | Record<string, number>
   compareStat?: 'armor' | 'hits'
   allowedUnits: UnitType[]
+}
+
+export interface IBuilderMagicItem extends IMagicItem {
+  points: number
 }

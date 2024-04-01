@@ -13,12 +13,12 @@
   const loadArmySchema = async (): Promise<IArmySchema> => {
     try {
       const [armySchema, magicItems] = await Promise.all([
-        fetchJsonData(`armies/${ factionFile }.json`),
-        fetchJsonData('magicItems.json')
+        fetchJsonData<IArmySchema>(`armies/${ factionFile }.json`),
+        fetchJsonData<IMagicItem[]>('magicItems.json')
       ])
 
       if (BuilderStore.getState().armyName !== armySchema.name) {
-        BuilderStore.initNewArmy(armySchema as IArmySchema, magicItems as IMagicItem[])
+        BuilderStore.initNewArmy(armySchema, magicItems)
       }
 
       return armySchema

@@ -1,4 +1,4 @@
-import type { IBaseUnit, IMagicItem } from '$types/Schema'
+import type { IBaseUnit, IBuilderMagicItem, IMagicItem } from '$types/Schema'
 import type { Writable } from 'svelte/store'
 import type { IBuilderState } from './store'
 import { getItemCostForUnit } from '../utils'
@@ -11,8 +11,13 @@ export const equipItem =
     const builderUnit = s.units.find(u => u.id === unit.id)
     if (!builderUnit) return s
 
-    builderUnit.equippedItems.push(itemData)
-    s.armyCost += getItemCostForUnit(unit, itemData)
+    const newItem: IBuilderMagicItem = { 
+      ...itemData,
+      points: getItemCostForUnit(unit, itemData) 
+    }
+
+    builderUnit.equippedItems.push(newItem)
+    s.armyCost += newItem.points
 
     Validator.validateUnit(builderUnit)
     Validator.validateArmy(s)
@@ -27,7 +32,7 @@ export const unequipItem =
     if (!builderUnit) return s
 
     const removedItem = builderUnit.equippedItems.splice(itemIdx, 1)[0]
-    s.armyCost -= getItemCostForUnit(unit, removedItem)
+    s.armyCost -= removedItem.points
 
     Validator.validateUnit(builderUnit)
     Validator.validateArmy(s)

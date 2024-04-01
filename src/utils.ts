@@ -1,7 +1,7 @@
 import type { IBaseUnit, IMagicItem } from './types/Schema'
 
 export const fetchJsonData = 
-async (publicPath: string) => {
+async <T>(publicPath: string): Promise<T> => {
   const response = await fetch(publicPath, {
     headers : { 
       'Content-Type': 'application/json',
@@ -17,14 +17,9 @@ export const getUnitBoundsString =
 (unit: IBaseUnit): string => unit.armyMax ? `${unit.armyMax} per army` : `${ unit.min || '-' }/${ unit.max || '-' }`
 
 export const getItemCostForUnit =
-(unit: IBaseUnit, item: IMagicItem) => {
+(unit: IBaseUnit, item: IMagicItem): number => {
   if (typeof item.pointsChange === 'number') return item.pointsChange
 
   const unitCompareStatValue = unit[item.compareStat!]?.toString() || '-'
   return item.pointsChange[unitCompareStatValue]
-}
-
-export const getUnitEquipableItems =
-(magicItems: IMagicItem[], unit: IBaseUnit): IMagicItem[] => {
-  return magicItems.filter(mi => mi.allowedUnits.includes(unit.type))
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { IBuilderUnit } from '$types/Schema'
-  import { getItemCostForUnit, getUnitBoundsString, getUnitEquipableItems } from '$root/src/utils'
+  import type { IBaseUnit, IBuilderUnit, IMagicItem } from '$types/Schema'
+  import { getItemCostForUnit, getUnitBoundsString } from '$root/src/utils'
   import BuilderStore from '$builder/store'
 
   let isErrorListVisible = false
@@ -11,6 +11,9 @@
     ev.preventDefault()
     isItemListVisible = !isItemListVisible
   }
+
+  const getUnitEquipableItems =
+    (magicItems: IMagicItem[], unit: IBaseUnit): IMagicItem[] => magicItems.filter(mi => mi.allowedUnits.includes(unit.type))
 
   export let unit: IBuilderUnit
 </script>
@@ -45,7 +48,7 @@
   >
     <div>{ equippedItem.name }</div>
     <div>{ equippedItem.type }</div>
-    <div>{ getItemCostForUnit(unit, equippedItem) }</div>
+    <div>{ equippedItem.points }</div>
   </div>
 {/each}
 
