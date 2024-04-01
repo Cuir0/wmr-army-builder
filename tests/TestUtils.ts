@@ -66,6 +66,6 @@ export const generateArmyState =
     armyCost: state.armyCost ?? 0,
     units: state.units ?? [],
     armyErrors: state.armyErrors ?? [],
-    magicItems: state.magicItems ?? []
+    lookup: state.lookup ?? { magicItems: [] }
   }
 }

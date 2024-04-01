@@ -4,23 +4,27 @@ import { get, writable } from 'svelte/store'
 import * as UnitController from './unitsController'
 import * as ItemsController from './itemsController'
 
+interface ILookupData {
+  readonly magicItems: Readonly<IMagicItem[]>
+}
+
 export interface IBuilderState {
+  readonly lookup: Readonly<ILookupData>
   armyName: string
   armyCost: number
   armyCostLimit: number
   units: IBuilderUnit[]
-  magicItems: IMagicItem[]
   armyErrors: string[]
 }
 
 const createBuilder = () => {
   const state = writable<IBuilderState>({
-    magicItems: [],
     armyName: '',
     armyCost: 0,
     armyCostLimit: 2000,
     armyErrors: [],
-    units: []
+    units: [],
+    lookup: { magicItems: [] }
   })
 
   return {

@@ -21,11 +21,11 @@ export const resetState =
   state.update(s => {
     s = {
       armyName: armySchema.name,
-      magicItems: items,
       armyCost: 0,
       armyCostLimit: 2000,
       armyErrors: [],
-      units: []
+      units: [],
+      lookup: { magicItems: items }
     }
     return s
   })

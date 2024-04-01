@@ -13,7 +13,7 @@
   }
 
   const getUnitEquipableItems =
-    (magicItems: IMagicItem[], unit: IBaseUnit): IMagicItem[] => magicItems.filter(mi => mi.allowedUnits.includes(unit.type))
+    (magicItems: Readonly<IMagicItem[]>, unit: IBaseUnit): IMagicItem[] => magicItems.filter(mi => mi.allowedUnits.includes(unit.type))
 
   export let unit: IBuilderUnit
 </script>
@@ -53,7 +53,7 @@
 {/each}
 
 {#if isItemListVisible}
-  {#each getUnitEquipableItems($BuilderStore.magicItems, unit) as item}
+  {#each getUnitEquipableItems($BuilderStore.lookup.magicItems, unit) as item}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div class="flex gap-x-4 select-none cursor-pointer hover:bg-gray-200"
