@@ -1,4 +1,4 @@
-import type { IArmySchema, IBaseUnit, IBuilderUnit } from '../src/types/Schema'
+import type { IArmySchema, IBaseUnit, IBuilderUnit, IMagicItem } from '../src/types/Schema'
 import type { IBuilderState } from '../src/builder/store'
 import fs from 'fs'
 import path from 'path'
@@ -46,6 +46,18 @@ export const generateBuilderUnit =
   }
 }
 
+export const generateMagicItem = 
+(mi: Partial<IMagicItem>): IMagicItem => {
+  return {
+    id: mi.id ?? 0,
+    name: mi.name ?? 'MagicItem name',
+    type: mi.type ?? 'Magic Weapon',
+    compareStat: mi.compareStat,
+    pointsChange: mi.pointsChange ?? 10,
+    allowedUnits: mi.allowedUnits ?? ['Infantry']
+  }
+}
+
 export const generateArmyState = 
 (state: Partial<IBuilderState>) => {
   return {
@@ -54,5 +66,6 @@ export const generateArmyState =
     armyCost: state.armyCost ?? 0,
     units: state.units ?? [],
     armyErrors: state.armyErrors ?? [],
+    magicItems: state.magicItems ?? []
   }
 }

@@ -3,7 +3,6 @@ import type { IArmySchema, IBaseUnit, IBuilderUnit, IMagicItem } from '$types/Sc
 import type { IBuilderState } from './store'
 
 import * as Validator from './validator'
-import { getItemCostForUnit } from '../utils'
 
 const setRequiredUnits = 
 (state: Writable<IBuilderState>, armySchema: IArmySchema) => {
@@ -65,7 +64,7 @@ export const removeUnit =
 
     if (isDeleted) {
       const deletedUnit = s.units.splice(unitIdx, 1)[0]
-      const itemPointsCount = deletedUnit.equippedItems.reduce((sum, mi) => sum + getItemCostForUnit(unit, mi), 0)
+      const itemPointsCount = deletedUnit.equippedItems.reduce((sum, mi) => sum + mi.points, 0)
       s.armyCost -= deletedUnit.count * deletedUnit.points + itemPointsCount
     } else {
       const builderUnit = s.units[unitIdx]

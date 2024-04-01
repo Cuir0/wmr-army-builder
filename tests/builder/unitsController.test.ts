@@ -1,9 +1,16 @@
-import type { IBaseUnit, IBuilderUnit } from '$root/src/types/Schema'
+import type { IBaseUnit, IBuilderMagicItem, IBuilderUnit } from '$root/src/types/Schema'
 import type { IBuilderState } from '$root/src/builder/store'
 
 import { describe, expect, it } from 'vitest'
 import { get, writable } from 'svelte/store'
-import { generateArmySchema, generateArmyState, generateBasicUnit, generateBuilderUnit } from '../TestUtils'
+import { 
+  generateArmySchema, 
+  generateArmyState, 
+  generateBasicUnit, 
+  generateBuilderUnit, 
+  generateMagicItem 
+} from '../TestUtils'
+
 import * as Controller from '$root/src/builder/unitsController'
 
 describe.concurrent('Reset builder state', async () => {
@@ -12,7 +19,7 @@ describe.concurrent('Reset builder state', async () => {
     const builder = writable<IBuilderState>(generateArmyState({}))
 
     // Act
-    Controller.resetState(builder, generateArmySchema({ name: 'Schama army name' }))
+    Controller.resetState(builder, generateArmySchema({ name: 'Schama army name' }), [])
 
     // Assert
     const builderState = get(builder)
@@ -28,7 +35,7 @@ describe.concurrent('Reset builder state', async () => {
     const general = generateBasicUnit({ id: 2, name: 'General unit', type: 'General', points: 5 })
 
     // Act
-    Controller.resetState(builder, generateArmySchema({ units: [unit1, unit2, general] }))
+    Controller.resetState(builder, generateArmySchema({ units: [unit1, unit2, general] }), [])
 
     // Assert
     const builderState = get(builder)
@@ -123,7 +130,7 @@ describe.concurrent('Remove unit', async () => {
   })
 
 
-  it('should remove a unit correctly when count is more the one', async () => {
+  it('should remove a unit correctly when `count` param is >1', async () => {
     // Arrange
     const unit: IBuilderUnit = generateBuilderUnit({ count: 3, points: 100 })
     const builderState = generateArmyState({ armyCost: 300 })
@@ -136,6 +143,29 @@ describe.concurrent('Remove unit', async () => {
 
     // Assert
     expect(builderState.units).toBeDefined()
+    expect(builderState.units.length).toBe(0)
+    expect(builderState.armyCost).toBe(0)
+  })
+
+
+  it('should unequip unit items and decrease army cost', async () => {
+    // Arrange
+    const magicItem1: IBuilderMagicItem = { ...generateMagicItem({}), points: 60 }
+    const magicItem2: IBuilderMagicItem = { ...generateMagicItem({}), points: 40 }
+    const unit: IBuilderUnit = generateBuilderUnit({ 
+      points: 100,
+      count: 1,
+      equippedItems: [magicItem1, magicItem2] 
+    })
+
+    const builderState = generateArmyState({ armyCost: 200 })
+    builderState.units.push(unit)
+    const builder = writable<IBuilderState>(builderState)
+
+    // Act
+    Controller.removeUnit(builder, unit, 1)
+
+    // Assert
     expect(builderState.units.length).toBe(0)
     expect(builderState.armyCost).toBe(0)
   })

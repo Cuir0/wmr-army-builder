@@ -16,6 +16,10 @@ export const validateUnit =
 (builderUnit: IBuilderUnit) => {
   builderUnit.errors = []
 
+  if (builderUnit.equippedItems.length > builderUnit.count) {
+    builderUnit.errors.push(`${builderUnit.count} ${builderUnit.name} cannot have more than ${builderUnit.count} item(s)`)
+  }
+
   if (isOutsideOfBounds(builderUnit)) {
     builderUnit.errors.push(`${builderUnit.name} count of ${builderUnit.count} is out of bounds`)
   }
