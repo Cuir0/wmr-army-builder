@@ -1,49 +1,15 @@
+import type { IBaseUnit, IBuilderUnit } from '$types/Schema'
 import type { Writable } from 'svelte/store'
-import type { IArmySchema, IBaseUnit, IBuilderUnit, IMagicItem } from '$types/Schema'
 import type { IBuilderState } from './store'
 
 import * as Validator from './validator'
 
-const createValidatorLookup =
-(items: IMagicItem[]): { [key: string]: number } => {
-  const validatorLookup: { [key: string]: number } = {}
-  items.forEach(mi => validatorLookup[mi.name] = 0)
-
-  return validatorLookup
-}
-
-const setRequiredUnits = 
-(state: Writable<IBuilderState>, armySchema: IArmySchema) => {
-  armySchema.units.forEach(schemaUnit => {
-    if (schemaUnit.min) {
-      addUnit(state, schemaUnit, schemaUnit.min)
-      return
-    }
-
-    if (schemaUnit.type === 'General') addUnit(state, schemaUnit, 1)
-  })
-}
-
-export const resetState =
-(state: Writable<IBuilderState>, armySchema: IArmySchema, items: IMagicItem[]) => {
-  state.update(s => {
-    s = {
-      armyName: armySchema.name,
-      armyCost: 0,
-      armyCostLimit: 2000,
-      armyErrors: [],
-      units: [],
-      lookup: {
-        magicItems: items 
-      },
-      validation: {
-        magicItems: createValidatorLookup(items)
-      }
-    }
-    return s
-  })
-
-  setRequiredUnits(state, armySchema)
+const getUnitItemsCost =
+(state: IBuilderState, unit: IBuilderUnit): number => {
+  return unit.equippedItems.reduce((sum, mi) => {
+    state.validation.magicItems[mi.name]--
+    return sum + mi.points
+  }, 0)
 }
 
 export const addUnit =
@@ -77,12 +43,8 @@ export const removeUnit =
 
     if (isDeleted) {
       const deletedUnit = s.units.splice(unitIdx, 1)[0]
-      const itemPointsCount = deletedUnit.equippedItems.reduce((sum, mi) => {
-        s.validation.magicItems[mi.name]--
-        return sum + mi.points
-      }, 0)
-
-      s.armyCost -= deletedUnit.count * deletedUnit.points + itemPointsCount
+      const itemsPointsCount = getUnitItemsCost(s, deletedUnit)
+      s.armyCost -= deletedUnit.count * deletedUnit.points + itemsPointsCount
     } else {
       const builderUnit = s.units[unitIdx]
       builderUnit.count -= count

@@ -1,6 +1,7 @@
 import type { IBuilderUnit, IBaseUnit, IArmySchema, IMagicItem } from '$types/Schema'
 import { get, writable } from 'svelte/store'
 
+import * as StateController from './stateController'
 import * as UnitController from './unitsController'
 import * as ItemsController from './itemsController'
 
@@ -40,9 +41,9 @@ const createBuilder = () => {
   return {
     subscribe: state.subscribe,
     getState: () => get(state),
+    initNewArmy: (armySchema: IArmySchema, items: IMagicItem[]) => StateController.resetState(state, armySchema, items),
 
     // Units functions
-    initNewArmy: (armySchema: IArmySchema, items: IMagicItem[]) => UnitController.resetState(state, armySchema, items),
     addUnit: (unit: IBaseUnit) => UnitController.addUnit(state, unit, 1),
     removeUnit: (unit: IBaseUnit) => UnitController.removeUnit(state, unit, 1),
 
