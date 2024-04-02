@@ -25,9 +25,18 @@ export const validateUnit =
   }
 }
 
+const validateMagicItems =
+(state: IBuilderState) => {
+  Object.keys(state.validation.magicItems)
+    .filter(itemName => state.validation.magicItems[itemName] > 1)
+    .forEach(itemName => state.armyErrors.push(`Max 1 ${itemName} per army.`))
+}
+
 export const validateArmy = 
 (state: IBuilderState) => {
   state.armyErrors = []
+
+  validateMagicItems(state)
 
   const hasGeneral: boolean = state.units.some(u => u.type === 'General')
   if (!hasGeneral) {

@@ -4,6 +4,14 @@ import type { IBuilderState } from './store'
 
 import * as Validator from './validator'
 
+const createValidatorLookup =
+(items: IMagicItem[]): { [key: string]: number } => {
+  const validatorLookup: { [key: string]: number } = {}
+  items.forEach(mi => validatorLookup[mi.name] = 0)
+
+  return validatorLookup
+}
+
 const setRequiredUnits = 
 (state: Writable<IBuilderState>, armySchema: IArmySchema) => {
   armySchema.units.forEach(schemaUnit => {
@@ -16,7 +24,7 @@ const setRequiredUnits =
   })
 }
 
-export const resetState = 
+export const resetState =
 (state: Writable<IBuilderState>, armySchema: IArmySchema, items: IMagicItem[]) => {
   state.update(s => {
     s = {
@@ -25,7 +33,12 @@ export const resetState =
       armyCostLimit: 2000,
       armyErrors: [],
       units: [],
-      lookup: { magicItems: items }
+      lookup: {
+        magicItems: items 
+      },
+      validation: {
+        magicItems: createValidatorLookup(items)
+      }
     }
     return s
   })
@@ -33,7 +46,7 @@ export const resetState =
   setRequiredUnits(state, armySchema)
 }
 
-export const addUnit = 
+export const addUnit =
 (state: Writable<IBuilderState>, unit: IBaseUnit, count: number) => {
   state.update(s => {
     const unitIdx = s.units.findIndex(builderUnit => unit.id === builderUnit.id)
@@ -56,7 +69,7 @@ export const addUnit =
   })
 }
 
-export const removeUnit = 
+export const removeUnit =
 (state: Writable<IBuilderState>, unit: IBaseUnit, count: number) => {
   state.update(s => {
     const unitIdx = s.units.findIndex(builderUnit => unit.id === builderUnit.id)
@@ -64,7 +77,11 @@ export const removeUnit =
 
     if (isDeleted) {
       const deletedUnit = s.units.splice(unitIdx, 1)[0]
-      const itemPointsCount = deletedUnit.equippedItems.reduce((sum, mi) => sum + mi.points, 0)
+      const itemPointsCount = deletedUnit.equippedItems.reduce((sum, mi) => {
+        s.validation.magicItems[mi.name]--
+        return sum + mi.points
+      }, 0)
+
       s.armyCost -= deletedUnit.count * deletedUnit.points + itemPointsCount
     } else {
       const builderUnit = s.units[unitIdx]

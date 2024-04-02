@@ -5,11 +5,16 @@ import * as UnitController from './unitsController'
 import * as ItemsController from './itemsController'
 
 interface ILookupData {
-  readonly magicItems: Readonly<IMagicItem[]>
+  readonly magicItems: readonly IMagicItem[]
+}
+
+interface IValidationData {
+  readonly magicItems: { [key: string]: number }
 }
 
 export interface IBuilderState {
-  readonly lookup: Readonly<ILookupData>
+  readonly lookup: ILookupData
+  readonly validation: IValidationData
   armyName: string
   armyCost: number
   armyCostLimit: number
@@ -24,7 +29,12 @@ const createBuilder = () => {
     armyCostLimit: 2000,
     armyErrors: [],
     units: [],
-    lookup: { magicItems: [] }
+    lookup: {
+      magicItems: []
+    },
+    validation: {
+      magicItems: {}
+    }
   })
 
   return {

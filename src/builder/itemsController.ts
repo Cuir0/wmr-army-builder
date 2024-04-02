@@ -19,6 +19,7 @@ export const equipItem =
     builderUnit.equippedItems.push(newItem)
     s.armyCost += newItem.points
 
+    s.validation.magicItems[newItem.name]++
     Validator.validateUnit(builderUnit)
     Validator.validateArmy(s)
     return s
@@ -34,6 +35,7 @@ export const unequipItem =
     const removedItem = builderUnit.equippedItems.splice(itemIdx, 1)[0]
     s.armyCost -= removedItem.points
 
+    s.validation.magicItems[removedItem.name]--
     Validator.validateUnit(builderUnit)
     Validator.validateArmy(s)
     return s
