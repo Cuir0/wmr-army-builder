@@ -1,8 +1,8 @@
-import type { IBuilderMagicItem, IBuilderUnit } from '$root/src/types/Schema'
+import type { IBuilderMagicItem, IBuilderUnit, IMagicItem } from '$root/src/types/Schema'
 import type { IBuilderState } from '$root/src/builder/store'
 
-import { describe, expect, it } from 'vitest'
-import { writable } from 'svelte/store'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { writable, type Writable } from 'svelte/store'
 import { 
   generateArmyState, 
   generateBuilderUnit, 
@@ -11,20 +11,25 @@ import {
 
 import * as Controller from '$root/src/builder/itemsController'
 
-describe.concurrent('Equip item', async () => {
-  const testItem = generateMagicItem({ 
-    name: 'Unit magic item',
-    pointsChange: 40 
+describe('Equip item', async () => {
+  let builderState: IBuilderState
+  let builder: Writable<IBuilderState>
+  let testItem: IMagicItem
+
+  beforeEach(async () => {
+    builderState = generateArmyState({})
+    builder = writable<IBuilderState>(builderState)
+    testItem = generateMagicItem({ 
+      name: 'Unit magic item',
+      pointsChange: 40 
+    })
   })
 
 
   it('should add correct item to unit', async () => {
     // Arrange
     const unit: IBuilderUnit = generateBuilderUnit({})
-    const builderState = generateArmyState({})
     builderState.units.push(unit)
-
-    const builder = writable<IBuilderState>(builderState)
 
     // Act
     Controller.equipItem(builder, unit, testItem)
@@ -38,10 +43,8 @@ describe.concurrent('Equip item', async () => {
   it('should increase army cost by correct value', async () => {
     // Arrange
     const unit: IBuilderUnit = generateBuilderUnit({})
-    const builderState = generateArmyState({ armyCost: 60 })
+    builderState.armyCost = 60
     builderState.units.push(unit)
-
-    const builder = writable<IBuilderState>(builderState)
 
     // Act
     Controller.equipItem(builder, unit, testItem)
@@ -52,24 +55,30 @@ describe.concurrent('Equip item', async () => {
   })
 })
 
-describe.concurrent('Unequip item', async () => {
-  const testItem1: IBuilderMagicItem = {
-    ...generateMagicItem({ id: 0, name: 'Item name 1' }),
-    points: 20
-  }
-  const testItem2: IBuilderMagicItem = {
-    ...generateMagicItem({ id: 1, name: 'Item name 2' }),
-    points: 80
-  }
+describe('Unequip item', async () => {
+  let builderState: IBuilderState
+  let builder: Writable<IBuilderState>
+  let testItem1: IBuilderMagicItem
+  let testItem2: IBuilderMagicItem
+
+  beforeEach(async () => {
+    builderState = generateArmyState({})
+    builder = writable<IBuilderState>(builderState)
+    testItem1 = {
+      ...generateMagicItem({ id: 0, name: 'Item name 1' }),
+      points: 20
+    }
+    testItem2 = {
+      ...generateMagicItem({ id: 1, name: 'Item name 2' }),
+      points: 80
+    }
+  })
 
 
   it('should remove correct item from unit', async () => {
     // Arrange
     const unit: IBuilderUnit = generateBuilderUnit({ equippedItems: [testItem1, testItem2] })
-    const builderState = generateArmyState({})
     builderState.units.push(unit)
-
-    const builder = writable<IBuilderState>(builderState)
 
     // Act
     Controller.unequipItem(builder, unit, 0)
@@ -83,10 +92,8 @@ describe.concurrent('Unequip item', async () => {
   it('should remove correct item from unit', async () => {
     // Arrange
     const unit: IBuilderUnit = generateBuilderUnit({ points: 100, equippedItems: [testItem1, testItem2] })
-    const builderState = generateArmyState({ armyCost: 200 })
+    builderState.armyCost = 200
     builderState.units.push(unit)
-
-    const builder = writable<IBuilderState>(builderState)
 
     // Act
     Controller.unequipItem(builder, unit, 1)

@@ -30,12 +30,8 @@ const createBuilder = () => {
     armyCostLimit: 2000,
     armyErrors: [],
     units: [],
-    lookup: {
-      magicItems: []
-    },
-    validation: {
-      magicItems: {}
-    }
+    lookup: { magicItems: [] },
+    validation: { magicItems: {} }
   })
 
   return {
