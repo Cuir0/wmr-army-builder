@@ -12,8 +12,8 @@
     isItemListVisible = !isItemListVisible
   }
 
-  const getUnitEquipableItems =
-    (magicItems: Readonly<IMagicItem[]>, unit: IBaseUnit): IMagicItem[] => magicItems.filter(mi => mi.allowedUnits.includes(unit.type))
+  const getUnitEquipableItems = (magicItems: Readonly<IMagicItem[]>, unit: IBaseUnit): IMagicItem[] => 
+      magicItems.filter(mi => mi.allowedUnits.includes(unit.type) || unit.magicItemRef?.includes(mi.id))
 
   export let unit: IBuilderUnit
 </script>
