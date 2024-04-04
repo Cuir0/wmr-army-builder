@@ -89,7 +89,7 @@ describe('Unequip item', async () => {
   })
 
 
-  it('should remove correct item from unit', async () => {
+  it('should decrease army cost by correct value', async () => {
     // Arrange
     const unit: IBuilderUnit = generateBuilderUnit({ points: 100, equippedItems: [testItem1, testItem2] })
     builderState.armyCost = 200
