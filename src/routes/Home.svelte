@@ -4,8 +4,8 @@
   import FactionList from '$components/FactionList.svelte'
   
   const loadFactions = (): Promise<IFaction[]> =>
-    fetchJsonData('/factions.json')
-      .then((data: IFaction[]) => data)
+    fetchJsonData<IFaction[]>('/factions.json')
+      .then(data => data)
       .catch((err) => { throw new Error(`Error loading faction list (${err})`) })
 </script>
 

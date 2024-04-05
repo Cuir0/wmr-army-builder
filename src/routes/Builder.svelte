@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { IArmySchema } from '$types/Schema'
+  import type { IArmySchema, IMagicItem } from '$types/Schema'
   import { Link } from 'svelte-routing'
   import { fetchJsonData } from '../utils'
   import BuilderStore from '$builder/store'
@@ -12,10 +12,13 @@
 
   const loadArmySchema = async (): Promise<IArmySchema> => {
     try {
-      const armySchema: IArmySchema = await fetchJsonData(`armies/${ factionFile }.json`)
+      const [armySchema, magicItems] = await Promise.all([
+        fetchJsonData<IArmySchema>(`armies/${ factionFile }.json`),
+        fetchJsonData<IMagicItem[]>('magicItems.json')
+      ])
 
       if (BuilderStore.getState().armyName !== armySchema.name) {
-        BuilderStore.initNewArmy(armySchema)
+        BuilderStore.initNewArmy(armySchema, magicItems)
       }
 
       return armySchema

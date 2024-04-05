@@ -1,38 +1,18 @@
+import type { IBaseUnit, IBuilderUnit } from '$types/Schema'
 import type { Writable } from 'svelte/store'
-import type { IArmySchema, IBaseUnit, IBuilderUnit } from '$types/Schema'
 import type { IBuilderState } from './store'
 
 import * as Validator from './validator'
 
-const setRequiredUnits = 
-(state: Writable<IBuilderState>, armySchema: IArmySchema) => {
-  armySchema.units.forEach(schemaUnit => {
-    if (schemaUnit.min) {
-      addUnit(state, schemaUnit, schemaUnit.min)
-      return
-    }
-
-    if (schemaUnit.type === 'General') addUnit(state, schemaUnit, 1)
-  })
+const getUnitItemsCost =
+(state: IBuilderState, unit: IBuilderUnit): number => {
+  return unit.equippedItems.reduce((sum, mi) => {
+    state.validation.magicItems[mi.name]--
+    return sum + mi.points
+  }, 0)
 }
 
-export const resetState = 
-(state: Writable<IBuilderState>, armySchema: IArmySchema) => {
-  state.update(s => {
-    s = {
-      armyName: armySchema.name,
-      armyCost: 0,
-      armyCostLimit: 2000,
-      armyErrors: [],
-      units: []
-    }
-    return s
-  })
-
-  setRequiredUnits(state, armySchema)
-}
-
-export const addUnit = 
+export const addUnit =
 (state: Writable<IBuilderState>, unit: IBaseUnit, count: number) => {
   state.update(s => {
     const unitIdx = s.units.findIndex(builderUnit => unit.id === builderUnit.id)
@@ -41,7 +21,7 @@ export const addUnit =
     let unitBuffer: IBuilderUnit
     
     if (isNewUnit) {
-      unitBuffer = { ...unit, count, errors: [] }
+      unitBuffer = { ...unit, count, errors: [], equippedItems: [] }
       s.units.push(unitBuffer)
     } else {
       unitBuffer = s.units[unitIdx]
@@ -55,7 +35,7 @@ export const addUnit =
   })
 }
 
-export const removeUnit = 
+export const removeUnit =
 (state: Writable<IBuilderState>, unit: IBaseUnit, count: number) => {
   state.update(s => {
     const unitIdx = s.units.findIndex(builderUnit => unit.id === builderUnit.id)
@@ -63,7 +43,8 @@ export const removeUnit =
 
     if (isDeleted) {
       const deletedUnit = s.units.splice(unitIdx, 1)[0]
-      s.armyCost -= deletedUnit.count * deletedUnit.points
+      const itemsPointsCount = getUnitItemsCost(s, deletedUnit)
+      s.armyCost -= deletedUnit.count * deletedUnit.points + itemsPointsCount
     } else {
       const builderUnit = s.units[unitIdx]
       builderUnit.count -= count

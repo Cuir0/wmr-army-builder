@@ -1,8 +1,13 @@
-import type { IBuilderUnit } from '$root/src/types/Schema'
+import type { IBuilderMagicItem, IBuilderUnit } from '$root/src/types/Schema'
 import type { IBuilderState } from '$root/src/builder/store'
 
 import { describe, expect, it } from 'vitest'
-import { generateArmyState, generateBuilderUnit } from '../TestUtils'
+import { 
+  generateArmyState, 
+  generateBuilderUnit, 
+  generateMagicItem 
+} from '../TestUtils'
+
 import * as Validator from '$root/src/builder/validator'
 
 describe.concurrent('Validate army state', async () => {
@@ -84,5 +89,19 @@ describe.concurrent('Validate new unit', async () => {
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
     expect(unitTemplate.errors[0]).toBe('Unit name count of 2 is out of bounds')
+  })
+
+
+  it('should add error if unit has more magic items than count', async () => {
+    // Arrange
+    const testItem: IBuilderMagicItem = { ...generateMagicItem({}), points: 100 }
+    const unitTemplate: IBuilderUnit = generateBuilderUnit({ count: 2, equippedItems: [testItem, testItem, testItem] })
+
+    // Act
+    Validator.validateUnit(unitTemplate)
+
+    // Assert
+    expect(unitTemplate.errors.length).toBe(1)
+    expect(unitTemplate.errors[0]).toBe('2 Unit name cannot have more than 2 item(s)')
   })
 })
