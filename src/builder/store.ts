@@ -1,4 +1,4 @@
-import type { IBuilderUnit, IBaseUnit, IArmySchema, IMagicItem } from '$types/Schema'
+import type { IBuilderUnit, IBaseUnit, IArmySchema, IMagicItem, IUpgrade } from '$types/Schema'
 import { get, writable } from 'svelte/store'
 
 import * as StateController from './stateController'
@@ -7,10 +7,12 @@ import * as ItemsController from './itemsController'
 
 interface ILookupData {
   readonly magicItems: readonly IMagicItem[]
+  readonly upgrades: readonly IUpgrade[]
 }
 
-interface IValidationData {
-  readonly magicItems: { [key: string]: number }
+export interface IValidationData {
+  readonly magicItems: Record<string, number>
+  readonly upgrades: Record<string, number>
 }
 
 export interface IBuilderState {
@@ -30,8 +32,8 @@ const createBuilder = () => {
     armyCostLimit: 2000,
     armyErrors: [],
     units: [],
-    lookup: { magicItems: [] },
-    validation: { magicItems: {} }
+    lookup: { magicItems: [], upgrades: [] },
+    validation: { magicItems: {}, upgrades: {} }
   })
 
   return {
@@ -43,9 +45,11 @@ const createBuilder = () => {
     addUnit: (unit: IBaseUnit) => UnitController.addUnit(state, unit, 1),
     removeUnit: (unit: IBaseUnit) => UnitController.removeUnit(state, unit, 1),
 
-    // Items function
+    // Item/Upgrade function
     equipItem: (unit: IBaseUnit, item: IMagicItem) => ItemsController.equipItem(state, unit, item),
-    unequipItem: (unit: IBaseUnit, itemIdx: number) => ItemsController.unequipItem(state, unit, itemIdx)
+    unequipItem: (unit: IBaseUnit, itemIdx: number) => ItemsController.unequipItem(state, unit, itemIdx),
+    equipUpgrade: (unit: IBaseUnit, upgrade: IUpgrade) => ItemsController.equipUpgrade(state, unit, upgrade),
+    unequipUpgrade: (unit: IBaseUnit, upgradeIdx: number) => ItemsController.unequipUpgrade(state, unit, upgradeIdx)
   }
 }
 

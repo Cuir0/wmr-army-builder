@@ -56,6 +56,7 @@ export interface IBuilderUnit extends IBaseUnit {
   count: number
   errors: string[]
   equippedItems: IBuilderMagicItem[]
+  equippedUpgrades: IBuilderUpgrade[]
 }
 
 /**
@@ -75,11 +76,15 @@ export interface IUpgrade {
   armyMax?: number
 }
 
+export interface IBuilderUpgrade extends IUpgrade {
+  points: number
+}
+
 /**
  * Magic items schema
  */
 
-type MagicItemType = 'Magic Standard'  | 'Magic Weapon'  | 'Device of Power'
+type MagicItemType = 'Magic Standard' | 'Magic Weapon' | 'Device of Power'
 
 export interface IMagicItem {
   id: number

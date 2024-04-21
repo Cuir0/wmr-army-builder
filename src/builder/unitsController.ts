@@ -4,12 +4,23 @@ import type { IBuilderState } from './store'
 
 import * as Validator from './validator'
 
-const getUnitItemsCost =
+const removeUnitItems =
 (state: IBuilderState, unit: IBuilderUnit): number => {
-  return unit.equippedItems.reduce((sum, mi) => {
-    state.validation.magicItems[mi.name]--
-    return sum + mi.points
-  }, 0)
+  const itemsCost = unit.equippedItems.reduce((sum, mi) => (state.validation.magicItems[mi.name]--, sum + mi.points), 0)
+  const upgradeCost = unit.equippedUpgrades.reduce((sum, upg) => (state.validation.upgrades[upg.name]--, sum + upg.points), 0)
+
+  return itemsCost + upgradeCost
+}
+
+const createNewBuilderUnit =
+(unitData: IBaseUnit, unitCount: number): IBuilderUnit => {
+  return {
+    ...unitData,
+    count: unitCount,
+    errors: [],
+    equippedItems: [],
+    equippedUpgrades: []
+  }
 }
 
 export const addUnit =
@@ -21,7 +32,7 @@ export const addUnit =
     let unitBuffer: IBuilderUnit
     
     if (isNewUnit) {
-      unitBuffer = { ...unit, count, errors: [], equippedItems: [] }
+      unitBuffer = createNewBuilderUnit(unit, count)
       s.units.push(unitBuffer)
     } else {
       unitBuffer = s.units[unitIdx]
@@ -43,7 +54,7 @@ export const removeUnit =
 
     if (isDeleted) {
       const deletedUnit = s.units.splice(unitIdx, 1)[0]
-      const itemsPointsCount = getUnitItemsCost(s, deletedUnit)
+      const itemsPointsCount = removeUnitItems(s, deletedUnit)
       s.armyCost -= deletedUnit.count * deletedUnit.points + itemsPointsCount
     } else {
       const builderUnit = s.units[unitIdx]

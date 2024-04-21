@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { IBaseUnit, IBuilderUnit, IMagicItem } from '$types/Schema'
+  import type { IBaseUnit, IBuilderUnit, IMagicItem, IUpgrade } from '$types/Schema'
   import { getItemCostForUnit, getUnitBoundsString } from '$root/src/utils'
   import BuilderStore from '$builder/store'
 
@@ -14,6 +14,9 @@
 
   const getUnitEquipableItems = (magicItems: Readonly<IMagicItem[]>, unit: IBaseUnit): IMagicItem[] => 
     magicItems.filter(mi => mi.allowedUnits.includes(unit.type) || unit.magicItemRef?.includes(mi.id))
+
+  const getUnitUpgrades = (upgrades: Readonly<IUpgrade[]>, unit: IBaseUnit): IUpgrade[] => 
+    upgrades.filter(upg => unit.upgradeRef?.includes(upg.id))
 
   export let unit: IBuilderUnit
 </script>
@@ -52,6 +55,18 @@
   </div>
 {/each}
 
+{#each unit.equippedUpgrades as equippedUpgrades, idx}
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
+  <div class="flex flex-row-reverse gap-x-4 select-none cursor-pointer hover:bg-gray-200"
+       on:click={() => BuilderStore.unequipUpgrade(unit, idx)}
+  >
+    <div>{ equippedUpgrades.name }</div>
+    <div>{ equippedUpgrades.type }</div>
+    <div>{ equippedUpgrades.points }</div>
+  </div>
+{/each}
+
 {#if isItemListVisible}
   {#each getUnitEquipableItems($BuilderStore.lookup.magicItems, unit) as item}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -62,6 +77,18 @@
       <div>{ item.name }</div>
       <div>{ item.type }</div>
       <div>{ getItemCostForUnit(unit, item) }</div>
+    </div>
+  {/each}
+
+  {#each getUnitUpgrades($BuilderStore.lookup.upgrades, unit) as upgrade}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
+    <div class="flex gap-x-4 select-none cursor-pointer hover:bg-gray-200"
+         on:click={() => BuilderStore.equipUpgrade(unit, upgrade)}
+    >
+      <div>{ upgrade.name }</div>
+      <div>{ upgrade.type }</div>
+      <div>{ upgrade.pointsModify }</div>
     </div>
   {/each}
 {/if}
