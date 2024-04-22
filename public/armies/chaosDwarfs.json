@@ -125,7 +125,7 @@
       "size": 1,
       "command": 9,
       "armyMax": 1,
-      "upgradesRefs": [0]
+      "upgradeRef": [0]
     },
     {
       "name": "Hero",
@@ -136,7 +136,7 @@
       "size": 1,
       "command": 8,
       "max": 1,
-      "upgradesRefs": [0]
+      "upgradeRef": [0]
     },
     {
       "name": "Sorcerer",
@@ -147,7 +147,7 @@
       "size": 1,
       "command": 8,
       "max": 1,
-      "upgradesRefs": [0, 1]
+      "upgradeRef": [0, 1]
     }
   ],
   "upgrades": [

@@ -1,4 +1,4 @@
-import type { IArmySchema, IBaseUnit, IBuilderUnit, IMagicItem } from '../src/types/Schema'
+import type { IArmySchema, IBaseUnit, IBuilderUnit, IMagicItem, IUpgrade } from '../src/types/Schema'
 import type { IBuilderState } from '../src/builder/store'
 import fs from 'fs'
 import path from 'path'
@@ -42,7 +42,8 @@ export const generateBuilderUnit =
     ...baseUnit,
     count: unit.count ?? 1,
     errors: unit.errors ?? [],
-    equippedItems: unit.equippedItems ?? []
+    equippedItems: unit.equippedItems ?? [],
+    equippedUpgrades: unit.equippedUpgrades ?? []
   }
 }
 
@@ -58,6 +59,17 @@ export const generateMagicItem =
   }
 }
 
+export const generateUpgrade = 
+(upg: Partial<IUpgrade>): IUpgrade => {
+  return {
+    ...upg,
+    id: upg.id ?? 0,
+    name: upg.name ?? 'Upgrade name',
+    type: upg.type ?? 'Monstrous Mount',
+    pointsModify: upg.pointsModify ?? 50
+  }
+}
+
 export const generateArmyState = 
 (state: Partial<IBuilderState>) => {
   return {
@@ -66,7 +78,7 @@ export const generateArmyState =
     armyCost: state.armyCost ?? 0,
     units: state.units ?? [],
     armyErrors: state.armyErrors ?? [],
-    lookup: state.lookup ?? { magicItems: [] },
-    validation: state.validation ?? { magicItems: {} }
+    lookup: state.lookup ?? { magicItems: [], upgrades: [] },
+    validation: state.validation ?? { magicItems: {}, upgrades: {} }
   }
 }

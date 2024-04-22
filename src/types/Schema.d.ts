@@ -12,7 +12,7 @@ export interface IFaction {
 export interface IArmySchema {
   name: string
   units: IBaseUnit[]
-  upgrades: IArmyUpgrade[]
+  upgrades: IUpgrade[]
 }
 
 type UnitType =
