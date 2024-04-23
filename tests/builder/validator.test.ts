@@ -151,7 +151,7 @@ describe.concurrent('Validate new unit', async () => {
 
   it('should add error if unit has more upgrades than count', async () => {
     // Arrange
-    const testUpgrade: IUpgrade =generateUpgrade({ pointsModify: 100 })
+    const testUpgrade: IUpgrade = generateUpgrade({ pointsModify: 100 })
     const unitTemplate: IBuilderUnit = generateBuilderUnit({ count: 2, equippedUpgrades: [testUpgrade, testUpgrade, testUpgrade] })
 
     // Act
