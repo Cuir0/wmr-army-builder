@@ -1,11 +1,12 @@
-import type { IBuilderMagicItem, IBuilderUnit } from '$root/src/types/Schema'
+import type { IBuilderMagicItem, IBuilderUnit, IBuilderUpgrade } from '$root/src/types/Schema'
 import type { IBuilderState } from '$root/src/builder/store'
 
 import { describe, expect, it } from 'vitest'
 import { 
-  generateArmyState, 
-  generateBuilderUnit, 
-  generateMagicItem 
+  generateArmyState,
+  generateBuilderUnit,
+  generateMagicItem,
+  generateUpgrade
 } from '../TestUtils'
 
 import * as Validator from '$root/src/builder/validator'
@@ -36,6 +37,48 @@ describe.concurrent('Validate army state', async () => {
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
     expect(builderState.armyErrors[0]).toBe('Army cost exeeds the limit')
+  })
+
+
+  it('should add error if army has >1 of same item', async () => {
+    // Arrange
+    const builderState: IBuilderState = generateArmyState({
+      armyCostLimit: 2000,
+      validation: {
+        magicItems: { 'CustomItem': 2 },
+        armyUpgrades: {}
+      }
+    })
+    const general = generateBuilderUnit({ type: 'General' })
+    builderState.units.push(general)
+
+    // Act
+    Validator.validateArmy(builderState)
+
+    // Assert
+    expect(builderState.armyErrors.length).toBe(1)
+    expect(builderState.armyErrors[0]).toBe('Max 1 CustomItem per army.')
+  })
+
+
+  it('should add error if army upgrade maximum count is exceeded', async () => {
+    // Arrange
+    const builderState: IBuilderState = generateArmyState({
+      armyCostLimit: 2000,
+      validation: {
+        magicItems: {},
+        armyUpgrades: { 'CustomUpgrade': 3 }
+      }
+    })
+    const general = generateBuilderUnit({ type: 'General' })
+    builderState.units.push(general)
+
+    // Act
+    Validator.validateArmy(builderState)
+
+    // Assert
+    expect(builderState.armyErrors.length).toBe(1)
+    expect(builderState.armyErrors[0]).toBe('Max 1 CustomUpgrade per army.')
   })
 })
 
@@ -103,5 +146,19 @@ describe.concurrent('Validate new unit', async () => {
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
     expect(unitTemplate.errors[0]).toBe('2 Unit name cannot have more than 2 item(s)')
+  })
+
+
+  it('should add error if unit has more upgrades than count', async () => {
+    // Arrange
+    const testUpgrade: IBuilderUpgrade = { ...generateUpgrade({}), points: 100 }
+    const unitTemplate: IBuilderUnit = generateBuilderUnit({ count: 2, equippedUpgrades: [testUpgrade, testUpgrade, testUpgrade] })
+
+    // Act
+    Validator.validateUnit(unitTemplate)
+
+    // Assert
+    expect(unitTemplate.errors.length).toBe(1)
+    expect(unitTemplate.errors[0]).toBe('2 Unit name cannot have more than 2 upgrade(s)')
   })
 })

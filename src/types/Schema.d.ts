@@ -98,3 +98,17 @@ export interface IMagicItem {
 export interface IBuilderMagicItem extends IMagicItem {
   points: number
 }
+
+/**
+ * Validation types
+ */
+
+export interface IUpgradeValidation {
+  count: number
+  armyMax: number
+}
+
+export interface IValidationData {
+  readonly magicItems: Record<string, number>
+  readonly armyUpgrades: Record<string, IUpgradeValidation>
+}
