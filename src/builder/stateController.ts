@@ -1,14 +1,23 @@
-import type { IArmySchema, IMagicItem } from '../types/Schema'
+import type { IArmySchema, IMagicItem, IUpgrade } from '../types/Schema'
 import type { Writable } from 'svelte/store'
-import type { IBuilderState } from './store'
+import type { IBuilderState, IValidationData } from './store'
 
 import { addUnit } from './unitsController'
 
 const createValidatorLookup =
-(items: IMagicItem[]): { [key: string]: number } => {
-  const validatorLookup: { [key: string]: number } = {}
-  items.forEach(mi => validatorLookup[mi.name] = 0)
-  return validatorLookup
+(items: IMagicItem[], upgrades: IUpgrade[]): IValidationData => {
+  const magicItemsLookup: Record<string, number> = {}
+  items.forEach(mi => magicItemsLookup[mi.name] = 0)
+
+  const armyUpgradesLookup: Record<string, number> = {}
+  upgrades
+    .filter(upg => upg.armyMax)
+    .forEach(upg => armyUpgradesLookup[upg.name] = 0)
+
+  return {
+    magicItems: magicItemsLookup,
+    armyUpgrades: armyUpgradesLookup
+  }
 }
 
 const setRequiredUnits = 
@@ -32,11 +41,10 @@ export const resetState =
       armyCostLimit: 2000,
       armyErrors: [],
       units: [],
+      validation: createValidatorLookup(items, armySchema.upgrades),
       lookup: {
-        magicItems: items 
-      },
-      validation: {
-        magicItems: createValidatorLookup(items)
+        magicItems: items,
+        upgrades: armySchema.upgrades
       }
     }
     return s

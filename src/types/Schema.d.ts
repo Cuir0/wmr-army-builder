@@ -12,7 +12,7 @@ export interface IFaction {
 export interface IArmySchema {
   name: string
   units: IBaseUnit[]
-  upgrades: IArmyUpgrade[]
+  upgrades: IUpgrade[]
 }
 
 type UnitType =
@@ -56,6 +56,7 @@ export interface IBuilderUnit extends IBaseUnit {
   count: number
   errors: string[]
   equippedItems: IBuilderMagicItem[]
+  equippedUpgrades: IUpgrade[]
 }
 
 /**
@@ -79,7 +80,7 @@ export interface IUpgrade {
  * Magic items schema
  */
 
-type MagicItemType = 'Magic Standard'  | 'Magic Weapon'  | 'Device of Power'
+type MagicItemType = 'Magic Standard' | 'Magic Weapon' | 'Device of Power'
 
 export interface IMagicItem {
   id: number
@@ -92,4 +93,18 @@ export interface IMagicItem {
 
 export interface IBuilderMagicItem extends IMagicItem {
   points: number
+}
+
+/**
+ * Validation types
+ */
+
+export interface IUpgradeValidation {
+  count: number
+  armyMax: number
+}
+
+export interface IValidationData {
+  readonly magicItems: Record<string, number>
+  readonly armyUpgrades: Record<string, IUpgradeValidation>
 }

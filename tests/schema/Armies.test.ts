@@ -1,6 +1,6 @@
-import type { IFaction, IArmySchema } from '../../src/types/Schema'
+import type { IFaction, IArmySchema, IUpgrade, IBaseUnit, UnitType, UpgradeType } from '../../src/types/Schema'
 import { readJsonFile } from '../TestUtils'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, expectTypeOf, it } from 'vitest'
 
 describe('Factions schema file', async () => {
   const factions: IFaction[] = await readJsonFile('factions.json')
@@ -14,19 +14,19 @@ describe('Factions schema file', async () => {
 
     it('should have core fields', async () => {
       expect(army.name).toBe(faction.name)
-      expect(army.units).toBeDefined()
-      expect(army.upgrades).toBeDefined()
+      expectTypeOf(army.units).toMatchTypeOf<IBaseUnit[]>()
+      expectTypeOf(army.upgrades).toMatchTypeOf<IUpgrade[]>()
     })
 
 
     describe.each(army.units)('Unit $name', async (unit) => {
       it('should have core fields', async () => {
-        expect(unit.id).toBeDefined()
-        expect(unit.name).toBeDefined()
-        expect(unit.size).toBeDefined()
-        expect(unit.type).toBeDefined()
-        expect(unit.points).toBeDefined()
-        expect(unit.attack).toBeDefined()
+        expectTypeOf(unit.id).toMatchTypeOf<number>()
+        expectTypeOf(unit.name).toMatchTypeOf<string>()
+        expectTypeOf(unit.size).toMatchTypeOf<number>()
+        expectTypeOf(unit.type).toMatchTypeOf<UnitType>()
+        expectTypeOf(unit.points).toMatchTypeOf<number>()
+        expectTypeOf(unit.attack).toMatchTypeOf<string>()
       })
 
 
@@ -35,6 +35,16 @@ describe('Factions schema file', async () => {
           expect(unit.size).toBe(1)
           expect(unit.command).toBeDefined()
         })
+      })
+    })
+
+
+    describe.each(army.upgrades)('Upgrade $name', async (upgrade) => {
+      it('should have core fields', async () => {
+        expectTypeOf(upgrade.id).toMatchTypeOf<number>()
+        expectTypeOf(upgrade.name).toMatchTypeOf<string>()
+        expectTypeOf(upgrade.type).toMatchTypeOf<UpgradeType>()
+        expectTypeOf(upgrade.pointsModify).toMatchTypeOf<number>()
       })
     })
   })

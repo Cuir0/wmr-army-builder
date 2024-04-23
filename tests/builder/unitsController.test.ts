@@ -1,4 +1,4 @@
-import type { IBaseUnit, IBuilderMagicItem, IBuilderUnit } from '$root/src/types/Schema'
+import type { IBaseUnit, IBuilderMagicItem, IBuilderUnit, IUpgrade } from '$root/src/types/Schema'
 import type { IBuilderState } from '$root/src/builder/store'
 
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -7,7 +7,8 @@ import {
   generateArmyState,
   generateBasicUnit,
   generateBuilderUnit,
-  generateMagicItem
+  generateMagicItem,
+  generateUpgrade
 } from '../TestUtils'
 
 import * as Controller from '$root/src/builder/unitsController'
@@ -127,10 +128,32 @@ describe('Remove unit', async () => {
     const unit: IBuilderUnit = generateBuilderUnit({ 
       points: 100,
       count: 1,
-      equippedItems: [magicItem1, magicItem2] 
+      equippedItems: [magicItem1, magicItem2]
     })
 
     builderState.armyCost = 200
+    builderState.units.push(unit)
+
+    // Act
+    Controller.removeUnit(builder, unit, 1)
+
+    // Assert
+    expect(builderState.units.length).toBe(0)
+    expect(builderState.armyCost).toBe(0)
+  })
+
+
+  it('should unequip unit upgrades and decrease army cost', async () => {
+    // Arrange
+    const upgrade1: IUpgrade = generateUpgrade({ pointsModify: 80 })
+    const upgrade2: IUpgrade = generateUpgrade({ pointsModify: 80 })
+    const unit: IBuilderUnit = generateBuilderUnit({ 
+      points: 100,
+      count: 1,
+      equippedUpgrades: [upgrade1, upgrade2]
+    })
+
+    builderState.armyCost = 260
     builderState.units.push(unit)
 
     // Act

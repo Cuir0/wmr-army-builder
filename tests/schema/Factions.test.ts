@@ -1,6 +1,6 @@
 import type { IFaction } from '../../src/types/Schema'
 import { readJsonFile } from '../TestUtils'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, expectTypeOf, it } from 'vitest'
 
 const FACTIONS_COUNT = 25
 
@@ -9,7 +9,7 @@ describe.concurrent('Factions schema file', async () => {
 
 
   it('should exist', async () => {
-    expect(factions).toBeDefined()
+    expectTypeOf(factions).toMatchTypeOf<IFaction[]>()
   })
 
 
@@ -20,8 +20,8 @@ describe.concurrent('Factions schema file', async () => {
 
   it('should have required fields', async () => {
     for (const faction of factions) {
-      expect(faction.name).toBeDefined()
-      expect(faction.fileName).toBeDefined()
+      expectTypeOf(faction.name).toMatchTypeOf<string>()
+      expectTypeOf(faction.fileName).toMatchTypeOf<string>()
     }
   })
 })

@@ -1,4 +1,4 @@
-import type { IBaseUnit, IBuilderMagicItem, IMagicItem } from '$types/Schema'
+import type { IBaseUnit, IBuilderMagicItem, IMagicItem, IUpgrade } from '$types/Schema'
 import type { Writable } from 'svelte/store'
 import type { IBuilderState } from './store'
 import { getItemCostForUnit } from '../utils'
@@ -36,6 +36,44 @@ export const unequipItem =
     s.armyCost -= removedItem.points
 
     s.validation.magicItems[removedItem.name]--
+    Validator.validateUnit(builderUnit)
+    Validator.validateArmy(s)
+    return s
+  })
+}
+
+export const equipUpgrade =
+(state: Writable<IBuilderState>, unit: IBaseUnit, upgrade: IUpgrade) => {
+  state.update(s => {
+    const builderUnit = s.units.find(u => u.id === unit.id)
+    if (!builderUnit) return s
+
+    builderUnit.equippedUpgrades.push(upgrade)
+    s.armyCost += upgrade.pointsModify
+
+    if (upgrade.armyMax) {
+      s.validation.armyUpgrades[upgrade.name]++
+    }
+
+    Validator.validateUnit(builderUnit)
+    Validator.validateArmy(s)
+    return s
+  })
+}
+
+export const unequipUpgrade =
+(state: Writable<IBuilderState>, unit: IBaseUnit, upgradeIdx: number) => {
+  state.update(s => {
+    const builderUnit = s.units.find(u => u.id === unit.id)
+    if (!builderUnit) return s
+
+    const removedUpgrade = builderUnit.equippedUpgrades.splice(upgradeIdx, 1)[0]
+    s.armyCost -= removedUpgrade.pointsModify
+
+    if (removedUpgrade.armyMax) {
+      s.validation.armyUpgrades[removedUpgrade.name]--
+    }
+
     Validator.validateUnit(builderUnit)
     Validator.validateArmy(s)
     return s
