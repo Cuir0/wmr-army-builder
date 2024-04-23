@@ -56,7 +56,10 @@ export const equipUpgrade =
     builderUnit.equippedUpgrades.push(newUpgrade)
     s.armyCost += newUpgrade.points
 
-    s.validation.upgrades[newUpgrade.name]++
+    if (newUpgrade.armyMax) {
+      s.validation.armyUpgrades[newUpgrade.name]++
+    }
+
     Validator.validateUnit(builderUnit)
     Validator.validateArmy(s)
     return s
@@ -72,7 +75,10 @@ export const unequipUpgrade =
     const removedUpgrade = builderUnit.equippedUpgrades.splice(upgradeIdx, 1)[0]
     s.armyCost -= removedUpgrade.points
 
-    s.validation.upgrades[removedUpgrade.name]--
+    if (removedUpgrade.armyMax) {
+      s.validation.armyUpgrades[removedUpgrade.name]--
+    }
+
     Validator.validateUnit(builderUnit)
     Validator.validateArmy(s)
     return s

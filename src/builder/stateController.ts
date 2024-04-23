@@ -9,12 +9,14 @@ const createValidatorLookup =
   const magicItemsLookup: Record<string, number> = {}
   items.forEach(mi => magicItemsLookup[mi.name] = 0)
 
-  const upgradesLookup: Record<string, number> = {}
-  upgrades.forEach(upg => upgradesLookup[upg.name] = 0)
+  const armyUpgradesLookup: Record<string, number> = {}
+  upgrades
+    .filter(upg => upg.armyMax)
+    .forEach(upg => armyUpgradesLookup[upg.name] = 0)
 
   return {
     magicItems: magicItemsLookup,
-    upgrades: upgradesLookup
+    armyUpgrades: armyUpgradesLookup
   }
 }
 

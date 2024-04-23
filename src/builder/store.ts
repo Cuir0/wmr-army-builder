@@ -12,7 +12,7 @@ interface ILookupData {
 
 export interface IValidationData {
   readonly magicItems: Record<string, number>
-  readonly upgrades: Record<string, number>
+  readonly armyUpgrades: Record<string, number>
 }
 
 export interface IBuilderState {
@@ -33,7 +33,7 @@ const createBuilder = () => {
     armyErrors: [],
     units: [],
     lookup: { magicItems: [], upgrades: [] },
-    validation: { magicItems: {}, upgrades: {} }
+    validation: { magicItems: {}, armyUpgrades: {} }
   })
 
   return {

@@ -20,6 +20,10 @@ export const validateUnit =
     builderUnit.errors.push(`${builderUnit.count} ${builderUnit.name} cannot have more than ${builderUnit.count} item(s)`)
   }
 
+  if (builderUnit.equippedUpgrades.length > builderUnit.count) {
+    builderUnit.errors.push(`${builderUnit.count} ${builderUnit.name} cannot have more than ${builderUnit.count} upgrade(s)`)
+  }
+
   if (isOutsideOfBounds(builderUnit)) {
     builderUnit.errors.push(`${builderUnit.name} count of ${builderUnit.count} is out of bounds`)
   }
@@ -30,6 +34,10 @@ const validateMagicItems =
   Object.keys(state.validation.magicItems)
     .filter(itemName => state.validation.magicItems[itemName] > 1)
     .forEach(itemName => state.armyErrors.push(`Max 1 ${itemName} per army.`))
+
+  Object.keys(state.validation.armyUpgrades)
+    .filter(upgradeName => state.validation.armyUpgrades[upgradeName] > 1)
+    .forEach(upgradeName => state.armyErrors.push(`Max 1 ${upgradeName} per army.`))
 }
 
 export const validateArmy = 
