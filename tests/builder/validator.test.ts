@@ -1,4 +1,4 @@
-import type { IBuilderMagicItem, IBuilderUnit, IBuilderUpgrade } from '$root/src/types/Schema'
+import type { IBuilderMagicItem, IBuilderUnit, IUpgrade } from '$root/src/types/Schema'
 import type { IBuilderState } from '$root/src/builder/store'
 
 import { describe, expect, it } from 'vitest'
@@ -151,7 +151,7 @@ describe.concurrent('Validate new unit', async () => {
 
   it('should add error if unit has more upgrades than count', async () => {
     // Arrange
-    const testUpgrade: IBuilderUpgrade = { ...generateUpgrade({}), points: 100 }
+    const testUpgrade: IUpgrade =generateUpgrade({ pointsModify: 100 })
     const unitTemplate: IBuilderUnit = generateBuilderUnit({ count: 2, equippedUpgrades: [testUpgrade, testUpgrade, testUpgrade] })
 
     // Act

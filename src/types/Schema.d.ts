@@ -56,7 +56,7 @@ export interface IBuilderUnit extends IBaseUnit {
   count: number
   errors: string[]
   equippedItems: IBuilderMagicItem[]
-  equippedUpgrades: IBuilderUpgrade[]
+  equippedUpgrades: IUpgrade[]
 }
 
 /**
@@ -74,10 +74,6 @@ export interface IUpgrade {
   pointsModify: number
   unitMax?: number
   armyMax?: number
-}
-
-export interface IBuilderUpgrade extends IUpgrade {
-  points: number
 }
 
 /**

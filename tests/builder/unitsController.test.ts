@@ -1,4 +1,4 @@
-import type { IBaseUnit, IBuilderMagicItem, IBuilderUnit, IBuilderUpgrade } from '$root/src/types/Schema'
+import type { IBaseUnit, IBuilderMagicItem, IBuilderUnit, IUpgrade } from '$root/src/types/Schema'
 import type { IBuilderState } from '$root/src/builder/store'
 
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -145,8 +145,8 @@ describe('Remove unit', async () => {
 
   it('should unequip unit upgrades and decrease army cost', async () => {
     // Arrange
-    const upgrade1: IBuilderUpgrade = { ...generateUpgrade({}), points: 80 }
-    const upgrade2: IBuilderUpgrade = { ...generateUpgrade({}), points: 80 }
+    const upgrade1: IUpgrade = generateUpgrade({ pointsModify: 80 })
+    const upgrade2: IUpgrade = generateUpgrade({ pointsModify: 80 })
     const unit: IBuilderUnit = generateBuilderUnit({ 
       points: 100,
       count: 1,

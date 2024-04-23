@@ -1,4 +1,4 @@
-import type { IBuilderMagicItem, IBuilderUnit, IBuilderUpgrade, IMagicItem, IUpgrade } from '$root/src/types/Schema'
+import type { IBuilderMagicItem, IBuilderUnit, IMagicItem, IUpgrade } from '$root/src/types/Schema'
 import type { IBuilderState } from '$root/src/builder/store'
 
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -153,20 +153,14 @@ describe('Equip upgrade', async () => {
 describe('Unequip upgrade', async () => {
   let builderState: IBuilderState
   let builder: Writable<IBuilderState>
-  let testUpgrade1: IBuilderUpgrade
-  let testUpgrade2: IBuilderUpgrade
+  let testUpgrade1: IUpgrade
+  let testUpgrade2: IUpgrade
 
   beforeEach(async () => {
     builderState = generateArmyState({})
     builder = writable<IBuilderState>(builderState)
-    testUpgrade1 = {
-      ...generateUpgrade({ id: 0, name: 'Unit upgrade 1' }),
-      points: 50
-    }
-    testUpgrade2 = {
-      ...generateUpgrade({ id: 1, name: 'Unit upgrade 2' }),
-      points: 50
-    }
+    testUpgrade1 = generateUpgrade({ id: 0, name: 'Unit upgrade 1', pointsModify: 50 })
+    testUpgrade2 = generateUpgrade({ id: 1, name: 'Unit upgrade 2', pointsModify: 50 })
   })
 
 

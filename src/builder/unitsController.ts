@@ -7,7 +7,7 @@ import * as Validator from './validator'
 const removeUnitItems =
 (state: IBuilderState, unit: IBuilderUnit): number => {
   const itemsCost = unit.equippedItems.reduce((sum, mi) => (state.validation.magicItems[mi.name]--, sum + mi.points), 0)
-  const upgradeCost = unit.equippedUpgrades.reduce((sum, upg) => (state.validation.armyUpgrades[upg.name]--, sum + upg.points), 0)
+  const upgradeCost = unit.equippedUpgrades.reduce((sum, upg) => (state.validation.armyUpgrades[upg.name]--, sum + upg.pointsModify), 0)
 
   return itemsCost + upgradeCost
 }
