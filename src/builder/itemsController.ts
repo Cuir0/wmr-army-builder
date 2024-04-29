@@ -1,4 +1,4 @@
-import type { IBaseUnit, IBuilderMagicItem, IMagicItem, IUpgrade } from '$types/Schema'
+import type { IBaseUnit, IBuilderMagicItem, IMagicItem, IUpgrade } from '$types/schema'
 import type { Writable } from 'svelte/store'
 import type { IBuilderState } from './store'
 import { getItemCostForUnit } from '../utils'

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { IArmySchema, IMagicItem } from '$types/Schema'
+  import type { IArmySchema, IMagicItem } from '$types/schema'
   import { Link } from 'svelte-routing'
   import { fetchJsonData } from '../utils'
   import BuilderStore from '$builder/store'
 
-  import SchemaList from '$root/src/components/SchemaList.svelte'
-  import UnitsList from '$root/src/components/UnitsList.svelte'
-  import BuilderInfo from '$root/src/components/BuilderInfo.svelte'
+  import SchemaList from '$components/SchemaList.svelte'
+  import UnitsList from '$components/UnitsList.svelte'
+  import BuilderInfo from '$components/BuilderInfo.svelte'
 
   export let factionFile: string
 

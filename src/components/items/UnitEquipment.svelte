@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { IBuilderUnit } from "$root/src/types/Schema";
-  import BuilderStore from "$root/src/builder/store";
+  import type { IBuilderUnit } from '$types/schema'
+  import BuilderStore from '$builder/store'
 
   export let unit: IBuilderUnit
 </script>

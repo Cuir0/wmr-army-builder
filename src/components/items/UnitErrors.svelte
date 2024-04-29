@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { IBuilderUnit } from "$root/src/types/Schema";
+  import type { IBuilderUnit } from '$types/schema'
 
   export let isErrorListVisible: boolean
   export let unit: IBuilderUnit

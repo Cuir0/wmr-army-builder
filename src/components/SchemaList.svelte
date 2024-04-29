@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { IArmySchema, IBaseUnit } from '$types/Schema'
+  import type { IArmySchema, IBaseUnit } from '$types/schema'
   import { getUnitBoundsString } from '$root/src/utils'
   import BuilderStore from '$builder/store'
 

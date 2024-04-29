@@ -1,4 +1,4 @@
-import type { IBuilderState } from '$root/src/builder/store'
+import type { IBuilderState } from '$builder/store'
 
 import { beforeEach, describe, expect, it } from 'vitest'
 import { get, writable, type Writable } from 'svelte/store'
@@ -6,9 +6,9 @@ import {
   generateArmySchema,
   generateArmyState,
   generateBasicUnit,
-} from '../TestUtils'
+} from '../testUtils'
 
-import * as Controller from '$root/src/builder/stateController'
+import * as Controller from '$builder/stateController'
 
 describe('Reset builder state', async () => {
   let builder: Writable<IBuilderState>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { IFaction } from '$types/Schema'
+  import type { IFaction } from '$types/schema'
   import { fetchJsonData } from '../utils'
   import FactionList from '$components/FactionList.svelte'
   

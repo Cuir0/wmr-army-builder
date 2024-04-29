@@ -1,5 +1,5 @@
-import type { IBuilderMagicItem, IBuilderUnit, IUpgrade } from '$root/src/types/Schema'
-import type { IBuilderState } from '$root/src/builder/store'
+import type { IBuilderMagicItem, IBuilderUnit, IUpgrade } from '$types/schema'
+import type { IBuilderState } from '$builder/store'
 
 import { describe, expect, it } from 'vitest'
 import { 
@@ -7,9 +7,9 @@ import {
   generateBuilderUnit,
   generateMagicItem,
   generateUpgrade
-} from '../TestUtils'
+} from '../testUtils'
 
-import * as Validator from '$root/src/builder/validator'
+import * as Validator from '$builder/validator'
 
 describe.concurrent('Validate army state', async () => {
   it('should add error if general missing', async () => {

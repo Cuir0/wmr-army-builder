@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { IBuilderUnit } from '$types/Schema'
+  import type { IBuilderUnit } from '$types/schema'
   import { getUnitBoundsString } from '$root/src/utils'
   import BuilderStore from '$builder/store'
   
-  import UnitErrors from './UnitErrors.svelte';
-  import SchemaItems from './SchemaItems.svelte';
-  import UnitEquipment from './UnitEquipment.svelte';
+  import UnitErrors from './UnitErrors.svelte'
+  import SchemaItems from './SchemaItems.svelte'
+  import UnitEquipment from './UnitEquipment.svelte'
 
   // Display unit error list on hover
   let isErrorListVisible = false

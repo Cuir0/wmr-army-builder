@@ -1,6 +1,6 @@
-import type { IMagicItem, MagicItemType, UnitType } from '$root/src/types/Schema'
+import type { IMagicItem, MagicItemType, UnitType } from '$types/schema'
 import { describe, expect, expectTypeOf, it } from 'vitest'
-import { readJsonFile } from '../TestUtils'
+import { readJsonFile } from '../testUtils'
 
 describe('Magic items schema file', async () => {
   const magicItems: IMagicItem[] = await readJsonFile('magicItems.json')

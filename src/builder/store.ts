@@ -1,4 +1,4 @@
-import type { IBuilderUnit, IBaseUnit, IArmySchema, IMagicItem, IUpgrade } from '$types/Schema'
+import type { IBuilderUnit, IBaseUnit, IArmySchema, IMagicItem, IUpgrade } from '$types/schema'
 import { get, writable } from 'svelte/store'
 
 import * as StateController from './stateController'

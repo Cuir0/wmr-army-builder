@@ -1,5 +1,5 @@
-import type { IArmySchema, IBaseUnit, IBuilderUnit, IMagicItem, IUpgrade } from '../src/types/Schema'
-import type { IBuilderState } from '../src/builder/store'
+import type { IArmySchema, IBaseUnit, IBuilderUnit, IMagicItem, IUpgrade } from '$types/schema'
+import type { IBuilderState } from '$builder/store'
 import fs from 'fs'
 import path from 'path'
 

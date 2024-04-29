@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { IBaseUnit, IMagicItem, IUpgrade } from "$root/src/types/Schema";
-  import { getItemCostForUnit } from "$root/src/utils";
-  import BuilderStore from "$root/src/builder/store";
+  import type { IBaseUnit, IMagicItem, IUpgrade } from '$types/schema'
+  import { getItemCostForUnit } from '$root/src/utils'
+  import BuilderStore from '$builder/store'
 
   const getUnitEquipableItems = (magicItems: Readonly<IMagicItem[]>, unit: IBaseUnit): IMagicItem[] => 
     magicItems.filter(mi => mi.allowedUnits.includes(unit.type) || unit.magicItemRef?.includes(mi.id))
@@ -14,7 +14,7 @@
 
 {#each getUnitEquipableItems($BuilderStore.lookup.magicItems, unit) as item}
   <div class="flex gap-x-4 select-none cursor-pointer hover:bg-gray-200"
-      on:click={() => BuilderStore.equipItem(unit, item)}
+       on:click={() => BuilderStore.equipItem(unit, item)}
   >
     <div>{ item.name }</div>
     <div>{ item.type }</div>
@@ -24,7 +24,7 @@
 
 {#each getUnitUpgrades($BuilderStore.lookup.upgrades, unit) as upgrade}
   <div class="flex gap-x-4 select-none cursor-pointer hover:bg-gray-200"
-      on:click={() => BuilderStore.equipUpgrade(unit, upgrade)}
+       on:click={() => BuilderStore.equipUpgrade(unit, upgrade)}
   >
     <div>{ upgrade.name }</div>
     <div>{ upgrade.type }</div>
