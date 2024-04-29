@@ -1,4 +1,4 @@
-import type { IBuilderUnit } from '$types/Schema'
+import type { IBuilderUnit } from '$types/schema'
 import type { IBuilderState } from './store'
 
 const isOutsideOfBounds = 

@@ -1,5 +1,5 @@
-import type { IFaction, IArmySchema, IUpgrade, IBaseUnit, UnitType, UpgradeType } from '../../src/types/Schema'
-import { readJsonFile } from '../TestUtils'
+import type { IFaction, IArmySchema, IUpgrade, IBaseUnit, UnitType, UpgradeType } from '$types/schema'
+import { readJsonFile } from '../testUtils'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 
 describe('Factions schema file', async () => {

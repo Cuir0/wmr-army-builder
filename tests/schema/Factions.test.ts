@@ -1,5 +1,5 @@
-import type { IFaction } from '../../src/types/Schema'
-import { readJsonFile } from '../TestUtils'
+import type { IFaction } from '$types/schema'
+import { readJsonFile } from '../testUtils'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 
 const FACTIONS_COUNT = 25

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { IArmySchema, IMagicItem } from '$types/Schema'
+  import type { IArmySchema, IMagicItem } from '$types/schema'
   import { Link } from 'svelte-routing'
   import { fetchJsonData } from '../utils'
   import BuilderStore from '$builder/store'
 
-  import SchemaList from '$root/src/components/SchemaList.svelte'
-  import BuilderList from '$root/src/components/BuilderList.svelte'
-  import BuilderInfo from '$root/src/components/BuilderInfo.svelte'
+  import SchemaList from '$components/SchemaList.svelte'
+  import UnitsList from '$components/UnitsList.svelte'
+  import BuilderInfo from '$components/BuilderInfo.svelte'
 
   export let factionFile: string
 
@@ -35,7 +35,7 @@
   <section class="flex justify-evenly items-start">
     <SchemaList armySchema={armyData} />
     <BuilderInfo armyName={armyData.name} />
-    <BuilderList />
+    <UnitsList />
   </section>
 {:catch error}
   <Link to="/">Return to homepage</Link>

@@ -1,5 +1,5 @@
-import type { IBuilderMagicItem, IBuilderUnit, IMagicItem, IUpgrade } from '$root/src/types/Schema'
-import type { IBuilderState } from '$root/src/builder/store'
+import type { IBuilderMagicItem, IBuilderUnit, IMagicItem, IUpgrade } from '$types/schema'
+import type { IBuilderState } from '$builder/store'
 
 import { beforeEach, describe, expect, it } from 'vitest'
 import { writable, type Writable } from 'svelte/store'
@@ -8,9 +8,9 @@ import {
   generateBuilderUnit, 
   generateMagicItem, 
   generateUpgrade
-} from '../TestUtils'
+} from '../testUtils'
 
-import * as Controller from '$root/src/builder/itemsController'
+import * as Controller from '$builder/itemsController'
 
 describe('Equip item', async () => {
   let builderState: IBuilderState

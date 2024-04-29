@@ -1,4 +1,4 @@
-import type { IBaseUnit, IMagicItem } from './types/Schema'
+import type { IBaseUnit, IMagicItem } from './types/schema'
 
 export const fetchJsonData = 
 async <T>(publicPath: string): Promise<T> => {

@@ -1,4 +1,4 @@
-import type { IArmySchema, IMagicItem, IUpgrade } from '../types/Schema'
+import type { IArmySchema, IMagicItem, IUpgrade } from '$types/schema'
 import type { Writable } from 'svelte/store'
 import type { IBuilderState, IValidationData } from './store'
 

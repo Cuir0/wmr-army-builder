@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { IFaction } from '$types/Schema'
+  import type { IFaction } from '$types/schema'
   import { Link } from 'svelte-routing'
   import BuilderStore from '$builder/store'
 

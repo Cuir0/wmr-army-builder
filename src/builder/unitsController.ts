@@ -1,4 +1,4 @@
-import type { IBaseUnit, IBuilderUnit } from '$types/Schema'
+import type { IBaseUnit, IBuilderUnit } from '$types/schema'
 import type { Writable } from 'svelte/store'
 import type { IBuilderState } from './store'
 
