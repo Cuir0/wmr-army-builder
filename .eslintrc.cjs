@@ -11,10 +11,10 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    './config/eslint-style.cjs',
-    './config/eslint-svelte.cjs',
+    'plugin:svelte/recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:svelte/recommended'
+    './config/eslint-style.cjs',
+    './config/eslint-svelte.cjs'
   ],
   plugins: [
     '@typescript-eslint'

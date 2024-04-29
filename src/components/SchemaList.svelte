@@ -16,8 +16,6 @@
     <div class="w-1/4">Min/Max</div>
   </div>
   {#each armySchema.units as unit}
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div on:click={() => addUnit(unit)} class="flex hover:bg-gray-200 cursor-pointer">
       <div class="w-1/4">{ unit.name }</div>
       <div class="w-1/4">{ unit.type }</div>
