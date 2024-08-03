@@ -1,13 +1,13 @@
-import globals from "globals";
-import tsLint from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
-import svelteParser from "svelte-eslint-parser";
+import globals from 'globals';
+import tsLint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import svelteParser from 'svelte-eslint-parser';
 
 // Eslint config files
-import js from "@eslint/js";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { FlatCompat } from "@eslint/eslintrc";
+import js from '@eslint/js';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { FlatCompat } from '@eslint/eslintrc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,35 +20,34 @@ const compat = new FlatCompat({
 
 export default [
     ...compat.extends(
-        "eslint:recommended",
-        "plugin:svelte/recommended",
-        "plugin:@typescript-eslint/recommended",
-        "./config/eslint-style.cjs",
-        "./config/eslint-svelte.cjs",
+        'eslint:recommended',
+        'plugin:svelte/recommended',
+        'plugin:@typescript-eslint/recommended',
+        './config/eslint-style.cjs',
+        './config/eslint-svelte.cjs',
     ),
     {
         plugins: {
-            "@typescript-eslint": tsLint,
+            '@typescript-eslint': tsLint,
         },
-        ignores: ['eslint.config.mjs'],
         languageOptions: {
             globals: { ...globals.browser },
             parser: tsParser,
-            ecmaVersion: 2021,
-            sourceType: "module",
+            ecmaVersion: 'latest',
+            sourceType: 'module',
             parserOptions: {
-                project: ["./tsconfig.json"],
-                extraFileExtensions: [".svelte"]
+                project: ['./tsconfig.json'],
+                extraFileExtensions: ['.svelte']
             },
         },
     },
     {
-        files: ["**/*.svelte"],
+        files: ['**/*.svelte'],
 
         languageOptions: {
             parser: svelteParser,
-            ecmaVersion: 2021,
-            sourceType: "module",
+            ecmaVersion: 'latest',
+            sourceType: 'module',
             parserOptions: {
                 parser: tsParser,
             },
@@ -57,25 +56,25 @@ export default [
     {
         ignores: [
             // Src files
-            "src/app.css",
-            "src/vite-env.d.ts",
+            'src/app.css',
+            'src/vite-env.d.ts',
 
             // Build
-            "node_modules",
-            "dist",
-            "dist-ssr",
+            'node_modules',
+            'dist',
+            'dist-ssr',
 
             // Data
-            "public",
+            'public',
 
             // Config files
-            "config",
-            "eslint.config.mjs",
-            "postcss.config.js",
-            "svelte.config.js",
-            "tailwind.config.js",
-            "vite.config.ts",
-            "tsconfig.json"
+            'config',
+            'eslint.config.mjs',
+            'postcss.config.js',
+            'svelte.config.js',
+            'tailwind.config.js',
+            'vite.config.ts',
+            'tsconfig.json'
         ]
     }
 ]
