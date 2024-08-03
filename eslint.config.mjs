@@ -1,0 +1,80 @@
+import globals from 'globals';
+import tsLint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import svelteParser from 'svelte-eslint-parser';
+
+// Eslint config files
+import js from '@eslint/js';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { FlatCompat } from '@eslint/eslintrc';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const compat = new FlatCompat({
+    baseDirectory: __dirname,
+    recommendedConfig: js.configs.recommended,
+    allConfig: js.configs.all
+});
+
+export default [
+    ...compat.extends(
+        'eslint:recommended',
+        'plugin:svelte/recommended',
+        'plugin:@typescript-eslint/recommended',
+        './config/eslint-style.cjs',
+        './config/eslint-svelte.cjs',
+    ),
+    {
+        plugins: {
+            '@typescript-eslint': tsLint,
+        },
+        languageOptions: {
+            globals: { ...globals.browser },
+            parser: tsParser,
+            ecmaVersion: 'latest',
+            sourceType: 'module',
+            parserOptions: {
+                project: ['./tsconfig.json'],
+                extraFileExtensions: ['.svelte']
+            },
+        },
+    },
+    {
+        files: ['**/*.svelte'],
+
+        languageOptions: {
+            parser: svelteParser,
+            ecmaVersion: 'latest',
+            sourceType: 'module',
+            parserOptions: {
+                parser: tsParser,
+            },
+        },
+    },
+    {
+        ignores: [
+            // Src files
+            'src/app.css',
+            'src/vite-env.d.ts',
+
+            // Build
+            'node_modules',
+            'dist',
+            'dist-ssr',
+
+            // Data
+            'public',
+
+            // Config files
+            'config',
+            'eslint.config.mjs',
+            'postcss.config.js',
+            'svelte.config.js',
+            'tailwind.config.js',
+            'vite.config.ts',
+            'tsconfig.json'
+        ]
+    }
+]

@@ -1,10 +1,6 @@
 module.exports = {
   rules: {
     'no-var': 'error', // Use let, const
-    'prefer-const': ['error', { // Use consts when possible
-      'destructuring': 'all',
-      'ignoreReadBeforeAssign': false
-    }],
     'eqeqeq': ['error'], // Require === and !==
     'quotes': ['error', 'single'], // Require '' quotes
     'curly': ['error', 'multi-line'], // Enforce braces for statements
@@ -15,5 +11,11 @@ module.exports = {
     'prefer-template': 'error', // Enforce string templates (`${}`)
     'dot-notation': 'error', // Enforce prop.name instead of prop['name']
     'default-case': 'error', // Require default case in switch
+
+    // Use consts when possible
+    'prefer-const': ['error', {
+      'destructuring': 'all',
+      'ignoreReadBeforeAssign': false
+    }],
   }
 }
