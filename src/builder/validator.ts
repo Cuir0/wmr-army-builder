@@ -3,7 +3,7 @@ import type { IBuilderState } from './store'
 
 const isOutsideOfBounds = 
 (builderUnit: IBuilderUnit, armyCost: number): boolean => {
-  const countMultiplier = Math.ceil(armyCost / 1000);
+  const countMultiplier = Math.ceil(armyCost / 1000)
   const max = (builderUnit.max ?? Infinity) * countMultiplier
   const min = (builderUnit.min ?? -Infinity) * countMultiplier
 

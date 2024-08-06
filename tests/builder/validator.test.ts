@@ -11,13 +11,17 @@ import {
 
 import * as Validator from '$builder/validator'
 
+// Constants
+const MIN_ARMY_COST = 1
+
+
 describe.concurrent('Validate army state', async () => {
   it('should add error if general missing', async () => {
     // Arrange
     const builderState: IBuilderState = generateArmyState({})
 
     // Act
-    Validator.validateArmy(builderState)
+    Validator.validateArmy(builderState, 0)
 
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
@@ -32,7 +36,7 @@ describe.concurrent('Validate army state', async () => {
     builderState.units.push(general)
 
     // Act
-    Validator.validateArmy(builderState)
+    Validator.validateArmy(builderState, builderState.armyCost)
 
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
@@ -53,7 +57,7 @@ describe.concurrent('Validate army state', async () => {
     builderState.units.push(general)
 
     // Act
-    Validator.validateArmy(builderState)
+    Validator.validateArmy(builderState, MIN_ARMY_COST)
 
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
@@ -74,7 +78,7 @@ describe.concurrent('Validate army state', async () => {
     builderState.units.push(general)
 
     // Act
-    Validator.validateArmy(builderState)
+    Validator.validateArmy(builderState, MIN_ARMY_COST)
 
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
@@ -89,7 +93,7 @@ describe.concurrent('Validate new unit', async () => {
     const unitTemplate: IBuilderUnit = generateBuilderUnit({ max: 3 })
 
     // Act
-    Validator.validateUnit(unitTemplate)
+    Validator.validateUnit(unitTemplate, MIN_ARMY_COST)
 
     // Assert
     expect(unitTemplate.errors.length).toBe(0)
@@ -101,7 +105,7 @@ describe.concurrent('Validate new unit', async () => {
     const unitTemplate: IBuilderUnit = generateBuilderUnit({ min: 3, count: 1 })
 
     // Act
-    Validator.validateUnit(unitTemplate)
+    Validator.validateUnit(unitTemplate, MIN_ARMY_COST)
 
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
@@ -114,7 +118,7 @@ describe.concurrent('Validate new unit', async () => {
     const unitTemplate: IBuilderUnit = generateBuilderUnit({ min: 1, max: 1, count: 2 })
 
     // Act
-    Validator.validateUnit(unitTemplate)
+    Validator.validateUnit(unitTemplate, MIN_ARMY_COST)
 
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
@@ -127,7 +131,7 @@ describe.concurrent('Validate new unit', async () => {
     const unitTemplate: IBuilderUnit = generateBuilderUnit({ armyMax: 1, count: 2 })
 
     // Act
-    Validator.validateUnit(unitTemplate)
+    Validator.validateUnit(unitTemplate, MIN_ARMY_COST)
 
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
@@ -141,7 +145,7 @@ describe.concurrent('Validate new unit', async () => {
     const unitTemplate: IBuilderUnit = generateBuilderUnit({ count: 2, equippedItems: [testItem, testItem, testItem] })
 
     // Act
-    Validator.validateUnit(unitTemplate)
+    Validator.validateUnit(unitTemplate, MIN_ARMY_COST)
 
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
@@ -155,7 +159,7 @@ describe.concurrent('Validate new unit', async () => {
     const unitTemplate: IBuilderUnit = generateBuilderUnit({ count: 2, equippedUpgrades: [testUpgrade, testUpgrade, testUpgrade] })
 
     // Act
-    Validator.validateUnit(unitTemplate)
+    Validator.validateUnit(unitTemplate, MIN_ARMY_COST)
 
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
