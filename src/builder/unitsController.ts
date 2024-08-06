@@ -39,9 +39,11 @@ export const addUnit =
       unitBuffer.count += count
     }
 
+    const prevArmyCost = s.armyCost
     s.armyCost += unit.points * count
-    Validator.validateUnit(unitBuffer)
-    Validator.validateArmy(s)
+
+    Validator.validateUnit(unitBuffer, s.armyCost)
+    Validator.validateArmy(s, prevArmyCost)
     return s
   })
 }
@@ -51,19 +53,20 @@ export const removeUnit =
   state.update(s => {
     const unitIdx = s.units.findIndex(builderUnit => unit.id === builderUnit.id)
     const isDeleted = s.units[unitIdx].count - count <= 0
+    const prevArmyCost = s.armyCost
 
     if (isDeleted) {
       const deletedUnit = s.units.splice(unitIdx, 1)[0]
-      const itemsPointsCount = removeUnitItems(s, deletedUnit)
-      s.armyCost -= deletedUnit.count * deletedUnit.points + itemsPointsCount
+      const removedItemsCost = removeUnitItems(s, deletedUnit)
+      s.armyCost -= deletedUnit.count * deletedUnit.points + removedItemsCost
     } else {
       const builderUnit = s.units[unitIdx]
       builderUnit.count -= count
       s.armyCost -= unit.points * count
-      Validator.validateUnit(s.units[unitIdx])
+      Validator.validateUnit(builderUnit, s.armyCost)
     }
 
-    Validator.validateArmy(s)
+    Validator.validateArmy(s, prevArmyCost)
     return s
   })
 }

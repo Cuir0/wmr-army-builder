@@ -2,9 +2,10 @@ import type { IBuilderUnit } from '$types/schema'
 import type { IBuilderState } from './store'
 
 const isOutsideOfBounds = 
-(builderUnit: IBuilderUnit): boolean => {
-  const max = builderUnit.max ?? Infinity
-  const min = builderUnit.min ?? -Infinity
+(builderUnit: IBuilderUnit, armyCost: number): boolean => {
+  const countMultiplier = Math.ceil(armyCost / 1000)
+  const max = (builderUnit.max ?? Infinity) * countMultiplier
+  const min = (builderUnit.min ?? -Infinity) * countMultiplier
 
   const count = builderUnit ? builderUnit.count : 0
 
@@ -13,7 +14,7 @@ const isOutsideOfBounds =
 }
 
 export const validateUnit = 
-(builderUnit: IBuilderUnit) => {
+(builderUnit: IBuilderUnit, armyCost: number) => {
   builderUnit.errors = []
 
   if (builderUnit.equippedItems.length > builderUnit.count) {
@@ -24,7 +25,7 @@ export const validateUnit =
     builderUnit.errors.push(`${builderUnit.count} ${builderUnit.name} cannot have more than ${builderUnit.count} upgrade(s)`)
   }
 
-  if (isOutsideOfBounds(builderUnit)) {
+  if (isOutsideOfBounds(builderUnit, armyCost)) {
     builderUnit.errors.push(`${builderUnit.name} count of ${builderUnit.count} is out of bounds`)
   }
 }
@@ -40,9 +41,21 @@ const validateMagicItems =
     .forEach(upgradeName => state.armyErrors.push(`Max 1 ${upgradeName} per army.`))
 }
 
+const hasArmyCostCrossedThreshold = 
+(currArmyCost: number, prevArmyCost: number) => {
+  const newThreshold = Math.floor(currArmyCost / 1000) * 1000
+  const prevThreshold = Math.floor(prevArmyCost / 1000) * 1000
+
+  return newThreshold !== prevThreshold
+}
+
 export const validateArmy = 
-(state: IBuilderState) => {
+(state: IBuilderState, prevArmyCost: number) => {
   state.armyErrors = []
+
+  if (hasArmyCostCrossedThreshold(state.armyCost, prevArmyCost)) {
+    state.units.forEach(u => validateUnit(u, state.armyCost))
+  }
 
   validateMagicItems(state)
 
