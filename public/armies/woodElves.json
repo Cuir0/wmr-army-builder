@@ -12,7 +12,8 @@
       "size": 3,
       "range": "30cm",
       "min": 2,
-      "max": 4
+      "max": 4,
+      "augmentRef": [0]
     },
     {
       "name": "Eternal Guard",
@@ -23,7 +24,8 @@
       "armor": "5+",
       "hits": 3,
       "size": 3,
-      "max": 3
+      "max": 3,
+      "augmentRef": [0]
     },
     {
       "name": "Wardancers",
@@ -203,5 +205,18 @@
       "pointsModify": 100,
       "unitMax": 1
     }
-  ]  
+  ],
+  "unitAugments": [
+    {
+      "name": "Wardancers",
+      "id": 0,
+      "type": "Infantry",
+      "points": 30,
+      "attack": "4",
+      "armor": "-/5+",
+      "hits": 3,
+      "size": 1,
+      "max": 4
+    }
+  ]
 }
