@@ -11,7 +11,8 @@
       "hits": 3,
       "size": 3,
       "range": "15cm",
-      "min": 2
+      "min": 2,
+      "augmentRef": [0]
     },
     {
       "name": "Saurus",
@@ -142,5 +143,19 @@
       "pointsModify": 65,
       "unitMax": 1
     }
-  ]  
+  ],
+  "unitAugments": [
+    {
+      "name": "Salamanders",
+      "id": 0,
+      "type": "Infantry",
+      "points": 25,
+      "attack": "2/2",
+      "armor": "-",
+      "hits": 3,
+      "size": 1,
+      "range": "15cm",
+      "max": 2
+    }
+  ]
 }
