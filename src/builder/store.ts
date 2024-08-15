@@ -8,6 +8,7 @@ import * as ItemsController from './itemsController'
 interface ILookupData {
   readonly magicItems: readonly IMagicItem[]
   readonly upgrades: readonly IUpgrade[]
+  readonly augments?: readonly IBaseUnit[]
 }
 
 export interface IValidationData {

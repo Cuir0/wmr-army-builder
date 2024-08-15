@@ -44,7 +44,8 @@ export const resetState =
       validation: createValidatorLookup(items, armySchema.upgrades),
       lookup: {
         magicItems: items,
-        upgrades: armySchema.upgrades
+        upgrades: armySchema.upgrades,
+        augments: armySchema.unitAugments
       }
     }
     return s

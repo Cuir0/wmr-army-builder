@@ -13,7 +13,7 @@ export interface IArmySchema {
   name: string
   units: IBaseUnit[]
   upgrades: IUpgrade[]
-  unitAugments: IBaseUnit[]
+  unitAugments?: IBaseUnit[]
 }
 
 type UnitType =
