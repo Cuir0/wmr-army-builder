@@ -7,7 +7,7 @@ import * as ItemsController from './itemsController'
 
 interface ILookupData {
   readonly magicItems: readonly IMagicItem[]
-  readonly upgrades: readonly IUpgrade[]
+  readonly upgrades?: readonly IUpgrade[]
   readonly augments?: readonly IBaseUnit[]
 }
 
@@ -33,7 +33,7 @@ const createBuilder = () => {
     armyCostLimit: 2000,
     armyErrors: [],
     units: [],
-    lookup: { magicItems: [], upgrades: [] },
+    lookup: { magicItems: [] },
     validation: { magicItems: {}, armyUpgrades: {} }
   })
 

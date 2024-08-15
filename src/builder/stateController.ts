@@ -5,14 +5,12 @@ import type { IBuilderState, IValidationData } from './store'
 import { addUnit } from './unitsController'
 
 const createValidatorLookup =
-(items: IMagicItem[], upgrades: IUpgrade[]): IValidationData => {
+(items: IMagicItem[], upgrades?: IUpgrade[]): IValidationData => {
   const magicItemsLookup: Record<string, number> = {}
   items.forEach(mi => magicItemsLookup[mi.name] = 0)
 
   const armyUpgradesLookup: Record<string, number> = {}
-  upgrades
-    .filter(upg => upg.armyMax)
-    .forEach(upg => armyUpgradesLookup[upg.name] = 0)
+  upgrades?.filter(upg => upg.armyMax).forEach(upg => armyUpgradesLookup[upg.name] = 0)
 
   return {
     magicItems: magicItemsLookup,
