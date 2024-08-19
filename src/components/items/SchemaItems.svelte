@@ -17,11 +17,13 @@
 </script>
 
 {#each getUnitAugments(unit, $BuilderStore.lookup.augments) as augment}
-  <div class="flex gap-x-4 select-none cursor-pointer hover:bg-gray-200">
-    <div class="w-1/4">{ augment.name }</div>
-    <div class="w-1/4">{ augment.type }</div>
-    <div class="w-1/4">{ augment.points }</div>
-    <div class="w-1/4">{ getUnitBoundsString(augment) }</div>
+  <div class="flex gap-x-4 select-none cursor-pointer hover:bg-gray-200"
+  on:click={() => BuilderStore.addStandToUnit(unit, augment)}
+  >
+    <div>{ augment.name }</div>
+    <div>{ augment.type }</div>
+    <div>{ augment.points }</div>
+    <div>{ getUnitBoundsString(augment) }</div>
   </div>
 {/each}
 

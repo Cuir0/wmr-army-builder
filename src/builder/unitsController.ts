@@ -19,7 +19,8 @@ const createNewBuilderUnit =
     count: unitCount,
     errors: [],
     equippedItems: [],
-    equippedUpgrades: []
+    equippedUpgrades: [],
+    additionalStands: []
   }
 }
 
@@ -67,6 +68,52 @@ export const removeUnit =
     }
 
     Validator.validateArmy(s, prevArmyCost)
+    return s
+  })
+}
+
+export const addStandToUnit =
+(state: Writable<IBuilderState>, unit: IBaseUnit, stand: IBaseUnit) => {
+  state.update(s => {
+    const builderUnit = s.units.find(u => u.id === unit.id)
+    if (!builderUnit) return s
+
+    const unitStand = builderUnit.additionalStands.find(s => s.id === stand.id)
+    const prevArmyCost = s.armyCost
+    s.armyCost += stand.points
+
+    if (unitStand) {
+      unitStand.count += 1
+    } else {
+      builderUnit.additionalStands.push({ ...stand, count: 1 })
+    }
+
+    //Validator.validateUnit(builderUnit, s.armyCost)
+    //Validator.validateArmy(s, prevArmyCost)
+    return s
+  })
+}
+
+export const removeStandFromUnit =
+(state: Writable<IBuilderState>, unit: IBaseUnit, standIdx: number) => {
+  state.update(s => {
+    const builderUnit = s.units.find(u => u.id === unit.id)
+    if (!builderUnit) return s
+
+    const unitStand = builderUnit.additionalStands[standIdx]
+    const isDeleted = unitStand.count - 1 <= 0
+
+    const prevArmyCost = s.armyCost
+    s.armyCost -= unitStand.points
+
+    if (isDeleted) {
+      builderUnit.additionalStands.splice(standIdx, 1)
+    } else {
+      unitStand.count -= 1
+    }
+
+    //Validator.validateUnit(builderUnit, s.armyCost)
+    //Validator.validateArmy(s, prevArmyCost)
     return s
   })
 }
