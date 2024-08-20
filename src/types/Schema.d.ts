@@ -13,7 +13,7 @@ export interface IArmySchema {
   name: string
   units: IBaseUnit[]
   upgrades?: IUpgrade[]
-  unitAugments?: IBaseUnit[]
+  stands?: IBaseUnit[]
 }
 
 type UnitType =
@@ -45,10 +45,10 @@ export interface IBaseUnit {
   max?: number
   armyMax?: number
 
-  // Unit special augments/items refs
+  // Unit special stands/items refs
   upgradeRef?: number[]
   magicItemRef?: number[]
-  augmentRef?: number[]
+  standsRef?: number[]
 }
 
 /**

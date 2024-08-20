@@ -10,20 +10,20 @@
   const getUnitUpgrades = (unit: IBaseUnit, upgrades?: Readonly<IUpgrade[]>): IUpgrade[] => 
     upgrades?.filter(upg => unit.upgradeRef?.includes(upg.id)) ?? []
 
-  const getUnitAugments = (unit: IBaseUnit, unitAugments?: Readonly<IBaseUnit[]>) =>
-    unitAugments?.filter(aug => unit.augmentRef?.includes(aug.id)) ?? []
+  const getUnitStands = (unit: IBaseUnit, unitStands?: Readonly<IBaseUnit[]>) =>
+    unitStands?.filter(aug => unit.standsRef?.includes(aug.id)) ?? []
 
   export let unit: IBaseUnit
 </script>
 
-{#each getUnitAugments(unit, $BuilderStore.lookup.augments) as augment}
+{#each getUnitStands(unit, $BuilderStore.lookup.stands) as stand}
   <div class="flex gap-x-4 select-none cursor-pointer hover:bg-gray-200"
-  on:click={() => BuilderStore.addStandToUnit(unit, augment)}
+  on:click={() => BuilderStore.addStandToUnit(unit, stand)}
   >
-    <div>{ augment.name }</div>
-    <div>{ augment.type }</div>
-    <div>{ augment.points }</div>
-    <div>{ getUnitBoundsString(augment) }</div>
+    <div>{ stand.name }</div>
+    <div>{ stand.type }</div>
+    <div>{ stand.points }</div>
+    <div>{ getUnitBoundsString(stand) }</div>
   </div>
 {/each}
 

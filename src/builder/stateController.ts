@@ -12,13 +12,13 @@ const createValidatorLookup =
   const upgradesLookup: Record<string, number> = {}
   armySchema.upgrades?.filter(upg => upg.armyMax).forEach(upg => upgradesLookup[upg.name] = 0)
 
-  const armyAugments: Record<number, number> = {}
-  armySchema.unitAugments?.forEach(aug => armyAugments[aug.id] = 0)
+  const armyStands: Record<number, number> = {}
+  armySchema.stands?.forEach(stand => armyStands[stand.id] = 0)
 
   return {
     magicItems: magicItemsLookup,
     armyUpgrades: upgradesLookup,
-    armyAugments: armyAugments
+    armyStands: armyStands
   }
 }
 
@@ -47,7 +47,7 @@ export const resetState =
       lookup: {
         magicItems: items,
         upgrades: armySchema.upgrades,
-        augments: armySchema.unitAugments
+        stands: armySchema.stands
       }
     }
     return s

@@ -11,7 +11,7 @@
       "hits": 3,
       "size": 3,
       "min": 3,
-      "augmentRef": [0]
+      "standsRef": [0]
     },
     {
       "name": "Halberdiers",
@@ -46,7 +46,7 @@
       "hits": 3,
       "size": 3,
       "max": 4,
-      "augmentRef": [0]
+      "standsRef": [0]
     },
     {
       "name": "Flagellants",
@@ -58,7 +58,7 @@
       "hits": 3,
       "size": 3,
       "max": 4,
-      "augmentRef": [0]
+      "standsRef": [0]
     },
     {
       "name": "Warhounds",
@@ -92,7 +92,7 @@
       "size": 3,
       "range": "15cm",
       "max": 1,
-      "augmentRef": [0]
+      "standsRef": [0]
     },
     {
       "name": "Cannon",
@@ -137,7 +137,7 @@
       "max": 1
     }
   ],
-  "unitAugments": [
+  "stands": [
     {
       "name": "Warhounds",
       "id": 0,

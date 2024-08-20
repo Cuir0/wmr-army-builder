@@ -8,13 +8,13 @@ import * as ItemsController from './itemsController'
 interface ILookupData {
   readonly magicItems: readonly IMagicItem[]
   readonly upgrades?: readonly IUpgrade[]
-  readonly augments?: readonly IBaseUnit[]
+  readonly stands?: readonly IBaseUnit[]
 }
 
 export interface IValidationData {
   readonly magicItems: Record<string, number>
   readonly armyUpgrades: Record<string, number>
-  readonly armyAugments: Record<number, number>
+  readonly armyStands: Record<number, number>
 }
 
 export interface IBuilderState {
@@ -35,7 +35,7 @@ const createBuilder = () => {
     armyErrors: [],
     units: [],
     lookup: { magicItems: [] },
-    validation: { magicItems: {}, armyUpgrades: {}, armyAugments: {} }
+    validation: { magicItems: {}, armyUpgrades: {}, armyStands: {} }
   })
 
   return {

@@ -12,7 +12,7 @@
       "size": 3,
       "range": "15cm",
       "min": 2,
-      "augmentRef": [0]
+      "standsRef": [0]
     },
     {
       "name": "Saurus",
@@ -144,7 +144,7 @@
       "unitMax": 1
     }
   ],
-  "unitAugments": [
+  "stands": [
     {
       "name": "Salamanders",
       "id": 0,
