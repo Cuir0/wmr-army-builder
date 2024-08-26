@@ -12,8 +12,8 @@ const createValidatorLookup =
   const upgradesLookup: Record<string, number> = {}
   armySchema.upgrades?.filter(upg => upg.armyMax).forEach(upg => upgradesLookup[upg.name] = 0)
 
-  const armyStands: Record<number, number> = {}
-  armySchema.stands?.forEach(stand => armyStands[stand.id] = 0)
+  const armyStands: Record<string, { count: number, max?: number }> = {}
+  armySchema.stands?.forEach(stand => armyStands[stand.name] = { count: 0, max: stand.max })
 
   return {
     magicItems: magicItemsLookup,

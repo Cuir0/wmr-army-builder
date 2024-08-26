@@ -88,8 +88,9 @@ export const addStandToUnit =
       builderUnit.additionalStands.push({ ...stand, count: 1 })
     }
 
-    //Validator.validateUnit(builderUnit, s.armyCost)
-    //Validator.validateArmy(s, prevArmyCost)
+    s.validation.armyStands[stand.name].count++
+    Validator.validateUnit(builderUnit, s.armyCost)
+    Validator.validateArmy(s, prevArmyCost)
     return s
   })
 }
@@ -112,8 +113,9 @@ export const removeStandFromUnit =
       unitStand.count -= 1
     }
 
-    //Validator.validateUnit(builderUnit, s.armyCost)
-    //Validator.validateArmy(s, prevArmyCost)
+    s.validation.armyStands[unitStand.name].count--
+    Validator.validateUnit(builderUnit, s.armyCost)
+    Validator.validateArmy(s, prevArmyCost)
     return s
   })
 }

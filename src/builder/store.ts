@@ -14,7 +14,7 @@ interface ILookupData {
 export interface IValidationData {
   readonly magicItems: Record<string, number>
   readonly armyUpgrades: Record<string, number>
-  readonly armyStands: Record<number, number>
+  readonly armyStands: Record<string, { count: number, max?: number }>
 }
 
 export interface IBuilderState {
