@@ -199,3 +199,65 @@ describe('Remove unit', async () => {
     expect(armyUnit.errors[0]).toBe('Unit name count of 4 is out of bounds')
   })
 })
+
+describe('Add stand unit', async () => {
+  let builderUnit: IBuilderUnit
+  let builderState: IBuilderState
+  let builder: Writable<IBuilderState>
+
+  beforeEach(async () => {
+    builderUnit = generateBuilderUnit({ id: 0, points: 100 })
+    
+    builderState = generateArmyState({ armyCost: 100, armyCostLimit: 1000 })
+    builderState.units.push(builderUnit)
+    builder = writable<IBuilderState>(builderState)
+  })
+
+
+  it('should add stand to a unit correctly', async () => {
+    // Arrange
+    let stand = generateBasicUnit({ id: 1, name: 'Stand 1', points: 50 })
+    builderState.validation.armyStands['Stand 1'] = { max: 2, count: 0 }
+
+    // Act
+    Controller.addStandToUnit(builder, builderUnit, stand)
+  
+    // Assert
+    expect(builderUnit.additionalStands.length).toBe(1)
+    expect(builderUnit.additionalStands[0].id).toBe(1)
+    expect(builderState.validation.armyStands['Stand 1'].count).toBe(1)
+    expect(builderState.armyCost).toBe(150)
+  })
+})
+
+describe('Remove stand unit', async () => {
+  let builderUnit: IBuilderUnit
+  let builderState: IBuilderState
+  let builder: Writable<IBuilderState>
+
+  beforeEach(async () => {
+    builderUnit = generateBuilderUnit({ id: 0, points: 100 })
+    
+    builderState = generateArmyState({ armyCost: 100, armyCostLimit: 1000 })
+    builderState.units.push(builderUnit)
+    builder = writable<IBuilderState>(builderState)
+  })
+
+
+  it('should add stand to a unit correctly', async () => {
+    // Arrange
+    let stand = generateBasicUnit({ id: 1, name: 'Stand 1', points: 50 })
+
+    builderState.validation.armyStands['Stand 1'] = { max: 2, count: 1 }
+    builderUnit.additionalStands.push({ ...stand, count: 1 })
+    builderState.armyCost += 50
+
+    // Act
+    Controller.removeStandFromUnit(builder, builderUnit, 0)
+  
+    // Assert
+    expect(builderUnit.additionalStands.length).toBe(0)
+    expect(builderState.validation.armyStands['Stand 1'].count).toBe(0)
+    expect(builderState.armyCost).toBe(100)
+  })
+})

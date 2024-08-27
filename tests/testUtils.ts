@@ -43,7 +43,8 @@ export const generateBuilderUnit =
     count: unit.count ?? 1,
     errors: unit.errors ?? [],
     equippedItems: unit.equippedItems ?? [],
-    equippedUpgrades: unit.equippedUpgrades ?? []
+    equippedUpgrades: unit.equippedUpgrades ?? [],
+    additionalStands: unit.additionalStands ?? []
   }
 }
 
@@ -79,6 +80,6 @@ export const generateArmyState =
     units: state.units ?? [],
     armyErrors: state.armyErrors ?? [],
     lookup: state.lookup ?? { magicItems: [], upgrades: [] },
-    validation: state.validation ?? { magicItems: {}, armyUpgrades: {} }
+    validation: state.validation ?? { magicItems: {}, armyUpgrades: {}, armyStands: {} }
   }
 }
