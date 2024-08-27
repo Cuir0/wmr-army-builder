@@ -7,12 +7,14 @@ import * as ItemsController from './itemsController'
 
 interface ILookupData {
   readonly magicItems: readonly IMagicItem[]
-  readonly upgrades: readonly IUpgrade[]
+  readonly upgrades?: readonly IUpgrade[]
+  readonly stands?: readonly IBaseUnit[]
 }
 
 export interface IValidationData {
   readonly magicItems: Record<string, number>
   readonly armyUpgrades: Record<string, number>
+  readonly armyStands: Record<string, { count: number, max?: number }>
 }
 
 export interface IBuilderState {
@@ -32,8 +34,8 @@ const createBuilder = () => {
     armyCostLimit: 2000,
     armyErrors: [],
     units: [],
-    lookup: { magicItems: [], upgrades: [] },
-    validation: { magicItems: {}, armyUpgrades: {} }
+    lookup: { magicItems: [] },
+    validation: { magicItems: {}, armyUpgrades: {}, armyStands: {} }
   })
 
   return {
@@ -45,11 +47,15 @@ const createBuilder = () => {
     addUnit: (unit: IBaseUnit) => UnitController.addUnit(state, unit, 1),
     removeUnit: (unit: IBaseUnit) => UnitController.removeUnit(state, unit, 1),
 
-    // Item/Upgrade function
+    // Item/Upgrade functions
     equipItem: (unit: IBaseUnit, item: IMagicItem) => ItemsController.equipItem(state, unit, item),
     unequipItem: (unit: IBaseUnit, itemIdx: number) => ItemsController.unequipItem(state, unit, itemIdx),
     equipUpgrade: (unit: IBaseUnit, upgrade: IUpgrade) => ItemsController.equipUpgrade(state, unit, upgrade),
-    unequipUpgrade: (unit: IBaseUnit, upgradeIdx: number) => ItemsController.unequipUpgrade(state, unit, upgradeIdx)
+    unequipUpgrade: (unit: IBaseUnit, upgradeIdx: number) => ItemsController.unequipUpgrade(state, unit, upgradeIdx),
+
+    // Stands functions
+    addStandToUnit: (unit: IBaseUnit, stand: IBaseUnit) => UnitController.addStandToUnit(state, unit, stand),
+    removeStandFromUnit: (unit: IBaseUnit, standIdx: number) => UnitController.removeStandFromUnit(state, unit, standIdx)
   }
 }
 

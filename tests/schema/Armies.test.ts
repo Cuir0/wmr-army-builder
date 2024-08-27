@@ -1,4 +1,4 @@
-import type { IFaction, IArmySchema, IUpgrade, IBaseUnit, UnitType, UpgradeType } from '$types/schema'
+import type { IFaction, IArmySchema, IBaseUnit, UnitType, UpgradeType } from '$types/schema'
 import { readJsonFile } from '../testUtils'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 
@@ -15,7 +15,6 @@ describe('Factions schema file', async () => {
     it('should have core fields', async () => {
       expect(army.name).toBe(faction.name)
       expectTypeOf(army.units).toMatchTypeOf<IBaseUnit[]>()
-      expectTypeOf(army.upgrades).toMatchTypeOf<IUpgrade[]>()
     })
 
 
@@ -38,8 +37,7 @@ describe('Factions schema file', async () => {
       })
     })
 
-
-    describe.each(army.upgrades)('Upgrade $name', async (upgrade) => {
+    describe.each(army.upgrades ?? [])('Upgrade $name', async (upgrade) => {
       it('should have core fields', async () => {
         expectTypeOf(upgrade.id).toMatchTypeOf<number>()
         expectTypeOf(upgrade.name).toMatchTypeOf<string>()

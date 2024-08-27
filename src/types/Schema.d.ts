@@ -12,8 +12,8 @@ export interface IFaction {
 export interface IArmySchema {
   name: string
   units: IBaseUnit[]
-  upgrades: IUpgrade[]
-  unitAugments: IBaseUnit[]
+  upgrades?: IUpgrade[]
+  stands?: IBaseUnit[]
 }
 
 type UnitType =
@@ -45,10 +45,10 @@ export interface IBaseUnit {
   max?: number
   armyMax?: number
 
-  // Unit special augments/items refs
+  // Unit special stands/items refs
   upgradeRef?: number[]
   magicItemRef?: number[]
-  augmentRef?: number[]
+  standsRef?: number[]
 }
 
 /**
@@ -59,6 +59,11 @@ export interface IBuilderUnit extends IBaseUnit {
   errors: string[]
   equippedItems: IBuilderMagicItem[]
   equippedUpgrades: IUpgrade[]
+  additionalStands: IStandUnit[]
+}
+
+export interface IStandUnit extends IBaseUnit {
+  count: number
 }
 
 /**
@@ -95,18 +100,4 @@ export interface IMagicItem {
 
 export interface IBuilderMagicItem extends IMagicItem {
   points: number
-}
-
-/**
- * Validation types
- */
-
-export interface IUpgradeValidation {
-  count: number
-  armyMax: number
-}
-
-export interface IValidationData {
-  readonly magicItems: Record<string, number>
-  readonly armyUpgrades: Record<string, IUpgradeValidation>
 }

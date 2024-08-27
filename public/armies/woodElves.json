@@ -13,7 +13,7 @@
       "range": "30cm",
       "min": 2,
       "max": 4,
-      "augmentRef": [0]
+      "standsRef": [0]
     },
     {
       "name": "Eternal Guard",
@@ -25,7 +25,7 @@
       "hits": 3,
       "size": 3,
       "max": 3,
-      "augmentRef": [0]
+      "standsRef": [0]
     },
     {
       "name": "Wardancers",
@@ -206,7 +206,7 @@
       "unitMax": 1
     }
   ],
-  "unitAugments": [
+  "stands": [
     {
       "name": "Wardancers",
       "id": 0,
