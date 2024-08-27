@@ -1,4 +1,4 @@
-import type { IFaction, IArmySchema, IUpgrade, IBaseUnit, UnitType, UpgradeType } from '$types/schema'
+import type { IFaction, IArmySchema, IBaseUnit, UnitType, UpgradeType } from '$types/schema'
 import { readJsonFile } from '../testUtils'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 

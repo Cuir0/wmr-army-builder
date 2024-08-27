@@ -18,7 +18,7 @@
 
 {#each getUnitStands(unit, $BuilderStore.lookup.stands) as stand}
   <div class="flex gap-x-4 select-none cursor-pointer hover:bg-gray-200"
-  on:click={() => BuilderStore.addStandToUnit(unit, stand)}
+       on:click={() => BuilderStore.addStandToUnit(unit, stand)}
   >
     <div>{ stand.name }</div>
     <div>{ stand.type }</div>

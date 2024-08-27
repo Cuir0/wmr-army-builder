@@ -1,4 +1,4 @@
-import type { IBuilderUnit, IStandUnit } from '$types/schema'
+import type { IBuilderUnit } from '$types/schema'
 import type { IBuilderState } from './store'
 
 const isUnitCountIncorrect = 

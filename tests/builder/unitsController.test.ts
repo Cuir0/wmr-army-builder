@@ -216,7 +216,7 @@ describe('Add stand unit', async () => {
 
   it('should add stand to a unit correctly', async () => {
     // Arrange
-    let stand = generateBasicUnit({ id: 1, name: 'Stand 1', points: 50 })
+    const stand = generateBasicUnit({ id: 1, name: 'Stand 1', points: 50 })
     builderState.validation.armyStands['Stand 1'] = { max: 2, count: 0 }
 
     // Act
@@ -246,7 +246,7 @@ describe('Remove stand unit', async () => {
 
   it('should add stand to a unit correctly', async () => {
     // Arrange
-    let stand = generateBasicUnit({ id: 1, name: 'Stand 1', points: 50 })
+    const stand = generateBasicUnit({ id: 1, name: 'Stand 1', points: 50 })
 
     builderState.validation.armyStands['Stand 1'] = { max: 2, count: 1 }
     builderUnit.additionalStands.push({ ...stand, count: 1 })
