@@ -1,5 +1,6 @@
 import type { IBuilderUnit } from '$types/schema'
 import type { IBuilderState } from './store'
+import { ArmyErrors, UnitErrors, formatError } from './validatorMessages'
 
 const isUnitCountIncorrect = 
 (builderUnit: IBuilderUnit, armyCost: number): boolean => {
@@ -24,19 +25,19 @@ export const validateUnit =
   builderUnit.errors = []
 
   if (builderUnit.equippedItems.length > builderUnit.count) {
-    builderUnit.errors.push(`${builderUnit.count} ${builderUnit.name} cannot have more than ${builderUnit.count} item(s)`)
+    builderUnit.errors.push(formatError(UnitErrors.TooManyItems, { count: builderUnit.count, name: builderUnit.name }))
   }
 
   if (builderUnit.equippedUpgrades.length > builderUnit.count) {
-    builderUnit.errors.push(`${builderUnit.count} ${builderUnit.name} cannot have more than ${builderUnit.count} upgrade(s)`)
+    builderUnit.errors.push(formatError(UnitErrors.TooManyUpgrades, { count: builderUnit.count, name: builderUnit.name }))
   }
 
   if (isUnitStandsCountIncorrect(builderUnit)) {
-    builderUnit.errors.push(`${builderUnit.count} ${builderUnit.name} cannot have more than ${builderUnit.count} stand(s)`)
+    builderUnit.errors.push(formatError(UnitErrors.TooManyStands, { count: builderUnit.count, name: builderUnit.name }))
   }
 
   if (isUnitCountIncorrect(builderUnit, armyCost)) {
-    builderUnit.errors.push(`${builderUnit.name} count of ${builderUnit.count} is out of bounds`)
+    builderUnit.errors.push(formatError(UnitErrors.CountOutOfBounds, { count: builderUnit.count, name: builderUnit.name }))
   }
 }
 
@@ -53,15 +54,15 @@ const validateArmyAugments =
 (state: IBuilderState) => {
   Object.keys(state.validation.magicItems)
     .filter(itemName => state.validation.magicItems[itemName] > 1)
-    .forEach(itemName => state.armyErrors.push(`Max 1 ${itemName} per army.`))
+    .forEach(name => state.armyErrors.push(formatError(ArmyErrors.MaxOneAugment, { name })))
 
   Object.keys(state.validation.armyUpgrades)
     .filter(upgradeName => state.validation.armyUpgrades[upgradeName] > 1)
-    .forEach(upgradeName => state.armyErrors.push(`Max 1 ${upgradeName} per army.`))
+    .forEach(name => state.armyErrors.push(formatError(ArmyErrors.MaxOneAugment, { name })))
     
   Object.keys(state.validation.armyStands)
     .filter(standName => isStandUnitCountIncorrect(standName, state))
-    .forEach(standName => state.armyErrors.push(`${standName} is out of bounds.`))
+    .forEach(name => state.armyErrors.push(formatError(ArmyErrors.StandsOutOfBounds, { name })))
 }
 
 const hasArmyCostCrossedThreshold = 
@@ -84,10 +85,10 @@ export const validateArmy =
 
   const hasGeneral: boolean = state.units.some(u => u.type === 'General')
   if (!hasGeneral) {
-    state.armyErrors.push('Army needs general')
+    state.armyErrors.push(ArmyErrors.ArmyNeedsGeneral)
   }
 
   if (state.armyCost > state.armyCostLimit) {
-    state.armyErrors.push('Army cost exeeds the limit')
+    state.armyErrors.push(ArmyErrors.ArmyCostExceedsLimit)
   }
 }

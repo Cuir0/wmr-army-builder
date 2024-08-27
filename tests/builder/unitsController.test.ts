@@ -79,7 +79,7 @@ describe('Add unit', async () => {
 
     // Assert
     expect(armyUnit.errors.length).toBe(1)
-    expect(armyUnit.errors[0]).toBe('Unit name count of 3 is out of bounds')
+    expect(armyUnit.errors[0]).toBe('Unit name count of 3 is out of bounds.')
   })
 })
 
@@ -196,7 +196,7 @@ describe('Remove unit', async () => {
 
     // Assert
     expect(armyUnit.errors.length).toBe(1)
-    expect(armyUnit.errors[0]).toBe('Unit name count of 4 is out of bounds')
+    expect(armyUnit.errors[0]).toBe('Unit name count of 4 is out of bounds.')
   })
 })
 

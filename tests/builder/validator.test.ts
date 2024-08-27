@@ -26,7 +26,7 @@ describe.concurrent('Validate army state', async () => {
 
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
-    expect(builderState.armyErrors[0]).toBe('Army needs general')
+    expect(builderState.armyErrors[0]).toBe('Army needs a general.')
   })
 
 
@@ -41,7 +41,7 @@ describe.concurrent('Validate army state', async () => {
 
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
-    expect(builderState.armyErrors[0]).toBe('Army cost exeeds the limit')
+    expect(builderState.armyErrors[0]).toBe('Army cost exceeds the limit.')
   })
 
 
@@ -107,7 +107,7 @@ describe.concurrent('Validate army state', async () => {
 
     // Assert
     expect(builderState.armyErrors.length).toBe(1)
-    expect(builderState.armyErrors[0]).toBe('CustomStand is out of bounds.')
+    expect(builderState.armyErrors[0]).toBe('CustomStand stand unit is out of bounds.')
   })
 })
 
@@ -134,7 +134,7 @@ describe.concurrent('Validate new unit', async () => {
 
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
-    expect(unitTemplate.errors[0]).toBe('Unit name count of 1 is out of bounds')
+    expect(unitTemplate.errors[0]).toBe('Unit name count of 1 is out of bounds.')
   })
 
 
@@ -147,7 +147,7 @@ describe.concurrent('Validate new unit', async () => {
 
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
-    expect(unitTemplate.errors[0]).toBe('Unit name count of 2 is out of bounds')
+    expect(unitTemplate.errors[0]).toBe('Unit name count of 2 is out of bounds.')
   })
 
 
@@ -160,7 +160,7 @@ describe.concurrent('Validate new unit', async () => {
 
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
-    expect(unitTemplate.errors[0]).toBe('Unit name count of 2 is out of bounds')
+    expect(unitTemplate.errors[0]).toBe('Unit name count of 2 is out of bounds.')
   })
 
 
@@ -174,7 +174,7 @@ describe.concurrent('Validate new unit', async () => {
 
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
-    expect(unitTemplate.errors[0]).toBe('2 Unit name cannot have more than 2 item(s)')
+    expect(unitTemplate.errors[0]).toBe('2 Unit name cannot have more than 2 item(s).')
   })
 
 
@@ -188,7 +188,7 @@ describe.concurrent('Validate new unit', async () => {
 
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
-    expect(unitTemplate.errors[0]).toBe('2 Unit name cannot have more than 2 upgrade(s)')
+    expect(unitTemplate.errors[0]).toBe('2 Unit name cannot have more than 2 upgrade(s).')
   })
 
 
@@ -202,6 +202,6 @@ describe.concurrent('Validate new unit', async () => {
 
     // Assert
     expect(unitTemplate.errors.length).toBe(1)
-    expect(unitTemplate.errors[0]).toBe('2 Unit name cannot have more than 2 stand(s)')
+    expect(unitTemplate.errors[0]).toBe('2 Unit name cannot have more than 2 stand(s).')
   })
 })
