@@ -50,8 +50,7 @@ describe.concurrent('Validate army state', async () => {
     const builderState: IBuilderState = generateArmyState({
       armyCostLimit: 2000,
       validation: {
-        armyUpgrades: {},
-        armyStands: {},
+        armyUpgrades: {}, armyStands: {},
         magicItems: { 'CustomItem': 2 },
       }
     })
@@ -72,8 +71,7 @@ describe.concurrent('Validate army state', async () => {
     const builderState: IBuilderState = generateArmyState({
       armyCostLimit: 2000,
       validation: {
-        magicItems: {},
-        armyStands: {},
+        magicItems: {}, armyStands: {},
         armyUpgrades: { 'CustomUpgrade': 3 },
       }
     })
@@ -94,8 +92,7 @@ describe.concurrent('Validate army state', async () => {
     const builderState: IBuilderState = generateArmyState({
       armyCostLimit: 2000,
       validation: {
-        magicItems: {},
-        armyUpgrades: {},
+        magicItems: {}, armyUpgrades: {},
         armyStands: { 'CustomStand': { count: 3, max: 2 } },
       }
     })

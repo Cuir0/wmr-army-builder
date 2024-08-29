@@ -181,6 +181,7 @@ describe('Remove unit', async () => {
     expect(builderState.armyCost).toBe(0)
   })
 
+
   it('should add errors if the army points not meet the threshold multiplier', async () => {
     // Arrange
     const unit: IBaseUnit = generateBasicUnit({ id: 1, points: 300 })
