@@ -79,7 +79,7 @@ describe('Add unit', async () => {
 
     // Assert
     expect(armyUnit.errors.length).toBe(1)
-    expect(armyUnit.errors[0]).toBe('Unit name count of 3 is out of bounds')
+    expect(armyUnit.errors[0]).toBe('Unit name count of 3 is out of bounds.')
   })
 })
 
@@ -181,6 +181,7 @@ describe('Remove unit', async () => {
     expect(builderState.armyCost).toBe(0)
   })
 
+
   it('should add errors if the army points not meet the threshold multiplier', async () => {
     // Arrange
     const unit: IBaseUnit = generateBasicUnit({ id: 1, points: 300 })
@@ -196,7 +197,7 @@ describe('Remove unit', async () => {
 
     // Assert
     expect(armyUnit.errors.length).toBe(1)
-    expect(armyUnit.errors[0]).toBe('Unit name count of 4 is out of bounds')
+    expect(armyUnit.errors[0]).toBe('Unit name count of 4 is out of bounds.')
   })
 })
 
